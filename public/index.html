@@ -160,8 +160,14 @@
             <div class="row g-4">
                 <div class="col-lg-4">
                     <div class="card h-100 shadow-sm">
-                        <img src="images/centro_historico.jpg" class="card-img-top" alt="Centro Histórico"
-                            style="height: 200px; object-fit: cover;"">
+                        <div class="clickable-image">
+                            <img src="images/centro_historico.jpg" class="card-img-top" alt="Centro Histórico"
+                                style="height: 200px; object-fit: cover; cursor: pointer;"
+                                data-bs-toggle="modal" data-bs-target="#centroHistoricoModal">
+                            <div class="image-hint">
+                                <i class="bi bi-zoom-in"></i>Ver mais
+                            </div>
+                        </div>
                         <div class=" card-body">
                         <h5 class="card-title">Centro Histórico</h5>
                         <p class="card-text">
@@ -173,8 +179,14 @@
             </div>
             <div class="col-lg-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="images/menor_cemiterio_do_mundo.jpg" class="card-img-top" alt="Menor Cemitério do Mundo"
-                        style="height: 200px; object-fit: cover;">
+                    <div class="clickable-image">
+                        <img src="images/menor_cemiterio_do_mundo.jpg" class="card-img-top" alt="Menor Cemitério do Mundo"
+                            style="height: 200px; object-fit: cover; cursor: pointer;"
+                            data-bs-toggle="modal" data-bs-target="#cemiterioModal">
+                        <div class="image-hint">
+                            <i class="bi bi-zoom-in"></i>Ver mais
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Menor Cemitério do Mundo</h5>
                         <p class="card-text">
@@ -186,8 +198,14 @@
             </div>
             <div class="col-lg-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="images/patio_estação.jpg" class="card-img-top" alt="Estação Ferroviária"
-                        style="height: 200px; object-fit: cover;">
+                    <div class="clickable-image">
+                        <img src="images/patio_estação.jpg" class="card-img-top" alt="Estação Ferroviária"
+                            style="height: 200px; object-fit: cover; cursor: pointer;"
+                            data-bs-toggle="modal" data-bs-target="#estacaoModal">
+                        <div class="image-hint">
+                            <i class="bi bi-zoom-in"></i>Ver mais
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Estação Ferroviária</h5>
                         <p class="card-text">
@@ -201,8 +219,14 @@
         <div class="row g-4 mt-4">
             <div class="col-lg-6">
                 <div class="card h-100 shadow-sm">
-                    <img src="images/Igreja-Senhor-Bom-Jesus-da-Coluna.jpg" alt="Igreja Senhor Bom Jesus da Coluna"
-                        class="card-img-top" style="height: 200px; object-fit: cover; background-color: #f8f9fa;">
+                    <div class="clickable-image">
+                        <img src="images/Igreja-Senhor-Bom-Jesus-da-Coluna.jpg" alt="Igreja Senhor Bom Jesus da Coluna"
+                            class="card-img-top" style="height: 200px; object-fit: cover; cursor: pointer;"
+                            data-bs-toggle="modal" data-bs-target="#igrejaModal">
+                        <div class="image-hint">
+                            <i class="bi bi-zoom-in"></i>Ver mais
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Turismo Religioso</h5>
                         <p class="card-text">
@@ -213,8 +237,14 @@
             </div>
             <div class="col-lg-6">
                 <div class="card h-100 shadow-sm">
-                    <img src="images/turismo_rural.jpg" class="card-img-top" alt="Turismo Rural"
-                        style="height: 200px; object-fit: cover;">
+                    <div class="clickable-image">
+                        <img src="images/turismo_rural.jpg" class="card-img-top" alt="Turismo Rural"
+                            style="height: 200px; object-fit: cover; cursor: pointer;"
+                            data-bs-toggle="modal" data-bs-target="#turismoRuralModal">
+                        <div class="image-hint">
+                            <i class="bi bi-zoom-in"></i>Ver mais
+                        </div>
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Turismo Rural</h5>
                         <p class="card-text">
@@ -371,6 +401,146 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modals das Imagens -->
+    <!-- Modal Centro Histórico -->
+    <div class="modal fade" id="centroHistoricoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Centro Histórico de Rio Negro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="images/centro_historico.jpg"
+                         alt="Centro Histórico"
+                         class="img-fluid rounded shadow">
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt"></i>
+                            Centro Histórico - Rio Negro, PR
+                        </p>
+                        <p>
+                            Construções preservadas e arquitetura colonial que contam a história de mais de 150 anos
+                            da cidade. Um verdadeiro museu a céu aberto com casarões históricos e ruas de paralelepípedo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cemitério -->
+    <div class="modal fade" id="cemiterioModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Menor Cemitério do Mundo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="images/menor_cemiterio_do_mundo.jpg"
+                         alt="Menor Cemitério do Mundo"
+                         class="img-fluid rounded shadow">
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="bi bi-award"></i>
+                            Reconhecido pelo Guinness Book
+                        </p>
+                        <p>
+                            A capela de 1929 é uma das principais atrações turísticas da cidade.
+                            Reconhecido oficialmente como o menor cemitério do mundo, é um marco único
+                            que atrai visitantes de todo o Brasil e exterior.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Estação -->
+    <div class="modal fade" id="estacaoModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Estação Ferroviária</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="images/patio_estação.jpg"
+                         alt="Estação Ferroviária"
+                         class="img-fluid rounded shadow">
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="bi bi-train-front"></i>
+                            História da Ferrovia - Trem dos Tropeiros
+                        </p>
+                        <p>
+                            História da ferrovia e o famoso Trem dos Tropeiros, importante marco do desenvolvimento
+                            regional. A estação preserva a memória dos tempos áureos do transporte ferroviário
+                            e continua sendo um ponto turístico importante da cidade.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Turismo Rural -->
+    <div class="modal fade" id="turismoRuralModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Turismo Rural</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="images/turismo_rural.jpg"
+                         alt="Turismo Rural"
+                         class="img-fluid rounded shadow">
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="bi bi-tree"></i>
+                            Natureza e Tradições Rurais
+                        </p>
+                        <p>
+                            Belezas naturais e propriedades rurais que oferecem contato direto com a natureza e
+                            tradições locais. Experimente a vida no campo, trilhas ecológicas e a gastronomia
+                            típica da região em um ambiente preservado e acolhedor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal da Igreja -->
+    <div class="modal fade" id="igrejaModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Igreja Senhor Bom Jesus da Coluna</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="images/Igreja-Senhor-Bom-Jesus-da-Coluna.jpg"
+                         alt="Igreja Senhor Bom Jesus da Coluna"
+                         class="img-fluid rounded shadow">
+                    <div class="mt-3">
+                        <p class="text-muted">
+                            <i class="bi bi-geo-alt"></i>
+                            Patrimônio histórico e religioso de Rio Negro, PR
+                        </p>
+                        <p>
+                            Uma das mais belas igrejas da região, a Igreja Senhor Bom Jesus da Coluna
+                            é um marco arquitetônico e espiritual que preserva a história e tradições
+                            da comunidade local.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modals de Login -->
     <!-- Modal Login Hóspede -->
