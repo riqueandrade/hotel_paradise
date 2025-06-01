@@ -62,7 +62,7 @@
    - ✅ Quartos: 4 imagens diferentes de quartos elegantes
    - ✅ **IMAGENS REAIS DE RIO NEGRO, PR** integradas:
      - Centro Histórico: Arquivo Público Municipal (fonte oficial)
-     - Menor Cemitério: Foto oficial da Prefeitura de Rio Negro
+     - Menor Cemitério: **IMAGEM LOCAL** em public/images/
      - Ponte Metálica: Marco histórico da cidade
      - Igreja Nossa Senhora Aparecida: Patrimônio religioso
      - Estrada Rural: Paisagem autêntica da região
