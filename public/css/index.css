@@ -1448,7 +1448,7 @@ a:hover {
   pointer-events: none;
 }
 
-.tourism-title {
+.tourism-section .tourism-title {
   font-size: 3rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--primary-color), #28a745);
@@ -1458,7 +1458,7 @@ a:hover {
   margin-bottom: 1rem;
 }
 
-.tourism-description {
+.tourism-section .tourism-description {
   font-size: 1.1rem;
   color: #6c757d;
   line-height: 1.6;
@@ -1549,9 +1549,7 @@ a:hover {
   padding: 4px 8px;
 }
 
-
-
-.tourism-title {
+.tourism-card .tourism-title {
   font-size: 1.3rem;
   font-weight: 600;
   color: var(--dark-color);
@@ -1564,7 +1562,7 @@ a:hover {
   gap: 4px;
 }
 
-.tourism-description {
+.tourism-card .tourism-description {
   color: #6c757d;
   line-height: 1.5;
   margin-bottom: 1rem;
@@ -1694,7 +1692,7 @@ a:hover {
 
 /* Responsividade da Seção de Turismo */
 @media (max-width: 992px) {
-  .tourism-title {
+  .tourism-section .tourism-title {
     font-size: 2.5rem;
   }
 
@@ -1712,7 +1710,7 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .tourism-title {
+  .tourism-section .tourism-title {
     font-size: 2rem;
   }
 

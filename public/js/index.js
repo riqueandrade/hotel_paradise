@@ -229,7 +229,7 @@ async function loadTourismAttractions() {
             rating: 4.3,
             duration: '2-4 horas',
             highlights: ['Trilhas Naturais', 'Área de Lazer', 'Fauna Local'],
-            modalTarget: null
+            modalTarget: 'parqueMunicipalModal'
         }
     ];
 
