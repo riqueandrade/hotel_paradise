@@ -1,6 +1,6 @@
 # Memória de Desenvolvimento - Hotel Paradise
 
-## 📅 Data: 06/01/2025
+## 📅 Data: 06/01/2025 - Atualizado: 06/01/2025
 
 ## ✅ O que foi feito
 
@@ -55,6 +55,21 @@
    - ✅ routes/reservas.js (sistema de reservas)
    - ✅ routes/api.js (rotas gerais)
    - ✅ Estrutura preparada para implementação futura
+
+9. **Melhorias Visuais - ATUALIZADO**
+   - ✅ Imagens do Unsplash integradas para melhor apresentação
+   - ✅ Fachada do hotel: Imagem profissional de hotel boutique
+   - ✅ Quartos: 4 imagens diferentes de quartos elegantes
+   - ✅ **IMAGENS REAIS DE RIO NEGRO, PR** integradas:
+     - Centro Histórico: Arquivo Público Municipal (fonte oficial)
+     - Menor Cemitério: Foto oficial da Prefeitura de Rio Negro
+     - Ponte Metálica: Marco histórico da cidade
+     - Igreja Nossa Senhora Aparecida: Patrimônio religioso
+     - Estrada Rural: Paisagem autêntica da região
+   - ✅ Background hero: Paisagem rural brasileira
+   - ✅ Altura uniforme dos cards com object-fit: cover
+   - ✅ Fallback para Unsplash em caso de erro de carregamento
+   - ✅ Fonte: Site oficial Viaje Paraná (Governo do Estado)
 
 ## 🎯 Por que foi feito
 
@@ -132,11 +147,12 @@ http://localhost:3000
 
 ## 📝 Observações Importantes
 
-1. **Imagens**: Placeholder criado, imagens reais precisam ser adicionadas
+1. **Imagens**: ✅ Imagens reais de Rio Negro, PR + Unsplash - Autenticidade garantida
 2. **Banco**: Schema criado, mas conexão ainda não implementada
 3. **API**: Rotas criadas mas retornam mensagens temporárias
 4. **Testes**: Necessário implementar testes unitários
 5. **Deploy**: Configuração de produção pendente
+6. **Performance**: Imagens otimizadas com parâmetros de qualidade e tamanho
 
 ## 🔧 Configurações Técnicas
 

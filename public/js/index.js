@@ -46,7 +46,7 @@ async function loadQuartos() {
             capacidade: 2,
             preco: 150.00,
             caracteristicas: ['Frigobar', 'Vista Jardim', 'Wi-Fi'],
-            imagem: 'images/quarto-casal.jpg',
+            imagem: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
             descricao: 'Quarto aconchegante com vista para o jardim'
         },
         {
@@ -56,7 +56,7 @@ async function loadQuartos() {
             capacidade: 2,
             preco: 150.00,
             caracteristicas: ['Sacada', 'Frigobar', 'Vista Cidade'],
-            imagem: 'images/quarto-sacada.jpg',
+            imagem: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
             descricao: 'Quarto com sacada e vista da cidade histórica'
         },
         {
@@ -66,7 +66,7 @@ async function loadQuartos() {
             capacidade: 4,
             preco: 250.00,
             caracteristicas: ['Sacada', 'Frigobar', 'Vista Montanha', 'Banheira'],
-            imagem: 'images/suite-luxo.jpg',
+            imagem: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
             descricao: 'Suíte luxuosa com vista das montanhas'
         },
         {
@@ -76,7 +76,7 @@ async function loadQuartos() {
             capacidade: 3,
             preco: 180.00,
             caracteristicas: ['Sacada', 'Frigobar', 'Vista Jardim'],
-            imagem: 'images/quarto-familia.jpg',
+            imagem: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
             descricao: 'Quarto família com cama de casal e solteiro'
         }
     ];
