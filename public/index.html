@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Hotel Paradise - Hospedagem de qualidade em Rio Negro, Paraná. Descubra a história e belezas de uma das cidades históricas mais charmosas do Paraná.">
+    <meta name="keywords" content="hotel, hospedagem, Rio Negro, Paraná, cidade histórica, turismo">
+    <title>Hotel Paradise - Rio Negro, Paraná | Hospedagem em Cidade Histórica</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- CSS Customizado -->
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#home">
+                <i class="bi bi-building"></i> Hotel Paradise
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#quartos">Quartos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#turismo">Turismo</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reservas">Reservas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contato">Contato</a>
+                    </li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#loginHospedeModal">
+                        <i class="bi bi-person"></i> Área do Cliente
+                    </button>
+                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#loginFuncionarioModal">
+                        <i class="bi bi-shield-lock"></i> Funcionários
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="row align-items-center min-vh-100">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold text-white mb-4">
+                            Bem-vindo ao <span class="text-warning">Hotel Paradise</span>
+                        </h1>
+                        <p class="lead text-white mb-4">
+                            Descubra o charme e a história de Rio Negro, Paraná.
+                            Hospedagem de qualidade no coração de uma das cidades históricas mais encantadoras do Sul do
+                            Brasil.
+                        </p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <button class="btn btn-warning btn-lg" onclick="scrollToSection('reservas')">
+                                <i class="bi bi-calendar-check"></i> Fazer Reserva
+                            </button>
+                            <button class="btn btn-outline-light btn-lg" onclick="scrollToSection('quartos')">
+                                <i class="bi bi-eye"></i> Ver Quartos
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-image">
+                            <img src="images/hotel-facade.jpg" alt="Fachada do Hotel Paradise"
+                                class="img-fluid rounded shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre o Hotel -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-4">Sobre o Hotel Paradise</h2>
+                    <p class="lead mb-4">
+                        Localizado no coração histórico de Rio Negro, o Hotel Paradise oferece uma experiência única
+                        de hospedagem, combinando conforto moderno com o charme de uma cidade rica em história e
+                        tradição.
+                    </p>
+                    <div class="row g-4 mt-4">
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <i class="bi bi-geo-alt-fill text-primary fs-1 mb-3"></i>
+                                <h5>Localização Privilegiada</h5>
+                                <p>No centro histórico de Rio Negro, próximo às principais atrações turísticas.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <i class="bi bi-wifi text-primary fs-1 mb-3"></i>
+                                <h5>Comodidades Modernas</h5>
+                                <p>Wi-Fi gratuito, ar-condicionado, frigobar e todas as comodidades para seu conforto.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-card text-center">
+                                <i class="bi bi-heart-fill text-primary fs-1 mb-3"></i>
+                                <h5>Atendimento Personalizado</h5>
+                                <p>Nossa equipe está sempre pronta para tornar sua estadia inesquecível.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quartos -->
+    <section id="quartos" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Nossos Quartos</h2>
+                <p class="lead">Conforto e elegância para uma estadia perfeita</p>
+            </div>
+            <div class="row g-4" id="quartosContainer">
+                <!-- Quartos serão carregados dinamicamente via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Turismo em Rio Negro -->
+    <section id="turismo" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Descubra Rio Negro</h2>
+                <p class="lead">Uma cidade histórica repleta de encantos e tradições</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="images/centro-historico.jpg" class="card-img-top" alt="Centro Histórico">
+                        <div class="card-body">
+                            <h5 class="card-title">Centro Histórico</h5>
+                            <p class="card-text">
+                                Construções preservadas e arquitetura colonial que contam a história de mais de 150 anos
+                                da cidade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="images/cemiterio-menor.jpg" class="card-img-top" alt="Menor Cemitério do Mundo">
+                        <div class="card-body">
+                            <h5 class="card-title">Menor Cemitério do Mundo</h5>
+                            <p class="card-text">
+                                Reconhecido pelo Guinness Book, a capela de 1929 é uma das principais atrações
+                                turísticas da cidade.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card h-100 shadow-sm">
+                        <img src="images/estacao-ferroviaria.jpg" class="card-img-top" alt="Estação Ferroviária">
+                        <div class="card-body">
+                            <h5 class="card-title">Estação Ferroviária</h5>
+                            <p class="card-text">
+                                História da ferrovia e o famoso Trem dos Tropeiros, importante marco do desenvolvimento
+                                regional.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4 mt-4">
+                <div class="col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <img src="images/turismo-religioso.jpg" class="card-img-top" alt="Turismo Religioso">
+                        <div class="card-body">
+                            <h5 class="card-title">Turismo Religioso</h5>
+                            <p class="card-text">
+                                Igrejas históricas e templos que preservam a fé e tradições da comunidade local.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card h-100 shadow-sm">
+                        <img src="images/turismo-rural.jpg" class="card-img-top" alt="Turismo Rural">
+                        <div class="card-body">
+                            <h5 class="card-title">Turismo Rural</h5>
+                            <p class="card-text">
+                                Belezas naturais e propriedades rurais que oferecem contato direto com a natureza e
+                                tradições locais.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-muted">
+                    <i class="bi bi-geo-alt"></i>
+                    <strong>Apenas 150km de Curitiba</strong> - Fácil acesso pela BR-116
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sistema de Reservas -->
+    <section id="reservas" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Faça sua Reserva</h2>
+                <p class="lead">Reserve agora e garante sua estadia no Hotel Paradise</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body p-4">
+                            <form id="reservaForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="checkin" class="form-label">Check-in</label>
+                                        <input type="date" class="form-control" id="checkin" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="checkout" class="form-label">Check-out</label>
+                                        <input type="date" class="form-control" id="checkout" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="hospedes" class="form-label">Número de Hóspedes</label>
+                                        <select class="form-select" id="hospedes" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="1">1 Hóspede</option>
+                                            <option value="2">2 Hóspedes</option>
+                                            <option value="3">3 Hóspedes</option>
+                                            <option value="4">4 Hóspedes</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tipoQuarto" class="form-label">Tipo de Quarto</label>
+                                        <select class="form-select" id="tipoQuarto" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="casal">Casal</option>
+                                            <option value="suite">Suíte</option>
+                                            <option value="casal_solteiro">Casal + Solteiro</option>
+                                            <option value="familia">Família</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary btn-lg w-100"
+                                            onclick="verificarDisponibilidade()">
+                                            <i class="bi bi-search"></i> Verificar Disponibilidade
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="resultadoDisponibilidade" class="mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="py-5 bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="display-6 fw-bold mb-4">Entre em Contato</h2>
+                    <div class="contact-info">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-geo-alt-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>Endereço:</strong><br>
+                                Rua Principal, 123 - Centro Histórico<br>
+                                Rio Negro, PR - CEP 83880-000
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-telephone-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>Telefone:</strong><br>
+                                (47) 3644-0000
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-envelope-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>E-mail:</strong><br>
+                                contato@hotelparadise.com.br
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-clock-fill fs-4 me-3"></i>
+                            <div>
+                                <strong>Atendimento:</strong><br>
+                                24 horas por dia, 7 dias por semana
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark">Envie uma Mensagem</h5>
+                            <form id="contatoForm">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" placeholder="Seu Nome" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="email" class="form-control" placeholder="Seu E-mail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <input type="tel" class="form-control" placeholder="Seu Telefone">
+                                </div>
+                                <div class="mb-3">
+                                    <textarea class="form-control" rows="4" placeholder="Sua Mensagem"
+                                        required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-send"></i> Enviar Mensagem
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2024 Hotel Paradise. Todos os direitos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Rio Negro, Paraná - Cidade Histórica</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals de Login -->
+    <!-- Modal Login Hóspede -->
+    <div class="modal fade" id="loginHospedeModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Área do Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginHospedeForm">
+                        <div class="mb-3">
+                            <label for="emailHospede" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="emailHospede" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senhaHospede" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senhaHospede" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                    </form>
+                    <hr>
+                    <p class="text-center">
+                        Não tem conta?
+                        <a href="#" onclick="mostrarCadastroHospede()">Cadastre-se aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Login Funcionário -->
+    <div class="modal fade" id="loginFuncionarioModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Acesso de Funcionários</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginFuncionarioForm">
+                        <div class="mb-3">
+                            <label for="emailFuncionario" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="emailFuncionario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="senhaFuncionario" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="senhaFuncionario" required>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100">Entrar no Sistema</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript Customizado -->
+    <script src="js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+Imagens Placeholder - Hotel Paradise
+
+Este diretório contém as imagens do projeto.
+
+Imagens necessárias:
+- hotel-facade.jpg (fachada do hotel)
+- centro-historico.jpg (centro histórico de Rio Negro)
+- cemiterio-menor.jpg (menor cemitério do mundo)
+- estacao-ferroviaria.jpg (estação ferroviária)
+- turismo-religioso.jpg (igrejas e templos)
+- turismo-rural.jpg (paisagens rurais)
+- quarto-casal.jpg (quarto de casal)
+- quarto-sacada.jpg (quarto com sacada)
+- suite-luxo.jpg (suíte de luxo)
+- quarto-familia.jpg (quarto família)
+- rio-negro-bg.jpg (imagem de fundo)
+- placeholder-quarto.jpg (placeholder para quartos)
+
+Todas as imagens devem ter resolução adequada para web (1200x800px recomendado)
+e serem otimizadas para carregamento rápido.
+
+FONTE DE IMAGENS:
+- Se necessário, utilizar imagens do Unsplash (https://unsplash.com/)
+- Buscar por termos como: "hotel", "historic city", "bedroom", "tourism", "Brazil"
+- Sempre verificar a licença e dar créditos quando necessário
+- Redimensionar e otimizar as imagens antes de usar no projeto
