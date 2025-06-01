@@ -42,88 +42,171 @@ async function loadQuartos() {
         {
             id: 1,
             numero: '101',
-            tipo: 'Casal',
+            tipo: 'Standard',
             capacidade: 2,
-            preco: 150.00,
-            caracteristicas: ['Frigobar', 'Vista Jardim', 'Wi-Fi'],
+            preco: 120.00,
+            caracteristicas: ['Frigobar', 'Vista Jardim', 'Wi-Fi', 'AC'],
             imagem: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-            descricao: 'Quarto aconchegante com vista para o jardim'
+            descricao: 'Quarto confortável e aconchegante com vista para o jardim'
         },
         {
             id: 2,
             numero: '102',
-            tipo: 'Casal',
+            tipo: 'Superior',
             capacidade: 2,
-            preco: 150.00,
-            caracteristicas: ['Sacada', 'Frigobar', 'Vista Cidade'],
+            preco: 160.00,
+            caracteristicas: ['Sacada', 'Frigobar', 'Vista Cidade', 'TV Smart'],
             imagem: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-            descricao: 'Quarto com sacada e vista da cidade histórica'
+            descricao: 'Quarto superior com sacada e vista da cidade histórica'
         },
         {
             id: 3,
             numero: '201',
-            tipo: 'Suíte',
+            tipo: 'Suíte Master',
             capacidade: 4,
-            preco: 250.00,
-            caracteristicas: ['Sacada', 'Frigobar', 'Vista Montanha', 'Banheira'],
+            preco: 280.00,
+            caracteristicas: ['Sacada Ampla', 'Frigobar', 'Vista Montanha', 'Banheira', 'Sala de Estar'],
             imagem: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-            descricao: 'Suíte luxuosa com vista das montanhas'
+            descricao: 'Suíte luxuosa com sala de estar e vista panorâmica das montanhas'
         },
         {
             id: 4,
             numero: '202',
-            tipo: 'Casal + Solteiro',
-            capacidade: 3,
-            preco: 180.00,
-            caracteristicas: ['Sacada', 'Frigobar', 'Vista Jardim'],
+            tipo: 'Família',
+            capacidade: 4,
+            preco: 200.00,
+            caracteristicas: ['Beliche', 'Frigobar', 'Vista Jardim', 'Espaço Kids'],
             imagem: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-            descricao: 'Quarto família com cama de casal e solteiro'
+            descricao: 'Quarto família com beliche e espaço especial para crianças'
         }
     ];
     
-    container.innerHTML = quartos.map(quarto => `
-        <div class="col-lg-6 col-xl-3">
-            <div class="card h-100 shadow-sm">
-                <div class="position-relative">
-                    <img src="${quarto.imagem}" class="card-img-top" alt="Quarto ${quarto.numero}" 
+    container.innerHTML = quartos.map(quarto => {
+        const categoryBadge = getCategoryBadge(quarto.tipo);
+        const categoryClass = getCategoryClass(quarto.tipo);
+
+        return `
+        <div class="col-lg-6 col-xl-3 room-card" data-category="${categoryClass}">
+            <div class="card room-card-inner h-100 shadow-sm">
+                <div class="position-relative room-image-container">
+                    <img src="${quarto.imagem}" class="card-img-top room-image" alt="Quarto ${quarto.numero}"
                          onerror="this.src='images/placeholder-quarto.jpg'">
-                    <div class="position-absolute top-0 end-0 m-2">
-                        <span class="badge bg-primary">Quarto ${quarto.numero}</span>
+                    <div class="room-badges">
+                        <span class="badge room-number-badge">Quarto ${quarto.numero}</span>
+                        <span class="badge ${categoryBadge.class}">${categoryBadge.text}</span>
+                    </div>
+                    <div class="room-overlay">
+                        <div class="room-overlay-content">
+                            <i class="bi bi-eye fs-4"></i>
+                            <span>Ver Detalhes</span>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${quarto.tipo}</h5>
-                    <p class="card-text text-muted small">${quarto.descricao}</p>
-                    <div class="mb-2">
-                        <small class="text-muted">
-                            <i class="bi bi-people"></i> Até ${quarto.capacidade} pessoas
-                        </small>
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title room-title">${quarto.tipo}</h5>
+                        <div class="room-rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span class="small">4.8</span>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        ${quarto.caracteristicas.map(carac => 
-                            `<span class="badge bg-light text-dark me-1 mb-1">${carac}</span>`
+                    <p class="card-text text-muted small room-description">${quarto.descricao}</p>
+
+                    <div class="room-info mb-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-people me-2 text-primary"></i>
+                            <small>Até ${quarto.capacidade} pessoas</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-geo-alt me-2 text-primary"></i>
+                            <small>${getViewType(quarto.caracteristicas)}</small>
+                        </div>
+                    </div>
+
+                    <div class="room-features mb-3">
+                        ${quarto.caracteristicas.map(carac =>
+                            `<span class="feature-badge">${getFeatureIcon(carac)} ${carac}</span>`
                         ).join('')}
                     </div>
+
                     <div class="mt-auto">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="h5 text-primary mb-0">R$ ${quarto.preco.toFixed(2)}</span>
+                        <div class="room-price-section">
+                            <div class="price-info mb-3">
+                                <span class="room-price">R$ ${quarto.preco.toFixed(2)}</span>
                                 <small class="text-muted d-block">por noite</small>
                             </div>
-                            <button class="btn btn-outline-primary btn-sm" 
-                                    onclick="selecionarQuarto(${quarto.id}, '${quarto.tipo}')">
-                                Selecionar
-                            </button>
+                            <div class="room-actions">
+                                <button class="btn btn-outline-primary btn-sm flex-fill me-2 view-details-btn"
+                                        data-room-id="${quarto.id}" title="Ver detalhes">
+                                    <i class="bi bi-eye me-1"></i>Ver detalhes
+                                </button>
+                                <button class="btn btn-primary btn-sm flex-fill select-room-btn"
+                                        data-room-id="${quarto.id}" data-room-type="${quarto.tipo}">
+                                    <i class="bi bi-calendar-check me-1"></i>Reservar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
+
+    // Inicializar filtros
+    setupRoomFilters();
 }
 
 // Configurar event listeners
 function setupEventListeners() {
+    // Smooth scroll para links de navegação
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Botões de scroll para seções
+    document.querySelectorAll('.scroll-to-reservas').forEach(button => {
+        button.addEventListener('click', () => scrollToSection('reservas'));
+    });
+
+    document.querySelectorAll('.scroll-to-quartos').forEach(button => {
+        button.addEventListener('click', () => scrollToSection('quartos'));
+    });
+
+    // Botão verificar disponibilidade
+    const verificarBtn = document.querySelector('.verificar-disponibilidade-btn');
+    if (verificarBtn) {
+        verificarBtn.addEventListener('click', verificarDisponibilidade);
+    }
+
+    // Link cadastro de hóspede
+    const cadastroLink = document.querySelector('.cadastro-hospede-link');
+    if (cadastroLink) {
+        cadastroLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            mostrarCadastroHospede();
+        });
+    }
+
     // Formulário de reserva
     const reservaForm = document.getElementById('reservaForm');
     if (reservaForm) {
@@ -132,19 +215,19 @@ function setupEventListeners() {
             verificarDisponibilidade();
         });
     }
-    
+
     // Formulário de contato
     const contatoForm = document.getElementById('contatoForm');
     if (contatoForm) {
         contatoForm.addEventListener('submit', handleContatoSubmit);
     }
-    
+
     // Formulários de login
     const loginHospedeForm = document.getElementById('loginHospedeForm');
     if (loginHospedeForm) {
         loginHospedeForm.addEventListener('submit', handleLoginHospede);
     }
-    
+
     const loginFuncionarioForm = document.getElementById('loginFuncionarioForm');
     if (loginFuncionarioForm) {
         loginFuncionarioForm.addEventListener('submit', handleLoginFuncionario);
@@ -220,12 +303,14 @@ async function verificarDisponibilidade() {
 // Obter preço por tipo de quarto
 function getPrecoByTipo(tipo) {
     const precos = {
-        'casal': 150.00,
-        'suite': 250.00,
-        'casal_solteiro': 180.00,
+        'standard': 120.00,
+        'superior': 160.00,
+        'suíte_master': 280.00,
+        'suite_master': 280.00,
+        'família': 200.00,
         'familia': 200.00
     };
-    return precos[tipo] || 150.00;
+    return precos[tipo] || 120.00;
 }
 
 // Selecionar quarto específico
@@ -336,6 +421,301 @@ function observeElements() {
 // Mostrar formulário de cadastro de hóspede
 function mostrarCadastroHospede() {
     showAlert('Funcionalidade de cadastro será implementada em breve!', 'info');
+}
+
+// Funções auxiliares para quartos
+function getCategoryBadge(tipo) {
+    const badges = {
+        'Standard': { class: 'bg-success', text: 'Econômico' },
+        'Superior': { class: 'bg-primary', text: 'Conforto' },
+        'Suíte Master': { class: 'bg-warning text-dark', text: 'Premium' },
+        'Família': { class: 'bg-info', text: 'Família' }
+    };
+    return badges[tipo] || { class: 'bg-secondary', text: 'Standard' };
+}
+
+function getCategoryClass(tipo) {
+    const classes = {
+        'Standard': 'standard',
+        'Superior': 'superior',
+        'Suíte Master': 'suite',
+        'Família': 'familia'
+    };
+    return classes[tipo] || 'standard';
+}
+
+function getViewType(caracteristicas) {
+    if (caracteristicas.includes('Vista Jardim')) return 'Vista para o Jardim';
+    if (caracteristicas.includes('Vista Cidade')) return 'Vista da Cidade Histórica';
+    if (caracteristicas.includes('Vista Montanha')) return 'Vista das Montanhas';
+    return 'Vista Interna';
+}
+
+function getFeatureIcon(feature) {
+    const icons = {
+        'Frigobar': '<i class="bi bi-snow"></i>',
+        'Wi-Fi': '<i class="bi bi-wifi"></i>',
+        'AC': '<i class="bi bi-thermometer-snow"></i>',
+        'Sacada': '<i class="bi bi-door-open"></i>',
+        'TV Smart': '<i class="bi bi-tv"></i>',
+        'Banheira': '<i class="bi bi-droplet"></i>',
+        'Sala de Estar': '<i class="bi bi-house"></i>',
+        'Beliche': '<i class="bi bi-bounding-box"></i>',
+        'Espaço Kids': '<i class="bi bi-balloon"></i>',
+        'Sacada Ampla': '<i class="bi bi-door-open"></i>'
+    };
+    return icons[feature] || '<i class="bi bi-check"></i>';
+}
+
+// Configurar filtros de quartos e event listeners
+function setupRoomFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const roomCards = document.querySelectorAll('.room-card');
+
+    // Configurar filtros
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+
+            // Atualizar botões ativos
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Filtrar quartos
+            roomCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        });
+    });
+
+    // Configurar botões "Ver detalhes"
+    const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
+    viewDetailsButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const roomId = this.getAttribute('data-room-id');
+            viewRoomDetails(roomId);
+        });
+    });
+
+    // Configurar botões "Reservar"
+    const selectRoomButtons = document.querySelectorAll('.select-room-btn');
+    selectRoomButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const roomId = this.getAttribute('data-room-id');
+            const roomType = this.getAttribute('data-room-type');
+            selecionarQuarto(roomId, roomType);
+        });
+    });
+}
+
+// Ver detalhes do quarto
+function viewRoomDetails(quartoId) {
+    // Buscar dados do quarto
+    const quarto = getRoomData(quartoId);
+    if (!quarto) {
+        showAlert('Quarto não encontrado!', 'error');
+        return;
+    }
+
+    // Preencher dados do modal
+    populateRoomModal(quarto);
+
+    // Abrir modal
+    const modal = new bootstrap.Modal(document.getElementById('roomDetailsModal'));
+    modal.show();
+}
+
+// Obter dados do quarto por ID
+function getRoomData(quartoId) {
+    const quartos = [
+        {
+            id: 1,
+            numero: '101',
+            tipo: 'Standard',
+            capacidade: 2,
+            preco: 120.00,
+            area: '25 m²',
+            cama: 'Casal Queen',
+            caracteristicas: ['Frigobar', 'Vista Jardim', 'Wi-Fi', 'AC'],
+            imagens: [
+                'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1595576508898-0ad5c879a061?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            ],
+            descricao: 'Quarto confortável e aconchegante, perfeito para casais que buscam tranquilidade. Localizado no térreo com vista direta para nosso belo jardim. Ambiente climatizado e decoração moderna que proporciona uma estadia relaxante.',
+            vista: 'Vista para o Jardim'
+        },
+        {
+            id: 2,
+            numero: '102',
+            tipo: 'Superior',
+            capacidade: 2,
+            preco: 160.00,
+            area: '30 m²',
+            cama: 'Casal King',
+            caracteristicas: ['Sacada', 'Frigobar', 'Vista Cidade', 'TV Smart'],
+            imagens: [
+                'https://images.unsplash.com/photo-1618773928121-c32242e63f39?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            ],
+            descricao: 'Quarto superior com sacada privativa e vista privilegiada da cidade histórica de Rio Negro. Equipado com TV Smart e amenities premium. Ideal para hóspedes que valorizam conforto e uma vista espetacular.',
+            vista: 'Vista da Cidade Histórica'
+        },
+        {
+            id: 3,
+            numero: '201',
+            tipo: 'Suíte Master',
+            capacidade: 4,
+            preco: 280.00,
+            area: '45 m²',
+            cama: 'Casal King + Sofá-cama',
+            caracteristicas: ['Sacada Ampla', 'Frigobar', 'Vista Montanha', 'Banheira', 'Sala de Estar'],
+            imagens: [
+                'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1591088398332-8a7791972843?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            ],
+            descricao: 'Nossa suíte mais luxuosa com sala de estar separada e vista panorâmica das montanhas. Banheira de hidromassagem, sacada ampla e acabamentos premium. Perfeita para ocasiões especiais e estadias prolongadas.',
+            vista: 'Vista Panorâmica das Montanhas'
+        },
+        {
+            id: 4,
+            numero: '202',
+            tipo: 'Família',
+            capacidade: 4,
+            preco: 200.00,
+            area: '35 m²',
+            cama: 'Casal + Beliche',
+            caracteristicas: ['Beliche', 'Frigobar', 'Vista Jardim', 'Espaço Kids'],
+            imagens: [
+                'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                'https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+            ],
+            descricao: 'Quarto especialmente projetado para famílias com crianças. Beliche seguro e divertido, área de jogos e vista para o jardim onde as crianças podem brincar. Ambiente seguro e acolhedor para toda a família.',
+            vista: 'Vista para o Jardim'
+        }
+    ];
+
+    return quartos.find(q => q.id == quartoId);
+}
+
+// Preencher dados do modal
+function populateRoomModal(quarto) {
+    // Título e informações básicas
+    document.getElementById('roomDetailsModalLabel').textContent = `${quarto.tipo} - Quarto ${quarto.numero}`;
+    document.getElementById('roomName').textContent = quarto.tipo;
+    document.getElementById('roomNumber').textContent = `Quarto ${quarto.numero}`;
+    document.getElementById('roomDescriptionFull').textContent = quarto.descricao;
+
+    // Badge da categoria
+    const categoryBadge = getCategoryBadge(quarto.tipo);
+    const badgeElement = document.getElementById('roomCategoryBadge');
+    badgeElement.textContent = categoryBadge.text;
+    badgeElement.className = `room-category-badge ${categoryBadge.class}`;
+
+    // Informações básicas
+    document.getElementById('roomCapacity').textContent = `${quarto.capacidade} pessoas`;
+    document.getElementById('roomView').textContent = quarto.vista;
+    document.getElementById('roomArea').textContent = quarto.area;
+    document.getElementById('roomBed').textContent = quarto.cama;
+    document.getElementById('roomPrice').textContent = `R$ ${quarto.preco.toFixed(2)}`;
+
+    // Galeria de imagens
+    setupImageGallery(quarto.imagens);
+
+    // Características detalhadas
+    setupDetailedFeatures(quarto.caracteristicas);
+
+    // Configurar botões do modal
+    setupModalButtons(quarto);
+}
+
+// Configurar galeria de imagens
+function setupImageGallery(imagens) {
+    const mainImage = document.getElementById('mainRoomImage');
+    const thumbnailContainer = document.getElementById('thumbnailContainer');
+
+    // Imagem principal
+    mainImage.src = imagens[0];
+
+    // Thumbnails
+    thumbnailContainer.innerHTML = imagens.map((img, index) => `
+        <div class="col-3">
+            <div class="thumbnail-item ${index === 0 ? 'active' : ''}" data-image="${img}">
+                <img src="${img}" alt="Foto ${index + 1}" loading="lazy">
+            </div>
+        </div>
+    `).join('');
+
+    // Event listeners para thumbnails
+    thumbnailContainer.querySelectorAll('.thumbnail-item').forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            const newImage = this.getAttribute('data-image');
+            mainImage.src = newImage;
+
+            // Atualizar thumbnail ativo
+            thumbnailContainer.querySelectorAll('.thumbnail-item').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+}
+
+// Configurar características detalhadas
+function setupDetailedFeatures(caracteristicas) {
+    const featuresContainer = document.getElementById('roomFeaturesDetailed');
+
+    featuresContainer.innerHTML = caracteristicas.map(feature => `
+        <div class="feature-item-detailed">
+            ${getFeatureIcon(feature)}
+            <span>${feature}</span>
+        </div>
+    `).join('');
+}
+
+// Configurar botões do modal
+function setupModalButtons(quarto) {
+    const reserveBtn = document.getElementById('reserveFromModal');
+    const checkAvailabilityBtn = document.querySelector('.check-availability-btn');
+
+    // Remover event listeners anteriores
+    const newReserveBtn = reserveBtn.cloneNode(true);
+    const newCheckBtn = checkAvailabilityBtn.cloneNode(true);
+    reserveBtn.parentNode.replaceChild(newReserveBtn, reserveBtn);
+    checkAvailabilityBtn.parentNode.replaceChild(newCheckBtn, checkAvailabilityBtn);
+
+    // Adicionar novos event listeners
+    newReserveBtn.addEventListener('click', function() {
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
+        modal.hide();
+
+        // Selecionar quarto e ir para reservas
+        selecionarQuarto(quarto.id, quarto.tipo);
+    });
+
+    newCheckBtn.addEventListener('click', function() {
+        // Fechar modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
+        modal.hide();
+
+        // Ir para seção de reservas
+        scrollToSection('reservas');
+        showAlert('Complete os dados para verificar a disponibilidade deste quarto.', 'info');
+    });
 }
 
 // Função para debug

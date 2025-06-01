@@ -90,10 +90,10 @@
 
                         <!-- Call to Actions -->
                         <div class="hero-actions mb-5">
-                            <button class="btn btn-primary btn-lg me-3 mb-3" onclick="scrollToSection('reservas')">
+                            <button class="btn btn-primary btn-lg me-3 mb-3 scroll-to-reservas">
                                 <i class="bi bi-calendar-check me-2"></i>Fazer Reserva
                             </button>
-                            <button class="btn btn-outline-light btn-lg mb-3" onclick="scrollToSection('quartos')">
+                            <button class="btn btn-outline-light btn-lg mb-3 scroll-to-quartos">
                                 <i class="bi bi-eye me-2"></i>Ver Quartos
                             </button>
                         </div>
@@ -291,10 +291,10 @@
                             Descubra o charme de Rio Negro com todo o conforto que você merece.
                         </p>
                         <div class="cta-actions">
-                            <button class="btn btn-primary btn-lg me-3" onclick="scrollToSection('reservas')">
+                            <button class="btn btn-primary btn-lg me-3 scroll-to-reservas">
                                 <i class="bi bi-calendar-check me-2"></i>Fazer Reserva
                             </button>
-                            <button class="btn btn-outline-primary btn-lg" onclick="scrollToSection('quartos')">
+                            <button class="btn btn-outline-primary btn-lg scroll-to-quartos">
                                 <i class="bi bi-eye me-2"></i>Ver Quartos
                             </button>
                         </div>
@@ -305,14 +305,104 @@
     </section>
 
     <!-- Quartos -->
-    <section id="quartos" class="py-5">
+    <section id="quartos" class="rooms-section py-5">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Nossos Quartos</h2>
-                <p class="lead">Conforto e elegância para uma estadia perfeita</p>
+            <!-- Header da Seção -->
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <div class="section-badge mb-3">
+                        <span class="badge bg-primary text-white px-3 py-2 rounded-pill">
+                            <i class="bi bi-house-door me-2"></i>Acomodações Premium
+                        </span>
+                    </div>
+                    <h2 class="rooms-title mb-4">Nossos Quartos</h2>
+                    <p class="rooms-description">
+                        Conforto e elegância para uma estadia perfeita. Escolha entre nossas acomodações
+                        cuidadosamente projetadas para oferecer o máximo de conforto e comodidade.
+                    </p>
+                </div>
             </div>
+
+            <!-- Filtros -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="rooms-filters">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
+                            <button class="filter-btn active" data-filter="all">
+                                <i class="bi bi-grid me-2"></i>Todos os Quartos
+                            </button>
+                            <button class="filter-btn" data-filter="standard">
+                                <i class="bi bi-house me-2"></i>Standard
+                            </button>
+                            <button class="filter-btn" data-filter="superior">
+                                <i class="bi bi-star me-2"></i>Superior
+                            </button>
+                            <button class="filter-btn" data-filter="suite">
+                                <i class="bi bi-gem me-2"></i>Suíte Master
+                            </button>
+                            <button class="filter-btn" data-filter="familia">
+                                <i class="bi bi-people me-2"></i>Família
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de Quartos -->
             <div class="row g-4" id="quartosContainer">
                 <!-- Quartos serão carregados dinamicamente via JavaScript -->
+            </div>
+
+            <!-- Comparação Rápida -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="comparison-card">
+                        <h4 class="comparison-title">Comparação Rápida</h4>
+                        <div class="table-responsive">
+                            <table class="table table-borderless comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Características</th>
+                                        <th class="text-center">Standard</th>
+                                        <th class="text-center">Superior</th>
+                                        <th class="text-center">Suíte Master</th>
+                                        <th class="text-center">Família</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><i class="bi bi-people me-2"></i>Capacidade</td>
+                                        <td class="text-center">2 pessoas</td>
+                                        <td class="text-center">2 pessoas</td>
+                                        <td class="text-center">4 pessoas</td>
+                                        <td class="text-center">4 pessoas</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="bi bi-eye me-2"></i>Vista</td>
+                                        <td class="text-center">Jardim</td>
+                                        <td class="text-center">Cidade</td>
+                                        <td class="text-center">Montanha</td>
+                                        <td class="text-center">Jardim</td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="bi bi-door-open me-2"></i>Sacada</td>
+                                        <td class="text-center"><i class="bi bi-x text-muted"></i></td>
+                                        <td class="text-center"><i class="bi bi-check text-success"></i></td>
+                                        <td class="text-center"><i class="bi bi-check text-success"></i></td>
+                                        <td class="text-center"><i class="bi bi-x text-muted"></i></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="bi bi-currency-dollar me-2"></i>Preço/noite</td>
+                                        <td class="text-center"><strong>R$ 120</strong></td>
+                                        <td class="text-center"><strong>R$ 160</strong></td>
+                                        <td class="text-center"><strong>R$ 280</strong></td>
+                                        <td class="text-center"><strong>R$ 200</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -466,15 +556,14 @@
                                         <label for="tipoQuarto" class="form-label">Tipo de Quarto</label>
                                         <select class="form-select" id="tipoQuarto" required>
                                             <option value="">Selecione...</option>
-                                            <option value="casal">Casal</option>
-                                            <option value="suite">Suíte</option>
-                                            <option value="casal_solteiro">Casal + Solteiro</option>
-                                            <option value="familia">Família</option>
+                                            <option value="standard">Standard (R$ 120/noite)</option>
+                                            <option value="superior">Superior (R$ 160/noite)</option>
+                                            <option value="suite_master">Suíte Master (R$ 280/noite)</option>
+                                            <option value="familia">Família (R$ 200/noite)</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <button type="button" class="btn btn-primary btn-lg w-100"
-                                            onclick="verificarDisponibilidade()">
+                                        <button type="button" class="btn btn-primary btn-lg w-100 verificar-disponibilidade-btn">
                                             <i class="bi bi-search"></i> Verificar Disponibilidade
                                         </button>
                                     </div>
@@ -733,8 +822,144 @@
                     <hr>
                     <p class="text-center">
                         Não tem conta?
-                        <a href="#" onclick="mostrarCadastroHospede()">Cadastre-se aqui</a>
+                        <a href="#" class="cadastro-hospede-link">Cadastre-se aqui</a>
                     </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes do Quarto -->
+    <div class="modal fade" id="roomDetailsModal" tabindex="-1" aria-labelledby="roomDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content room-details-modal">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title room-details-title" id="roomDetailsModalLabel">Detalhes do Quarto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="container-fluid">
+                        <div class="row g-0">
+                            <!-- Galeria de Imagens -->
+                            <div class="col-lg-7">
+                                <div class="room-gallery">
+                                    <div class="main-image-container">
+                                        <img id="mainRoomImage" src="" alt="Quarto" class="main-room-image">
+                                        <div class="image-overlay">
+                                            <button class="btn btn-light btn-sm gallery-btn" id="openGalleryBtn">
+                                                <i class="bi bi-images me-2"></i>Ver todas as fotos
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="thumbnail-gallery">
+                                        <div class="row g-2" id="thumbnailContainer">
+                                            <!-- Thumbnails serão inseridos aqui -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Informações do Quarto -->
+                            <div class="col-lg-5">
+                                <div class="room-details-content">
+                                    <div class="room-header">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div>
+                                                <span class="room-category-badge" id="roomCategoryBadge">Standard</span>
+                                                <h3 class="room-name" id="roomName">Quarto Standard</h3>
+                                                <p class="room-number" id="roomNumber">Quarto 101</p>
+                                            </div>
+                                            <div class="room-rating-large">
+                                                <div class="stars">
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                    <i class="bi bi-star-fill text-warning"></i>
+                                                </div>
+                                                <span class="rating-text">4.8 (127 avaliações)</span>
+                                            </div>
+                                        </div>
+
+                                        <p class="room-description-full" id="roomDescriptionFull">
+                                            Descrição completa do quarto será inserida aqui...
+                                        </p>
+                                    </div>
+
+                                    <!-- Informações Básicas -->
+                                    <div class="room-basic-info">
+                                        <div class="row g-3 mb-4">
+                                            <div class="col-6">
+                                                <div class="info-item">
+                                                    <i class="bi bi-people text-primary"></i>
+                                                    <div>
+                                                        <span class="info-label">Capacidade</span>
+                                                        <span class="info-value" id="roomCapacity">2 pessoas</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-item">
+                                                    <i class="bi bi-geo-alt text-primary"></i>
+                                                    <div>
+                                                        <span class="info-label">Vista</span>
+                                                        <span class="info-value" id="roomView">Jardim</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-item">
+                                                    <i class="bi bi-rulers text-primary"></i>
+                                                    <div>
+                                                        <span class="info-label">Área</span>
+                                                        <span class="info-value" id="roomArea">25 m²</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-item">
+                                                    <i class="bi bi-bed text-primary"></i>
+                                                    <div>
+                                                        <span class="info-label">Cama</span>
+                                                        <span class="info-value" id="roomBed">Casal</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Características -->
+                                    <div class="room-features-detailed">
+                                        <h5 class="features-title">Características</h5>
+                                        <div class="features-grid" id="roomFeaturesDetailed">
+                                            <!-- Features serão inseridas aqui -->
+                                        </div>
+                                    </div>
+
+                                    <!-- Preço e Ações -->
+                                    <div class="room-pricing-actions">
+                                        <div class="pricing-info">
+                                            <div class="price-main">
+                                                <span class="price-amount" id="roomPrice">R$ 120,00</span>
+                                                <span class="price-period">por noite</span>
+                                            </div>
+                                            <p class="price-note">*Preços podem variar conforme a temporada</p>
+                                        </div>
+
+                                        <div class="action-buttons">
+                                            <button class="btn btn-primary btn-lg w-100 mb-2 reserve-room-btn"
+                                                    id="reserveFromModal">
+                                                <i class="bi bi-calendar-check me-2"></i>Reservar Agora
+                                            </button>
+                                            <button class="btn btn-outline-primary w-100 check-availability-btn">
+                                                <i class="bi bi-search me-2"></i>Verificar Disponibilidade
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
