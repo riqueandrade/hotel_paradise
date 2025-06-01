@@ -246,12 +246,7 @@ async function loadTourismAttractions() {
                         <span class="badge ${categoryInfo.class}">${categoryInfo.text}</span>
                         <span class="badge bg-dark tourism-duration">${attraction.duration}</span>
                     </div>
-                    <div class="tourism-overlay">
-                        <div class="tourism-overlay-content">
-                            <i class="bi bi-camera fs-4"></i>
-                            <span>Ver Fotos</span>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="card-body d-flex flex-column">
                     <div class="d-flex justify-content-between align-items-start mb-2">
