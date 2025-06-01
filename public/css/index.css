@@ -855,36 +855,7 @@ a:hover {
   line-height: 1.6;
 }
 
-/* Filtros */
-.rooms-filters {
-  margin-bottom: 2rem;
-}
 
-.filter-btn {
-  background: white;
-  border: 2px solid #e9ecef;
-  color: #6c757d;
-  padding: 12px 20px;
-  border-radius: 50px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.filter-btn:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.filter-btn.active {
-  background: var(--primary-color);
-  border-color: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3);
-}
 
 /* Room Cards */
 .room-card {
@@ -1092,10 +1063,7 @@ a:hover {
     font-size: 2rem;
   }
 
-  .filter-btn {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-  }
+
 
   .room-image {
     height: 200px;
@@ -1427,5 +1395,311 @@ a:hover {
 
   .info-item {
     margin-bottom: 15px;
+  }
+}
+
+/* Seção de Turismo Modernizada */
+.tourism-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.tourism-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  pointer-events: none;
+}
+
+.tourism-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary-color), #28a745);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.tourism-description {
+  font-size: 1.1rem;
+  color: #6c757d;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+
+
+/* Cards de Turismo */
+.tourism-card {
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.tourism-card-inner {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.tourism-card-inner:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.tourism-image-container {
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tourism-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.tourism-card-inner:hover .tourism-image {
+  transform: scale(1.05);
+}
+
+.tourism-badges {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tourism-duration {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
+.tourism-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.tourism-card-inner:hover .tourism-overlay {
+  opacity: 1;
+}
+
+.tourism-overlay-content {
+  text-align: center;
+  color: white;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.tourism-card-inner:hover .tourism-overlay-content {
+  transform: translateY(0);
+}
+
+.tourism-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.tourism-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tourism-description {
+  color: #6c757d;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+/* Highlights das Atrações */
+.tourism-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.highlight-badge {
+  background: #f8f9fa;
+  color: #495057;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid #e9ecef;
+}
+
+/* Ações dos Cards */
+.tourism-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.tourism-actions .btn {
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tourism-actions .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Card de Informações */
+.tourism-info-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+.info-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.info-item i {
+  font-size: 1.5rem;
+  width: 30px;
+  text-align: center;
+}
+
+.info-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item strong {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 2px;
+}
+
+.info-item span {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* CTA de Turismo */
+.cta-tourism {
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa, white);
+  border-radius: 15px;
+  border: 1px solid #e9ecef;
+}
+
+.cta-tourism h5 {
+  font-weight: 600;
+  color: var(--dark-color);
+  margin-bottom: 0.5rem;
+}
+
+.cta-tourism .btn {
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.cta-tourism .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.3);
+}
+
+/* Animações */
+.fade-in {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsividade da Seção de Turismo */
+@media (max-width: 992px) {
+  .tourism-title {
+    font-size: 2.5rem;
+  }
+
+  .tourism-image-container {
+    height: 220px;
+  }
+
+  .tourism-info-card {
+    padding: 1.5rem;
+  }
+
+  .cta-tourism {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tourism-title {
+    font-size: 2rem;
+  }
+
+
+
+  .tourism-image-container {
+    height: 200px;
+  }
+
+  .tourism-info-card {
+    padding: 1rem;
+  }
+
+  .info-item {
+    margin-bottom: 1rem;
+  }
+
+  .tourism-actions {
+    flex-direction: column;
+  }
+
+  .tourism-actions .btn {
+    width: 100%;
   }
 }

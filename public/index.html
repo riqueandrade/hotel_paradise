@@ -323,30 +323,7 @@
                 </div>
             </div>
 
-            <!-- Filtros -->
-            <div class="row mb-4">
-                <div class="col-12">
-                    <div class="rooms-filters">
-                        <div class="d-flex flex-wrap justify-content-center gap-2">
-                            <button class="filter-btn active" data-filter="all">
-                                <i class="bi bi-grid me-2"></i>Todos os Quartos
-                            </button>
-                            <button class="filter-btn" data-filter="standard">
-                                <i class="bi bi-house me-2"></i>Standard
-                            </button>
-                            <button class="filter-btn" data-filter="superior">
-                                <i class="bi bi-star me-2"></i>Superior
-                            </button>
-                            <button class="filter-btn" data-filter="suite">
-                                <i class="bi bi-gem me-2"></i>Suíte Master
-                            </button>
-                            <button class="filter-btn" data-filter="familia">
-                                <i class="bi bi-people me-2"></i>Família
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Grid de Quartos -->
             <div class="row g-4" id="quartosContainer">
@@ -408,116 +385,81 @@
     </section>
 
     <!-- Turismo em Rio Negro -->
-    <section id="turismo" class="py-5 bg-light">
+    <section id="turismo" class="tourism-section py-5">
         <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Descubra Rio Negro</h2>
-                <p class="lead">Uma cidade histórica repleta de encantos e tradições</p>
+            <!-- Header da Seção -->
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center mb-5">
+                    <div class="section-badge mb-3">
+                        <span class="badge bg-success text-white px-3 py-2 rounded-pill">
+                            <i class="bi bi-compass me-2"></i>Turismo Local
+                        </span>
+                    </div>
+                    <h2 class="tourism-title mb-4">Descubra Rio Negro</h2>
+                    <p class="tourism-description">
+                        Uma cidade histórica repleta de encantos, tradições e belezas naturais.
+                        Explore os pontos turísticos que fazem de Rio Negro um destino único no Paraná.
+                    </p>
+                </div>
             </div>
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="card h-100 shadow-sm">
-                        <div class="clickable-image">
-                            <img src="images/centro_historico.jpg" class="card-img-top" alt="Centro Histórico"
-                                style="height: 200px; object-fit: cover; cursor: pointer;"
-                                data-bs-toggle="modal" data-bs-target="#centroHistoricoModal">
-                            <div class="image-hint">
-                                <i class="bi bi-zoom-in"></i>Ver mais
+
+
+
+            <!-- Grid de Atrações -->
+            <div class="row g-4" id="tourismContainer">
+                <!-- Atrações serão carregadas dinamicamente -->
+            </div>
+
+            <!-- Informações Adicionais -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="tourism-info-card">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8">
+                                <h4 class="info-title">Como Chegar a Rio Negro</h4>
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="info-item">
+                                            <i class="bi bi-geo-alt text-success"></i>
+                                            <div>
+                                                <strong>Distância</strong>
+                                                <span>150km de Curitiba</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="info-item">
+                                            <i class="bi bi-signpost text-success"></i>
+                                            <div>
+                                                <strong>Acesso</strong>
+                                                <span>BR-116 Sul</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="info-item">
+                                            <i class="bi bi-clock text-success"></i>
+                                            <div>
+                                                <strong>Tempo</strong>
+                                                <span>Aprox. 2h de viagem</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 text-center">
+                                <div class="cta-tourism">
+                                    <h5>Planeje sua Visita</h5>
+                                    <p class="small text-muted">Hospede-se no Hotel Paradise e explore todas as atrações</p>
+                                    <button class="btn btn-success scroll-to-reservas">
+                                        <i class="bi bi-calendar-check me-2"></i>Fazer Reserva
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class=" card-body">
-                        <h5 class="card-title">Centro Histórico</h5>
-                        <p class="card-text">
-                            Construções preservadas e arquitetura colonial que contam a história de mais de 150 anos
-                            da cidade.
-                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="clickable-image">
-                        <img src="images/menor_cemiterio_do_mundo.jpg" class="card-img-top" alt="Menor Cemitério do Mundo"
-                            style="height: 200px; object-fit: cover; cursor: pointer;"
-                            data-bs-toggle="modal" data-bs-target="#cemiterioModal">
-                        <div class="image-hint">
-                            <i class="bi bi-zoom-in"></i>Ver mais
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Menor Cemitério do Mundo</h5>
-                        <p class="card-text">
-                            Reconhecido pelo Guinness Book, a capela de 1929 é uma das principais atrações
-                            turísticas da cidade.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card h-100 shadow-sm">
-                    <div class="clickable-image">
-                        <img src="images/patio_estação.jpg" class="card-img-top" alt="Estação Ferroviária"
-                            style="height: 200px; object-fit: cover; cursor: pointer;"
-                            data-bs-toggle="modal" data-bs-target="#estacaoModal">
-                        <div class="image-hint">
-                            <i class="bi bi-zoom-in"></i>Ver mais
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Estação Ferroviária</h5>
-                        <p class="card-text">
-                            História da ferrovia e o famoso Trem dos Tropeiros, importante marco do desenvolvimento
-                            regional.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row g-4 mt-4">
-            <div class="col-lg-6">
-                <div class="card h-100 shadow-sm">
-                    <div class="clickable-image">
-                        <img src="images/Igreja-Senhor-Bom-Jesus-da-Coluna.jpg" alt="Igreja Senhor Bom Jesus da Coluna"
-                            class="card-img-top" style="height: 200px; object-fit: cover; cursor: pointer;"
-                            data-bs-toggle="modal" data-bs-target="#igrejaModal">
-                        <div class="image-hint">
-                            <i class="bi bi-zoom-in"></i>Ver mais
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Turismo Religioso</h5>
-                        <p class="card-text">
-                            Igrejas históricas e templos que preservam a fé e tradições da comunidade local.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card h-100 shadow-sm">
-                    <div class="clickable-image">
-                        <img src="images/turismo_rural.jpg" class="card-img-top" alt="Turismo Rural"
-                            style="height: 200px; object-fit: cover; cursor: pointer;"
-                            data-bs-toggle="modal" data-bs-target="#turismoRuralModal">
-                        <div class="image-hint">
-                            <i class="bi bi-zoom-in"></i>Ver mais
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Turismo Rural</h5>
-                        <p class="card-text">
-                            Belezas naturais e propriedades rurais que oferecem contato direto com a natureza e
-                            tradições locais.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-4">
-            <p class="text-muted">
-                <i class="bi bi-geo-alt"></i>
-                <strong>Apenas 150km de Curitiba</strong> - Fácil acesso pela BR-116
-            </p>
-        </div>
         </div>
     </section>
 

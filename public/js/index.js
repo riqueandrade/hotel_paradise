@@ -1,12 +1,13 @@
 // JavaScript para Landing Page - Hotel Paradise
 // Sistema de Gestão Hoteleira - Rio Negro, Paraná
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('🏨 Hotel Paradise - Sistema Inicializado');
-    
+
     // Inicializar componentes
     initializeComponents();
     loadQuartos();
+    loadTourismAttractions();
     setupEventListeners();
     setupFormValidation();
 });
@@ -17,17 +18,17 @@ function initializeComponents() {
     const today = new Date().toISOString().split('T')[0];
     const checkinInput = document.getElementById('checkin');
     const checkoutInput = document.getElementById('checkout');
-    
+
     if (checkinInput) {
         checkinInput.min = today;
-        checkinInput.addEventListener('change', function() {
+        checkinInput.addEventListener('change', function () {
             const checkinDate = new Date(this.value);
             const minCheckout = new Date(checkinDate);
             minCheckout.setDate(minCheckout.getDate() + 1);
             checkoutInput.min = minCheckout.toISOString().split('T')[0];
         });
     }
-    
+
     // Animações de entrada
     observeElements();
 }
@@ -36,7 +37,7 @@ function initializeComponents() {
 async function loadQuartos() {
     const container = document.getElementById('quartosContainer');
     if (!container) return;
-    
+
     // Dados de exemplo dos quartos (posteriormente virá da API)
     const quartos = [
         {
@@ -80,7 +81,7 @@ async function loadQuartos() {
             descricao: 'Quarto família com beliche e espaço especial para crianças'
         }
     ];
-    
+
     container.innerHTML = quartos.map(quarto => {
         const categoryBadge = getCategoryBadge(quarto.tipo);
         const categoryClass = getCategoryClass(quarto.tipo);
@@ -125,8 +126,8 @@ async function loadQuartos() {
 
                     <div class="room-features mb-3">
                         ${quarto.caracteristicas.map(carac =>
-                            `<span class="feature-badge">${getFeatureIcon(carac)} ${carac}</span>`
-                        ).join('')}
+            `<span class="feature-badge">${getFeatureIcon(carac)} ${carac}</span>`
+        ).join('')}
                     </div>
 
                     <div class="mt-auto">
@@ -153,8 +154,146 @@ async function loadQuartos() {
         `;
     }).join('');
 
-    // Inicializar filtros
-    setupRoomFilters();
+    // Configurar botões dos quartos
+    setupRoomButtons();
+}
+
+// Carregar atrações turísticas
+async function loadTourismAttractions() {
+    const container = document.getElementById('tourismContainer');
+    if (!container) return;
+
+    // Dados das atrações turísticas de Rio Negro
+    const attractions = [
+        {
+            id: 1,
+            name: 'Museu Do Arquivo Público Municipal de Rio Negro',
+            category: 'historico',
+            description: 'Construções preservadas e arquitetura colonial que contam a história de mais de 150 anos da cidade.',
+            image: 'images/centro_historico.jpg',
+            rating: 4.7,
+            duration: '2-3 horas',
+            highlights: ['Arquitetura Colonial', 'Casarões Históricos', 'Ruas de Paralelepípedo'],
+            modalTarget: 'centroHistoricoModal'
+        },
+        {
+            id: 2,
+            name: 'Menor Cemitério do Mundo',
+            category: 'historico',
+            description: 'Reconhecido pelo Guinness Book, a capela de 1929 é uma das principais atrações turísticas da cidade.',
+            image: 'images/menor_cemiterio_do_mundo.jpg',
+            rating: 4.9,
+            duration: '30 min',
+            highlights: ['Guinness Book', 'Capela de 1929', 'Marco Histórico'],
+            modalTarget: 'cemiterioModal'
+        },
+        {
+            id: 3,
+            name: 'Estação Ferroviária Rumo Logistica',
+            category: 'cultural',
+            description: 'História da ferrovia e o famoso Trem dos Tropeiros, importante marco do desenvolvimento regional.',
+            image: 'images/patio_estacao.jpg',
+            rating: 4.5,
+            duration: '1-2 horas',
+            highlights: ['Trem dos Tropeiros', 'História Ferroviária', 'Patrimônio Cultural'],
+            modalTarget: 'estacaoModal'
+        },
+        {
+            id: 4,
+            name: 'Igreja Senhor Bom Jesus da Coluna',
+            category: 'religioso',
+            description: 'Uma das mais belas igrejas da região, marco arquitetônico e espiritual da comunidade local.',
+            image: 'images/Igreja-Senhor-Bom-Jesus-da-Coluna.jpg',
+            rating: 4.6,
+            duration: '45 min',
+            highlights: ['Arquitetura Religiosa', 'Patrimônio Espiritual', 'Arte Sacra'],
+            modalTarget: 'igrejaModal'
+        },
+        {
+            id: 5,
+            name: 'Turismo Rural',
+            category: 'natural',
+            description: 'Belezas naturais e propriedades rurais que oferecem contato direto com a natureza e tradições locais.',
+            image: 'images/turismo_rural.jpg',
+            rating: 4.4,
+            duration: 'Dia inteiro',
+            highlights: ['Natureza Preservada', 'Trilhas Ecológicas', 'Gastronomia Rural'],
+            modalTarget: 'turismoRuralModal'
+        },
+        {
+            id: 6,
+            name: 'Parque Ecoturístico Municipal São Luis de Tolosa',
+            category: 'natural',
+            description: 'Área verde preservada com trilhas, playground e espaços para piquenique em família.',
+            image: 'images/seminario.jpg',
+            rating: 4.3,
+            duration: '2-4 horas',
+            highlights: ['Trilhas Naturais', 'Área de Lazer', 'Fauna Local'],
+            modalTarget: null
+        }
+    ];
+
+    container.innerHTML = attractions.map(attraction => {
+        const categoryInfo = getTourismCategoryInfo(attraction.category);
+
+        return `
+        <div class="col-lg-4 col-md-6 tourism-card" data-category="${attraction.category}">
+            <div class="card tourism-card-inner h-100 shadow-sm">
+                <div class="position-relative tourism-image-container">
+                    <img src="${attraction.image}" class="card-img-top tourism-image" alt="${attraction.name}"
+                         onerror="this.src='images/placeholder-tourism.jpg'">
+                    <div class="tourism-badges">
+                        <span class="badge ${categoryInfo.class}">${categoryInfo.text}</span>
+                        <span class="badge bg-dark tourism-duration">${attraction.duration}</span>
+                    </div>
+                    <div class="tourism-overlay">
+                        <div class="tourism-overlay-content">
+                            <i class="bi bi-camera fs-4"></i>
+                            <span>Ver Mais</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h5 class="card-title tourism-title">${attraction.name}</h5>
+                        <div class="tourism-rating">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <span class="small">${attraction.rating}</span>
+                        </div>
+                    </div>
+                    <p class="card-text text-muted small tourism-description">${attraction.description}</p>
+
+                    <div class="tourism-highlights mb-3">
+                        ${attraction.highlights.map(highlight =>
+            `<span class="highlight-badge">${highlight}</span>`
+        ).join('')}
+                    </div>
+
+                    <div class="mt-auto">
+                        <div class="tourism-actions">
+                            ${attraction.modalTarget ?
+                `<button class="btn btn-outline-success btn-sm flex-fill me-2 tourism-view-btn"
+                                        data-bs-toggle="modal" data-bs-target="#${attraction.modalTarget}">
+                                    <i class="bi bi-images me-1"></i>Ver Mais
+                                </button>` :
+                `<button class="btn btn-outline-success btn-sm flex-fill me-2" disabled>
+                                    <i class="bi bi-images me-1"></i>Em Breve
+                                </button>`
+            }
+                            <button class="btn btn-success btn-sm flex-fill get-directions-btn"
+                                    data-attraction="${attraction.name}">
+                                <i class="bi bi-geo-alt me-1"></i>Localização
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+    }).join('');
+
+    // Configurar botões de localização
+    setupTourismButtons();
 }
 
 // Configurar event listeners
@@ -174,7 +313,7 @@ function setupEventListeners() {
     });
 
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -201,7 +340,7 @@ function setupEventListeners() {
     // Link cadastro de hóspede
     const cadastroLink = document.querySelector('.cadastro-hospede-link');
     if (cadastroLink) {
-        cadastroLink.addEventListener('click', function(e) {
+        cadastroLink.addEventListener('click', function (e) {
             e.preventDefault();
             mostrarCadastroHospede();
         });
@@ -210,7 +349,7 @@ function setupEventListeners() {
     // Formulário de reserva
     const reservaForm = document.getElementById('reservaForm');
     if (reservaForm) {
-        reservaForm.addEventListener('submit', function(e) {
+        reservaForm.addEventListener('submit', function (e) {
             e.preventDefault();
             verificarDisponibilidade();
         });
@@ -241,21 +380,21 @@ async function verificarDisponibilidade() {
     const hospedes = document.getElementById('hospedes').value;
     const tipoQuarto = document.getElementById('tipoQuarto').value;
     const resultadoDiv = document.getElementById('resultadoDisponibilidade');
-    
+
     // Validações
     if (!checkin || !checkout || !hospedes || !tipoQuarto) {
         showAlert('Por favor, preencha todos os campos.', 'warning');
         return;
     }
-    
+
     const checkinDate = new Date(checkin);
     const checkoutDate = new Date(checkout);
-    
+
     if (checkoutDate <= checkinDate) {
         showAlert('A data de checkout deve ser posterior à data de check-in.', 'warning');
         return;
     }
-    
+
     // Mostrar loading
     resultadoDiv.innerHTML = `
         <div class="text-center">
@@ -265,13 +404,13 @@ async function verificarDisponibilidade() {
             <p class="mt-2">Verificando disponibilidade...</p>
         </div>
     `;
-    
+
     // Simular chamada à API
     setTimeout(() => {
         const diasEstadia = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
         const precoBase = getPrecoByTipo(tipoQuarto);
         const valorTotal = precoBase * diasEstadia;
-        
+
         resultadoDiv.innerHTML = `
             <div class="alert alert-success">
                 <h6><i class="bi bi-check-circle"></i> Quartos Disponíveis!</h6>
@@ -330,7 +469,7 @@ function iniciarReserva() {
 async function handleContatoSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-    
+
     // Simular envio
     showAlert('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
     e.target.reset();
@@ -340,7 +479,7 @@ async function handleLoginHospede(e) {
     e.preventDefault();
     const email = document.getElementById('emailHospede').value;
     const senha = document.getElementById('senhaHospede').value;
-    
+
     // Simular login
     showAlert('Funcionalidade em desenvolvimento. Área do cliente será implementada em breve!', 'info');
 }
@@ -349,7 +488,7 @@ async function handleLoginFuncionario(e) {
     e.preventDefault();
     const email = document.getElementById('emailFuncionario').value;
     const senha = document.getElementById('senhaFuncionario').value;
-    
+
     // Simular login
     showAlert('Funcionalidade em desenvolvimento. Sistema de funcionários será implementado em breve!', 'info');
 }
@@ -359,7 +498,7 @@ function setupFormValidation() {
     // Adicionar validação em tempo real
     const inputs = document.querySelectorAll('input[required], select[required]');
     inputs.forEach(input => {
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             if (!this.value) {
                 this.classList.add('is-invalid');
             } else {
@@ -392,9 +531,9 @@ function showAlert(message, type = 'info') {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
     document.body.appendChild(alertDiv);
-    
+
     // Remover após 5 segundos
     setTimeout(() => {
         if (alertDiv.parentNode) {
@@ -412,7 +551,7 @@ function observeElements() {
             }
         });
     });
-    
+
     // Observar cards e seções
     const elementsToObserve = document.querySelectorAll('.card, .feature-card, section');
     elementsToObserve.forEach(el => observer.observe(el));
@@ -467,39 +606,12 @@ function getFeatureIcon(feature) {
     return icons[feature] || '<i class="bi bi-check"></i>';
 }
 
-// Configurar filtros de quartos e event listeners
-function setupRoomFilters() {
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const roomCards = document.querySelectorAll('.room-card');
-
-    // Configurar filtros
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const filter = this.getAttribute('data-filter');
-
-            // Atualizar botões ativos
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-
-            // Filtrar quartos
-            roomCards.forEach(card => {
-                const category = card.getAttribute('data-category');
-
-                if (filter === 'all' || category === filter) {
-                    card.style.display = 'block';
-                    card.classList.add('fade-in');
-                } else {
-                    card.style.display = 'none';
-                    card.classList.remove('fade-in');
-                }
-            });
-        });
-    });
-
+// Configurar event listeners dos quartos
+function setupRoomButtons() {
     // Configurar botões "Ver detalhes"
     const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
     viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const roomId = this.getAttribute('data-room-id');
             viewRoomDetails(roomId);
         });
@@ -508,7 +620,7 @@ function setupRoomFilters() {
     // Configurar botões "Reservar"
     const selectRoomButtons = document.querySelectorAll('.select-room-btn');
     selectRoomButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const roomId = this.getAttribute('data-room-id');
             const roomType = this.getAttribute('data-room-type');
             selecionarQuarto(roomId, roomType);
@@ -663,7 +775,7 @@ function setupImageGallery(imagens) {
 
     // Event listeners para thumbnails
     thumbnailContainer.querySelectorAll('.thumbnail-item').forEach(thumb => {
-        thumb.addEventListener('click', function() {
+        thumb.addEventListener('click', function () {
             const newImage = this.getAttribute('data-image');
             mainImage.src = newImage;
 
@@ -698,7 +810,7 @@ function setupModalButtons(quarto) {
     checkAvailabilityBtn.parentNode.replaceChild(newCheckBtn, checkAvailabilityBtn);
 
     // Adicionar novos event listeners
-    newReserveBtn.addEventListener('click', function() {
+    newReserveBtn.addEventListener('click', function () {
         // Fechar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
         modal.hide();
@@ -707,7 +819,7 @@ function setupModalButtons(quarto) {
         selecionarQuarto(quarto.id, quarto.tipo);
     });
 
-    newCheckBtn.addEventListener('click', function() {
+    newCheckBtn.addEventListener('click', function () {
         // Fechar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
         modal.hide();
@@ -728,5 +840,36 @@ window.hotelParadise = {
         }
     }
 };
+
+// Funções auxiliares para turismo
+function getTourismCategoryInfo(category) {
+    const categories = {
+        'historico': { class: 'bg-warning text-dark', text: 'Histórico' },
+        'religioso': { class: 'bg-info', text: 'Religioso' },
+        'natural': { class: 'bg-success', text: 'Natural' },
+        'cultural': { class: 'bg-primary', text: 'Cultural' }
+    };
+    return categories[category] || { class: 'bg-secondary', text: 'Geral' };
+}
+
+// Configurar botões de turismo
+function setupTourismButtons() {
+    // Configurar botões de localização
+    const directionButtons = document.querySelectorAll('.get-directions-btn');
+    directionButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const attraction = this.getAttribute('data-attraction');
+            getDirections(attraction);
+        });
+    });
+}
+
+// Obter direções para atração
+function getDirections(attractionName) {
+    const searchQuery = `${attractionName}, Rio Negro, Paraná, Brasil`;
+    const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}`;
+    window.open(mapsUrl, '_blank');
+    showAlert(`Abrindo localização de ${attractionName} no Google Maps...`, 'info');
+}
 
 console.log('🏨 Hotel Paradise - Landing Page carregada com sucesso!');
