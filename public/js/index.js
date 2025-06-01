@@ -1,9 +1,9 @@
 // JavaScript para Landing Page - Hotel Paradise
 // Sistema de Gestão Hoteleira - Rio Negro, Paraná
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     console.log('🏨 Hotel Paradise - Sistema Inicializado');
-
+    
     // Inicializar componentes
     initializeComponents();
     loadQuartos();
@@ -11,24 +11,24 @@ document.addEventListener('DOMContentLoaded', function () {
     setupEventListeners();
     setupFormValidation();
 });
-
+ 
 // Inicialização de componentes
 function initializeComponents() {
     // Configurar datas mínimas para reserva
     const today = new Date().toISOString().split('T')[0];
     const checkinInput = document.getElementById('checkin');
     const checkoutInput = document.getElementById('checkout');
-
+    
     if (checkinInput) {
         checkinInput.min = today;
-        checkinInput.addEventListener('change', function () {
+        checkinInput.addEventListener('change', function() {
             const checkinDate = new Date(this.value);
             const minCheckout = new Date(checkinDate);
             minCheckout.setDate(minCheckout.getDate() + 1);
             checkoutInput.min = minCheckout.toISOString().split('T')[0];
         });
     }
-
+    
     // Animações de entrada
     observeElements();
 }
@@ -37,7 +37,7 @@ function initializeComponents() {
 async function loadQuartos() {
     const container = document.getElementById('quartosContainer');
     if (!container) return;
-
+    
     // Dados de exemplo dos quartos (posteriormente virá da API)
     const quartos = [
         {
@@ -81,7 +81,7 @@ async function loadQuartos() {
             descricao: 'Quarto família com beliche e espaço especial para crianças'
         }
     ];
-
+    
     container.innerHTML = quartos.map(quarto => {
         const categoryBadge = getCategoryBadge(quarto.tipo);
         const categoryClass = getCategoryClass(quarto.tipo);
@@ -126,8 +126,8 @@ async function loadQuartos() {
 
                     <div class="room-features mb-3">
                         ${quarto.caracteristicas.map(carac =>
-            `<span class="feature-badge">${getFeatureIcon(carac)} ${carac}</span>`
-        ).join('')}
+                            `<span class="feature-badge">${getFeatureIcon(carac)} ${carac}</span>`
+                        ).join('')}
                     </div>
 
                     <div class="mt-auto">
@@ -154,8 +154,8 @@ async function loadQuartos() {
         `;
     }).join('');
 
-    // Configurar botões dos quartos
-    setupRoomButtons();
+    // Inicializar filtros
+    setupRoomFilters();
 }
 
 // Carregar atrações turísticas
@@ -167,7 +167,7 @@ async function loadTourismAttractions() {
     const attractions = [
         {
             id: 1,
-            name: 'Museu Do Arquivo Público Municipal de Rio Negro',
+            name: 'Centro Histórico',
             category: 'historico',
             description: 'Construções preservadas e arquitetura colonial que contam a história de mais de 150 anos da cidade.',
             image: 'images/centro_historico.jpg',
@@ -189,7 +189,7 @@ async function loadTourismAttractions() {
         },
         {
             id: 3,
-            name: 'Estação Ferroviária Rumo Logistica',
+            name: 'Estação Ferroviária',
             category: 'cultural',
             description: 'História da ferrovia e o famoso Trem dos Tropeiros, importante marco do desenvolvimento regional.',
             image: 'images/patio_estacao.jpg',
@@ -222,7 +222,7 @@ async function loadTourismAttractions() {
         },
         {
             id: 6,
-            name: 'Parque Ecoturístico Municipal São Luis de Tolosa',
+            name: 'Parque Municipal',
             category: 'natural',
             description: 'Área verde preservada com trilhas, playground e espaços para piquenique em família.',
             image: 'images/seminario.jpg',
@@ -249,7 +249,7 @@ async function loadTourismAttractions() {
                     <div class="tourism-overlay">
                         <div class="tourism-overlay-content">
                             <i class="bi bi-camera fs-4"></i>
-                            <span>Ver Mais</span>
+                            <span>Ver Fotos</span>
                         </div>
                     </div>
                 </div>
@@ -265,21 +265,21 @@ async function loadTourismAttractions() {
 
                     <div class="tourism-highlights mb-3">
                         ${attraction.highlights.map(highlight =>
-            `<span class="highlight-badge">${highlight}</span>`
-        ).join('')}
+                            `<span class="highlight-badge">${highlight}</span>`
+                        ).join('')}
                     </div>
 
                     <div class="mt-auto">
                         <div class="tourism-actions">
                             ${attraction.modalTarget ?
-                `<button class="btn btn-outline-success btn-sm flex-fill me-2 tourism-view-btn"
+                                `<button class="btn btn-outline-success btn-sm flex-fill me-2 tourism-view-btn"
                                         data-bs-toggle="modal" data-bs-target="#${attraction.modalTarget}">
-                                    <i class="bi bi-images me-1"></i>Ver Mais
+                                    <i class="bi bi-images me-1"></i>Ver Fotos
                                 </button>` :
-                `<button class="btn btn-outline-success btn-sm flex-fill me-2" disabled>
+                                `<button class="btn btn-outline-success btn-sm flex-fill me-2" disabled>
                                     <i class="bi bi-images me-1"></i>Em Breve
                                 </button>`
-            }
+                            }
                             <button class="btn btn-success btn-sm flex-fill get-directions-btn"
                                     data-attraction="${attraction.name}">
                                 <i class="bi bi-geo-alt me-1"></i>Localização
@@ -292,8 +292,8 @@ async function loadTourismAttractions() {
         `;
     }).join('');
 
-    // Configurar botões de localização
-    setupTourismButtons();
+    // Configurar filtros de turismo
+    setupTourismFilters();
 }
 
 // Configurar event listeners
@@ -313,7 +313,7 @@ function setupEventListeners() {
     });
 
     // Navbar scroll effect
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -340,7 +340,7 @@ function setupEventListeners() {
     // Link cadastro de hóspede
     const cadastroLink = document.querySelector('.cadastro-hospede-link');
     if (cadastroLink) {
-        cadastroLink.addEventListener('click', function (e) {
+        cadastroLink.addEventListener('click', function(e) {
             e.preventDefault();
             mostrarCadastroHospede();
         });
@@ -349,7 +349,7 @@ function setupEventListeners() {
     // Formulário de reserva
     const reservaForm = document.getElementById('reservaForm');
     if (reservaForm) {
-        reservaForm.addEventListener('submit', function (e) {
+        reservaForm.addEventListener('submit', function(e) {
             e.preventDefault();
             verificarDisponibilidade();
         });
@@ -380,21 +380,21 @@ async function verificarDisponibilidade() {
     const hospedes = document.getElementById('hospedes').value;
     const tipoQuarto = document.getElementById('tipoQuarto').value;
     const resultadoDiv = document.getElementById('resultadoDisponibilidade');
-
+    
     // Validações
     if (!checkin || !checkout || !hospedes || !tipoQuarto) {
         showAlert('Por favor, preencha todos os campos.', 'warning');
         return;
     }
-
+    
     const checkinDate = new Date(checkin);
     const checkoutDate = new Date(checkout);
-
+    
     if (checkoutDate <= checkinDate) {
         showAlert('A data de checkout deve ser posterior à data de check-in.', 'warning');
         return;
     }
-
+    
     // Mostrar loading
     resultadoDiv.innerHTML = `
         <div class="text-center">
@@ -404,13 +404,13 @@ async function verificarDisponibilidade() {
             <p class="mt-2">Verificando disponibilidade...</p>
         </div>
     `;
-
+    
     // Simular chamada à API
     setTimeout(() => {
         const diasEstadia = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
         const precoBase = getPrecoByTipo(tipoQuarto);
         const valorTotal = precoBase * diasEstadia;
-
+        
         resultadoDiv.innerHTML = `
             <div class="alert alert-success">
                 <h6><i class="bi bi-check-circle"></i> Quartos Disponíveis!</h6>
@@ -469,7 +469,7 @@ function iniciarReserva() {
 async function handleContatoSubmit(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
-
+    
     // Simular envio
     showAlert('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
     e.target.reset();
@@ -479,7 +479,7 @@ async function handleLoginHospede(e) {
     e.preventDefault();
     const email = document.getElementById('emailHospede').value;
     const senha = document.getElementById('senhaHospede').value;
-
+    
     // Simular login
     showAlert('Funcionalidade em desenvolvimento. Área do cliente será implementada em breve!', 'info');
 }
@@ -488,7 +488,7 @@ async function handleLoginFuncionario(e) {
     e.preventDefault();
     const email = document.getElementById('emailFuncionario').value;
     const senha = document.getElementById('senhaFuncionario').value;
-
+    
     // Simular login
     showAlert('Funcionalidade em desenvolvimento. Sistema de funcionários será implementado em breve!', 'info');
 }
@@ -498,7 +498,7 @@ function setupFormValidation() {
     // Adicionar validação em tempo real
     const inputs = document.querySelectorAll('input[required], select[required]');
     inputs.forEach(input => {
-        input.addEventListener('blur', function () {
+        input.addEventListener('blur', function() {
             if (!this.value) {
                 this.classList.add('is-invalid');
             } else {
@@ -531,9 +531,9 @@ function showAlert(message, type = 'info') {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-
+    
     document.body.appendChild(alertDiv);
-
+    
     // Remover após 5 segundos
     setTimeout(() => {
         if (alertDiv.parentNode) {
@@ -551,7 +551,7 @@ function observeElements() {
             }
         });
     });
-
+    
     // Observar cards e seções
     const elementsToObserve = document.querySelectorAll('.card, .feature-card, section');
     elementsToObserve.forEach(el => observer.observe(el));
@@ -606,12 +606,39 @@ function getFeatureIcon(feature) {
     return icons[feature] || '<i class="bi bi-check"></i>';
 }
 
-// Configurar event listeners dos quartos
-function setupRoomButtons() {
+// Configurar filtros de quartos e event listeners
+function setupRoomFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const roomCards = document.querySelectorAll('.room-card');
+
+    // Configurar filtros
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+
+            // Atualizar botões ativos
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Filtrar quartos
+            roomCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        });
+    });
+
     // Configurar botões "Ver detalhes"
     const viewDetailsButtons = document.querySelectorAll('.view-details-btn');
     viewDetailsButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             const roomId = this.getAttribute('data-room-id');
             viewRoomDetails(roomId);
         });
@@ -620,7 +647,7 @@ function setupRoomButtons() {
     // Configurar botões "Reservar"
     const selectRoomButtons = document.querySelectorAll('.select-room-btn');
     selectRoomButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             const roomId = this.getAttribute('data-room-id');
             const roomType = this.getAttribute('data-room-type');
             selecionarQuarto(roomId, roomType);
@@ -775,7 +802,7 @@ function setupImageGallery(imagens) {
 
     // Event listeners para thumbnails
     thumbnailContainer.querySelectorAll('.thumbnail-item').forEach(thumb => {
-        thumb.addEventListener('click', function () {
+        thumb.addEventListener('click', function() {
             const newImage = this.getAttribute('data-image');
             mainImage.src = newImage;
 
@@ -810,7 +837,7 @@ function setupModalButtons(quarto) {
     checkAvailabilityBtn.parentNode.replaceChild(newCheckBtn, checkAvailabilityBtn);
 
     // Adicionar novos event listeners
-    newReserveBtn.addEventListener('click', function () {
+    newReserveBtn.addEventListener('click', function() {
         // Fechar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
         modal.hide();
@@ -819,7 +846,7 @@ function setupModalButtons(quarto) {
         selecionarQuarto(quarto.id, quarto.tipo);
     });
 
-    newCheckBtn.addEventListener('click', function () {
+    newCheckBtn.addEventListener('click', function() {
         // Fechar modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('roomDetailsModal'));
         modal.hide();
@@ -852,12 +879,39 @@ function getTourismCategoryInfo(category) {
     return categories[category] || { class: 'bg-secondary', text: 'Geral' };
 }
 
-// Configurar botões de turismo
-function setupTourismButtons() {
+// Configurar filtros de turismo
+function setupTourismFilters() {
+    const filterButtons = document.querySelectorAll('.tourism-filter-btn');
+    const tourismCards = document.querySelectorAll('.tourism-card');
+
+    // Configurar filtros
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const category = this.getAttribute('data-category');
+
+            // Atualizar botões ativos
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+
+            // Filtrar atrações
+            tourismCards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+
+                if (category === 'all' || cardCategory === category) {
+                    card.style.display = 'block';
+                    card.classList.add('fade-in');
+                } else {
+                    card.style.display = 'none';
+                    card.classList.remove('fade-in');
+                }
+            });
+        });
+    });
+
     // Configurar botões de localização
     const directionButtons = document.querySelectorAll('.get-directions-btn');
     directionButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             const attraction = this.getAttribute('data-attraction');
             getDirections(attraction);
         });

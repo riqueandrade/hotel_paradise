@@ -855,7 +855,36 @@ a:hover {
   line-height: 1.6;
 }
 
+/* Filtros */
+.rooms-filters {
+  margin-bottom: 2rem;
+}
 
+.filter-btn {
+  background: white;
+  border: 2px solid #e9ecef;
+  color: #6c757d;
+  padding: 12px 20px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(var(--primary-color-rgb), 0.3);
+}
 
 /* Room Cards */
 .room-card {
@@ -1063,7 +1092,10 @@ a:hover {
     font-size: 2rem;
   }
 
-
+  .filter-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
 
   .room-image {
     height: 200px;
@@ -1434,7 +1466,37 @@ a:hover {
   margin: 0 auto;
 }
 
+/* Filtros de Turismo */
+.tourism-filters {
+  margin-bottom: 2rem;
+}
 
+.tourism-filter-btn {
+  background: white;
+  border: 2px solid #e9ecef;
+  color: #6c757d;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.tourism-filter-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tourism-filter-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
 
 /* Cards de Turismo */
 .tourism-card {
@@ -1681,7 +1743,10 @@ a:hover {
     font-size: 2rem;
   }
 
-
+  .tourism-filter-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
 
   .tourism-image-container {
     height: 200px;
