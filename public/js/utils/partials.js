@@ -123,6 +123,9 @@ async function initializePage(config) {
     
     // Configurar sidebar toggle
     setupSidebarToggle();
+
+    // Iniciar relógio
+    startClock();
 }
 
 /**
@@ -131,12 +134,91 @@ async function initializePage(config) {
 function setupSidebarToggle() {
     const sidebarToggle = document.getElementById('sidebarToggleMobile');
     const sidebar = document.getElementById('sidebar');
-    
+
     if (sidebarToggle && sidebar) {
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('show');
         });
     }
+}
+
+/**
+ * Mostra a tela de loading
+ */
+function showLoading() {
+    const loadingContainer = document.getElementById('loadingContainer');
+    const dashboardContent = document.getElementById('dashboardContent');
+
+    if (loadingContainer) loadingContainer.style.display = 'flex';
+    if (dashboardContent) dashboardContent.style.display = 'none';
+}
+
+/**
+ * Oculta a tela de loading e mostra o conteúdo
+ */
+function hideLoading() {
+    const loadingContainer = document.getElementById('loadingContainer');
+    const dashboardContent = document.getElementById('dashboardContent');
+
+    if (loadingContainer) loadingContainer.style.display = 'none';
+    if (dashboardContent) dashboardContent.style.display = 'block';
+}
+
+/**
+ * Função de logout reutilizável
+ */
+function logout() {
+    // Chaves de armazenamento
+    const STORAGE_KEYS = {
+        TOKEN: 'hotel_token',
+        USER_TYPE: 'hotel_user_type',
+        USER_DATA: 'hotel_user_data'
+    };
+
+    // Limpar dados de autenticação
+    localStorage.removeItem(STORAGE_KEYS.TOKEN);
+    localStorage.removeItem(STORAGE_KEYS.USER_TYPE);
+    localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+    sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
+    sessionStorage.removeItem(STORAGE_KEYS.USER_TYPE);
+    sessionStorage.removeItem(STORAGE_KEYS.USER_DATA);
+
+    // Redirecionar para login
+    window.location.href = '../login-funcionario.html';
+}
+
+/**
+ * Atualiza o relógio no header
+ */
+function updateClock() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    const dateString = now.toLocaleDateString('pt-BR', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    const clockElement = document.getElementById('currentTime');
+    if (clockElement) {
+        clockElement.innerHTML = `
+            <div class="time">${timeString}</div>
+            <div class="date">${dateString}</div>
+        `;
+    }
+}
+
+/**
+ * Inicia o relógio automático
+ */
+function startClock() {
+    updateClock();
+    setInterval(updateClock, 1000);
 }
 
 // Exportar funções para uso global
@@ -147,3 +229,8 @@ window.setPageTitle = setPageTitle;
 window.setHeaderButtons = setHeaderButtons;
 window.setLoadingText = setLoadingText;
 window.initializePage = initializePage;
+window.showLoading = showLoading;
+window.hideLoading = hideLoading;
+window.logout = logout;
+window.updateClock = updateClock;
+window.startClock = startClock;

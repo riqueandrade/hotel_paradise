@@ -40,8 +40,8 @@ async function initializeReservationsPage() {
         `
     });
 
-    // Carregar modais específicos da página
-    await loadPartial('../partials/modals-reservas.html', 'body');
+    // Carregar modais da página
+    await loadPageModals('reservas');
 
     // Configurar interface específica
     setupInterface();
@@ -80,11 +80,7 @@ function checkAuthentication() {
 
 // ===== CONFIGURAÇÃO DA INTERFACE =====
 function setupInterface() {
-    // Configurar relógio (partials já configuram sidebar toggle)
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    // Configurar filtros
+    // Configurar filtros (partials já configuram sidebar toggle e relógio)
     setupFilters();
 
     // Configurar formulário de reserva
@@ -93,14 +89,10 @@ function setupInterface() {
 
 // ===== CARREGAMENTO DE DADOS INICIAIS =====
 async function loadInitialData() {
-    const loadingContainer = document.getElementById('loadingContainer');
-    const dashboardContent = document.getElementById('dashboardContent');
-    
     try {
         // Mostrar loading
-        loadingContainer.style.display = 'flex';
-        dashboardContent.style.display = 'none';
-        
+        showLoading();
+
         // Carregar dados em paralelo
         const [reservations, clients, rooms, statistics] = await Promise.all([
             fetchWithAuth('/api/reservas'),
@@ -108,29 +100,27 @@ async function loadInitialData() {
             fetchWithAuth('/api/quartos'),
             fetchWithAuth('/api/reservas/statistics')
         ]);
-        
+
         // Armazenar dados
         reservationsData = reservations.reservas || reservations || [];
         clientsData = clients.clientes || clients || [];
         roomsData = rooms.quartos || rooms || [];
-        
+
         // Atualizar interface
         updateStatistics(statistics);
         populateClientSelect();
         populateRoomSelect();
         renderReservationsTable();
-        
+
         // Ocultar loading
-        loadingContainer.style.display = 'none';
-        dashboardContent.style.display = 'block';
-        
+        hideLoading();
+
     } catch (error) {
         console.error('Erro ao carregar dados iniciais:', error);
         showAlert('Erro ao carregar dados. Tente novamente.', 'danger');
-        
+
         // Ocultar loading mesmo com erro
-        loadingContainer.style.display = 'none';
-        dashboardContent.style.display = 'block';
+        hideLoading();
     }
 }
 
@@ -234,28 +224,7 @@ function updateTrendIndicator(iconId, changeId, atual, meta, tipo) {
 }
 
 // ===== RELÓGIO =====
-function updateClock() {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('pt-BR', {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    });
-    const dateString = now.toLocaleDateString('pt-BR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
-    
-    const clockElement = document.getElementById('currentTime');
-    if (clockElement) {
-        clockElement.innerHTML = `
-            <div class="time">${timeString}</div>
-            <div class="date">${dateString}</div>
-        `;
-    }
-}
+// Função updateClock agora está disponível via partials.js
 
 // ===== CONFIGURAÇÃO DE FILTROS =====
 function setupFilters() {
@@ -758,24 +727,41 @@ async function cancelReservation(id) {
     const reservation = reservationsData.find(r => r.id === id);
     if (!reservation) return;
 
-    showConfirmModal(
-        'Cancelar Reserva',
-        `Tem certeza que deseja cancelar a reserva #${id} de ${reservation.cliente_nome}?`,
-        async () => {
+    showConfirmModal({
+        title: 'Cancelar Reserva',
+        message: `Tem certeza que deseja cancelar a reserva #${id} de ${reservation.cliente_nome}?`,
+        type: 'danger',
+        confirmText: 'Cancelar Reserva',
+        onConfirm: async () => {
             try {
+                const loadingModal = showLoadingModal({
+                    title: 'Cancelando reserva...',
+                    message: 'Aguarde enquanto cancelamos a reserva.'
+                });
+
                 await fetchWithAuth(`/api/reservas/${id}/cancel`, {
                     method: 'PATCH'
                 });
 
-                showAlert('Reserva cancelada com sucesso!', 'success');
+                hideLoadingModal();
+                showAlertModal({
+                    title: 'Sucesso!',
+                    message: 'Reserva cancelada com sucesso!',
+                    type: 'success'
+                });
                 await loadInitialData();
 
             } catch (error) {
+                hideLoadingModal();
                 console.error('Erro ao cancelar reserva:', error);
-                showAlert('Erro ao cancelar reserva', 'danger');
+                showAlertModal({
+                    title: 'Erro!',
+                    message: 'Erro ao cancelar reserva. Tente novamente.',
+                    type: 'error'
+                });
             }
         }
-    );
+    });
 }
 
 async function checkInReservation(id) {
@@ -961,32 +947,7 @@ function getPaymentMethodText(method) {
 }
 
 // ===== FUNÇÕES DE MODAL DE CONFIRMAÇÃO =====
-function showConfirmModal(title, message, onConfirm) {
-    const modal = document.getElementById('confirmModal');
-    const titleElement = document.getElementById('confirmModalLabel');
-    const bodyElement = document.getElementById('confirmModalBody');
-    const actionButton = document.getElementById('confirmModalAction');
-
-    if (!modal || !titleElement || !bodyElement || !actionButton) return;
-
-    titleElement.textContent = title;
-    bodyElement.innerHTML = message;
-
-    // Remover event listeners anteriores
-    const newActionButton = actionButton.cloneNode(true);
-    actionButton.parentNode.replaceChild(newActionButton, actionButton);
-
-    // Adicionar novo event listener
-    newActionButton.addEventListener('click', () => {
-        const bootstrapModal = bootstrap.Modal.getInstance(modal);
-        bootstrapModal.hide();
-        onConfirm();
-    });
-
-    // Abrir modal
-    const bootstrapModal = new bootstrap.Modal(modal);
-    bootstrapModal.show();
-}
+// Funções de modal agora estão disponíveis via modals.js
 
 // ===== FUNÇÕES AUXILIARES =====
 function refreshData() {
@@ -1018,13 +979,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ===== LOGOUT =====
-function logout() {
-    localStorage.removeItem(STORAGE_KEYS.TOKEN);
-    localStorage.removeItem(STORAGE_KEYS.USER_TYPE);
-    localStorage.removeItem(STORAGE_KEYS.USER_DATA);
-    sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
-    sessionStorage.removeItem(STORAGE_KEYS.USER_TYPE);
-    sessionStorage.removeItem(STORAGE_KEYS.USER_DATA);
-
-    window.location.href = 'login.html';
-}
+// Função logout agora está disponível via partials.js

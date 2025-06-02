@@ -204,9 +204,58 @@ Para criar novos partials:
 - **Performance**: Carregamento inicial ligeiramente mais lento, mas melhor cache
 - **Debugging**: Usar DevTools para verificar carregamento dos partials
 
+## 🎭 **Sistema de Modais Híbrido**
+
+### **Modais Comuns (modals-common.html)**
+Carregados automaticamente em todas as páginas:
+
+```javascript
+// Modal de confirmação
+showConfirmModal({
+    title: 'Confirmar Exclusão',
+    message: 'Tem certeza que deseja excluir este item?',
+    type: 'danger',
+    confirmText: 'Excluir',
+    onConfirm: () => { /* ação */ }
+});
+
+// Modal de loading
+const loading = showLoadingModal({
+    title: 'Processando...',
+    message: 'Aguarde enquanto salvamos os dados.'
+});
+hideLoadingModal(); // Para ocultar
+
+// Modal de alerta
+showAlertModal({
+    title: 'Sucesso!',
+    message: 'Operação realizada com sucesso!',
+    type: 'success'
+});
+```
+
+### **Modais Específicos**
+Carregados conforme a página:
+
+```javascript
+// Carregamento automático baseado na página
+await loadPageModals('reservas'); // Carrega modals-reservas.html
+await loadPageModals('quartos');  // Carrega modals-quartos.html
+```
+
+### **Estrutura de Arquivos de Modais**
+
+```
+public/partials/
+├── modals-common.html      # ← Sempre carregado
+├── modals-reservas.html    # ← Específico de reservas
+├── modals-quartos.html     # ← Específico de quartos
+└── modals-clientes.html    # ← Específico de clientes
+```
+
 ---
 
 **Próximos Passos:**
 1. Migrar páginas existentes para usar partials
-2. Criar partials para modais comuns
+2. Criar modais específicos para quartos e clientes
 3. Implementar cache de partials para melhor performance

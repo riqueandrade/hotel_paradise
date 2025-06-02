@@ -201,7 +201,7 @@
 - [x] **Resultado**: Dashboard agora mostra dados 100% reais e estados apropriados
 - [x] **Funcionalidade**: Indicadores mudam automaticamente quando dados reais são inseridos
 
-### ✅ RECÉM CONCLUÍDO - Sistema de Partials Reutilizáveis:
+### ✅ RECÉM CONCLUÍDO - Sistema de Partials e Modais Reutilizáveis:
 - [x] **Sistema de Partials** - IMPLEMENTADO ⭐ NOVO
   - ✅ Componentes HTML reutilizáveis (sidebar.html, header.html, loading.html)
   - ✅ Utilitário JavaScript para carregamento de partials (partials.js)
@@ -211,7 +211,18 @@
   - ✅ Configuração dinâmica de títulos, subtítulos e botões
   - ✅ Documentação completa de uso (partials-guide.md)
   - ✅ Página de reservas migrada para usar partials ⭐ NOVO
-  - ✅ Modais como partials reutilizáveis (modals-reservas.html) ⭐ NOVO
+  - ✅ Funções utilitárias centralizadas (showLoading, hideLoading, logout, startClock) ⭐ NOVO
+  - ✅ Código duplicado removido das páginas individuais ⭐ NOVO
+  - ✅ Redução de 470 para 211 linhas na página de reservas (-55%) ⭐ NOVO
+
+- [x] **Sistema de Modais Híbrido** - IMPLEMENTADO ⭐ NOVO
+  - ✅ Modais comuns reutilizáveis (modals-common.html) ⭐ NOVO
+  - ✅ Modais específicos por funcionalidade (modals-reservas.html) ⭐ NOVO
+  - ✅ Utilitário JavaScript para modais (modals.js) ⭐ NOVO
+  - ✅ Funções: showConfirmModal, showLoadingModal, showAlertModal, showViewModal ⭐ NOVO
+  - ✅ Sistema automático de carregamento de modais (loadPageModals) ⭐ NOVO
+  - ✅ Modais com tipos visuais (success, error, warning, info, danger) ⭐ NOVO
+  - ✅ Modal de upload genérico para futuras funcionalidades ⭐ NOVO
   - ✅ Backup da versão original criado (reservas-backup.html) ⭐ NOVO
 
 ### ✅ CONCLUÍDO - Página de Gestão de Reservas:
@@ -311,7 +322,7 @@ http://localhost:3000
 
 ---
 
-**Última Atualização**: 02/06/2025 - 21:30 - Página de reservas migrada para usar partials, arquivo refatorado removido
+**Última Atualização**: 02/06/2025 - 22:30 - Sistema de modais híbrido implementado (comuns + específicos) com funções utilitárias
 **Próxima Atualização**: Migração das páginas dashboard e quartos para usar partials e implementação da página de clientes
 
 ## 🎯 APIs Funcionais Implementadas
@@ -405,13 +416,15 @@ http://localhost:3000
 - `public/css/reservas.css` - Estilização específica para gestão de reservas ⭐ NOVO
 - `public/js/reservas.js` - JavaScript completo para CRUD de reservas ⭐ NOVO
 
-### Partials Reutilizáveis ⭐ NOVO
+### Partials e Modais Reutilizáveis ⭐ NOVO
 - `public/partials/sidebar.html` - Sidebar reutilizável com navegação ⭐ NOVO
 - `public/partials/header.html` - Header reutilizável com título dinâmico ⭐ NOVO
 - `public/partials/loading.html` - Tela de carregamento reutilizável ⭐ NOVO
+- `public/partials/modals-common.html` - Modais comuns reutilizáveis ⭐ NOVO
 - `public/partials/modals-reservas.html` - Modais específicos de reservas ⭐ NOVO
 - `public/css/partials.css` - Estilos específicos para partials ⭐ NOVO
 - `public/js/utils/partials.js` - Utilitários para carregamento de partials ⭐ NOVO
+- `public/js/utils/modals.js` - Utilitários para modais comuns ⭐ NOVO
 - `public/pages/reservas-backup.html` - Backup da versão original ⭐ NOVO
 - `docs/partials-guide.md` - Documentação completa dos partials ⭐ NOVO
 

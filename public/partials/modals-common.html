@@ -1,0 +1,122 @@
+<!-- Modal Confirmação Genérico -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">
+                    <i class="bi bi-question-circle me-2" id="confirmModalIcon"></i>
+                    <span id="confirmModalTitle">Confirmar Ação</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="confirmModalBody">
+                <!-- Conteúdo será preenchido dinamicamente -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="confirmModalCancel">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmModalAction">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Loading/Progresso -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <h5 id="loadingModalTitle">Processando...</h5>
+                <p class="text-muted mb-0" id="loadingModalText">Aguarde enquanto processamos sua solicitação.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Alerta/Sucesso/Erro -->
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" id="alertModalHeader">
+                <h5 class="modal-title" id="alertModalLabel">
+                    <i class="bi bi-info-circle me-2" id="alertModalIcon"></i>
+                    <span id="alertModalTitle">Informação</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="alertModalBody">
+                <!-- Conteúdo será preenchido dinamicamente -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="alertModalButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Visualização de Dados Genérico -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="viewModalLabel">
+                    <i class="bi bi-eye me-2" id="viewModalIcon"></i>
+                    <span id="viewModalTitle">Visualizar</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="viewModalBody">
+                <!-- Conteúdo será preenchido dinamicamente -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                <div id="viewModalActions">
+                    <!-- Botões de ação específicos serão inseridos aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Upload de Arquivos Genérico -->
+<div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="uploadModalLabel">
+                    <i class="bi bi-cloud-upload me-2"></i>
+                    <span id="uploadModalTitle">Upload de Arquivo</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="upload-area border-2 border-dashed border-secondary rounded p-4 text-center" id="uploadArea">
+                    <i class="bi bi-cloud-upload display-4 text-muted mb-3"></i>
+                    <h6>Arraste arquivos aqui ou clique para selecionar</h6>
+                    <p class="text-muted small mb-3" id="uploadModalDescription">Formatos aceitos: JPG, PNG, PDF</p>
+                    <input type="file" class="form-control d-none" id="uploadModalInput" multiple>
+                    <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('uploadModalInput').click()">
+                        Selecionar Arquivos
+                    </button>
+                </div>
+                <div class="mt-3" id="uploadModalProgress" style="display: none;">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 0%" id="uploadProgressBar"></div>
+                    </div>
+                    <small class="text-muted" id="uploadProgressText">Enviando...</small>
+                </div>
+                <div class="mt-3" id="uploadModalFiles">
+                    <!-- Lista de arquivos selecionados -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="uploadModalSubmit" disabled>
+                    <i class="bi bi-upload me-2"></i>Enviar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
