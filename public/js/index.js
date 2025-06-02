@@ -1592,12 +1592,14 @@ function setupSocialLinks() {
                 window.open('https://facebook.com/hotelparadise', '_blank');
                 showAlert('Abrindo Facebook...', 'info');
             } else if (this.classList.contains('instagram')) {
-                window.open('https://instagram.com/hotelparadise', '_blank');
+                window.open('https://www.instagram.com/rique.andrade__/', '_blank');
                 showAlert('Abrindo Instagram...', 'info');
             } else if (this.classList.contains('whatsapp')) {
-                openWhatsApp();
+                window.open('https://wa.me/5547988231069', '_blank');
+                showAlert('Abrindo WhatsApp...', 'info');
             } else if (this.classList.contains('email')) {
-                openEmailClient();
+                window.location.href = 'mailto:henriquereynaud7@gmail.com';
+                showAlert('Abrindo cliente de email...', 'info');
             }
         });
     });
@@ -1681,12 +1683,14 @@ function setupFooterLinks() {
                 window.open('https://facebook.com/hotelparadise', '_blank');
                 showAlert('Abrindo Facebook...', 'info');
             } else if (this.classList.contains('instagram')) {
-                window.open('https://instagram.com/hotelparadise', '_blank');
+                window.open('https://www.instagram.com/rique.andrade__/', '_blank');
                 showAlert('Abrindo Instagram...', 'info');
             } else if (this.classList.contains('whatsapp')) {
-                openWhatsApp();
+                window.open('https://wa.me/5547988231069', '_blank');
+                showAlert('Abrindo WhatsApp...', 'info');
             } else if (this.classList.contains('email')) {
-                openEmailClient();
+                window.location.href = 'mailto:henriquereynaud7@gmail.com';
+                showAlert('Abrindo cliente de email...', 'info');
             }
         });
     });

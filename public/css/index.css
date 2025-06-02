@@ -607,17 +607,6 @@ section {
   opacity: 0.2;
 }
 
-.social-link-footer.facebook {
-  background: #1877f2;
-  box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
-}
-
-.social-link-footer.facebook:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(24, 119, 242, 0.4);
-  background: #166fe5;
-}
-
 .social-link-footer.instagram {
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
   box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
