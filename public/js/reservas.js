@@ -25,10 +25,27 @@ async function initializeReservationsPage() {
     if (!checkAuthentication()) {
         return;
     }
-    
-    // Configurar interface
+
+    // Inicializar partials
+    await initializePage({
+        page: 'reservas',
+        title: 'Gestão de Reservas',
+        subtitle: 'Gerencie todas as reservas do hotel',
+        icon: 'bi-calendar-check',
+        loadingText: 'Carregando gestão de reservas...',
+        headerButtons: `
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reservaModal">
+                <i class="bi bi-plus-circle me-2"></i>Nova Reserva
+            </button>
+        `
+    });
+
+    // Carregar modais específicos da página
+    await loadPartial('../partials/modals-reservas.html', 'body');
+
+    // Configurar interface específica
     setupInterface();
-    
+
     // Carregar dados iniciais
     await loadInitialData();
 }
@@ -63,23 +80,13 @@ function checkAuthentication() {
 
 // ===== CONFIGURAÇÃO DA INTERFACE =====
 function setupInterface() {
-    // Configurar sidebar toggle
-    const sidebarToggle = document.getElementById('sidebarToggleMobile');
-    const sidebar = document.getElementById('sidebar');
-    
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('show');
-        });
-    }
-    
-    // Configurar relógio
+    // Configurar relógio (partials já configuram sidebar toggle)
     updateClock();
     setInterval(updateClock, 1000);
-    
+
     // Configurar filtros
     setupFilters();
-    
+
     // Configurar formulário de reserva
     setupReservationForm();
 }

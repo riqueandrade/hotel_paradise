@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestão de Reservas - Hotel Paradise</title>
-
+    
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -18,10 +18,10 @@
 
 <body>
     <!-- Loading e Sidebar serão carregados via JavaScript -->
-
+    
     <div class="dashboard-wrapper" id="dashboardContent" style="display: none;">
         <!-- Sidebar será carregado aqui -->
-
+        
         <!-- Main Content -->
         <main class="main-content">
             <!-- Header será carregado aqui -->
@@ -118,8 +118,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6">
                                         <label class="form-label">Cliente</label>
-                                        <input type="text" class="form-control" id="filterCliente"
-                                            placeholder="Nome ou CPF">
+                                        <input type="text" class="form-control" id="filterCliente" placeholder="Nome ou CPF">
                                     </div>
                                     <div class="col-lg-2 col-md-4">
                                         <label class="form-label">Quarto</label>
@@ -194,174 +193,6 @@
                 </div>
             </div>
         </main>
-    </div>
-
-    <!-- Modal Nova/Editar Reserva -->
-    <div class="modal fade" id="reservaModal" tabindex="-1" aria-labelledby="reservaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reservaModalLabel">
-                        <i class="bi bi-calendar-plus me-2"></i>Nova Reserva
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="reservaForm">
-                        <input type="hidden" id="reservaId">
-
-                        <!-- Informações do Cliente -->
-                        <div class="mb-4">
-                            <h6 class="form-section-title">
-                                <i class="bi bi-person me-2"></i>Informações do Cliente
-                            </h6>
-                            <div class="row g-3">
-                                <div class="col-md-8">
-                                    <label for="clienteSelect" class="form-label">Cliente *</label>
-                                    <select class="form-select" id="clienteSelect" required>
-                                        <option value="">Selecione um cliente</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="numeroHospedes" class="form-label">Nº Hóspedes *</label>
-                                    <input type="number" class="form-control" id="numeroHospedes" min="1" max="6"
-                                        value="1" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Informações do Quarto -->
-                        <div class="mb-4">
-                            <h6 class="form-section-title">
-                                <i class="bi bi-door-closed me-2"></i>Informações do Quarto
-                            </h6>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="quartoSelect" class="form-label">Quarto *</label>
-                                    <select class="form-select" id="quartoSelect" required>
-                                        <option value="">Selecione um quarto</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="valorDiaria" class="form-label">Valor da Diária</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">R$</span>
-                                        <input type="number" class="form-control" id="valorDiaria" step="0.01" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Datas da Reserva -->
-                        <div class="mb-4">
-                            <h6 class="form-section-title">
-                                <i class="bi bi-calendar me-2"></i>Datas da Reserva
-                            </h6>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label for="dataCheckin" class="form-label">Check-in *</label>
-                                    <input type="date" class="form-control" id="dataCheckin" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="dataCheckout" class="form-label">Check-out *</label>
-                                    <input type="date" class="form-control" id="dataCheckout" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="numeroDiarias" class="form-label">Nº Diárias</label>
-                                    <input type="number" class="form-control" id="numeroDiarias" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Informações Financeiras -->
-                        <div class="mb-4">
-                            <h6 class="form-section-title">
-                                <i class="bi bi-currency-dollar me-2"></i>Informações Financeiras
-                            </h6>
-                            <div class="row g-3">
-                                <div class="col-md-4">
-                                    <label for="valorTotal" class="form-label">Valor Total</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">R$</span>
-                                        <input type="number" class="form-control" id="valorTotal" step="0.01" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="valorPago" class="form-label">Valor Pago</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text">R$</span>
-                                        <input type="number" class="form-control" id="valorPago" step="0.01" value="0">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
-                                    <select class="form-select" id="formaPagamento">
-                                        <option value="">Selecione</option>
-                                        <option value="dinheiro">Dinheiro</option>
-                                        <option value="cartao_credito">Cartão de Crédito</option>
-                                        <option value="cartao_debito">Cartão de Débito</option>
-                                        <option value="pix">PIX</option>
-                                        <option value="transferencia">Transferência</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Observações -->
-                        <div class="mb-3">
-                            <label for="observacoes" class="form-label">Observações</label>
-                            <textarea class="form-control" id="observacoes" rows="3"
-                                placeholder="Observações adicionais sobre a reserva"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="saveReservation()">
-                        <i class="bi bi-check-circle me-2"></i>Salvar Reserva
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Detalhes da Reserva -->
-    <div class="modal fade" id="detalhesModal" tabindex="-1" aria-labelledby="detalhesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="detalhesModalLabel">
-                        <i class="bi bi-info-circle me-2"></i>Detalhes da Reserva
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="detalhesContent">
-                    <!-- Conteúdo será preenchido dinamicamente -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Confirmação -->
-    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="confirmModalLabel">Confirmar Ação</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="confirmModalBody">
-                    <!-- Conteúdo será preenchido dinamicamente -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="confirmModalAction">Confirmar</button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- Modais serão carregados separadamente -->
