@@ -77,10 +77,10 @@
                                             <i class="bi bi-lock me-2"></i>Senha
                                         </label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="senhaHospede" 
+                                            <input type="password" class="form-control" id="senhaHospede"
                                                    placeholder="Digite sua senha" required>
-                                            <button class="btn btn-outline-secondary" type="button" 
-                                                    onclick="togglePassword('senhaHospede')">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                    data-toggle-password="senhaHospede">
                                                 <i class="bi bi-eye" id="senhaHospede-icon"></i>
                                             </button>
                                         </div>
@@ -95,7 +95,7 @@
                                         <i class="bi bi-box-arrow-in-right me-2"></i>Entrar
                                     </button>
                                     <div class="text-center">
-                                        <a href="#" class="text-decoration-none" onclick="showRegisterModal()">
+                                        <a href="#" class="text-decoration-none" id="showRegisterLink">
                                             Não tem conta? Cadastre-se aqui
                                         </a>
                                     </div>
@@ -117,10 +117,10 @@
                                             <i class="bi bi-lock me-2"></i>Senha
                                         </label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="senhaFuncionario" 
+                                            <input type="password" class="form-control" id="senhaFuncionario"
                                                    placeholder="Digite sua senha" required>
-                                            <button class="btn btn-outline-secondary" type="button" 
-                                                    onclick="togglePassword('senhaFuncionario')">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                    data-toggle-password="senhaFuncionario">
                                                 <i class="bi bi-eye" id="senhaFuncionario-icon"></i>
                                             </button>
                                         </div>
@@ -147,7 +147,7 @@
                         <div class="login-footer mt-4 pt-3 border-top">
                             <div class="row text-center">
                                 <div class="col-6">
-                                    <a href="#" class="text-decoration-none small" onclick="showForgotPassword()">
+                                    <a href="#" class="text-decoration-none small" id="showForgotPasswordLink">
                                         <i class="bi bi-question-circle me-1"></i>Esqueci a senha
                                     </a>
                                 </div>

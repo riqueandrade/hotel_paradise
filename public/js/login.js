@@ -302,17 +302,43 @@ function setupEvents() {
             // Limpar formulários ao trocar de tab
             const forms = document.querySelectorAll('.login-form');
             forms.forEach(form => form.reset());
-            
+
             // Limpar validações
             const invalidInputs = document.querySelectorAll('.is-invalid');
             invalidInputs.forEach(input => {
                 input.classList.remove('is-invalid');
             });
-            
+
             const feedbacks = document.querySelectorAll('.invalid-feedback');
             feedbacks.forEach(feedback => feedback.remove());
         });
     });
+
+    // Configurar botões de toggle de senha
+    const toggleButtons = document.querySelectorAll('[data-toggle-password]');
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const inputId = this.getAttribute('data-toggle-password');
+            togglePassword(inputId);
+        });
+    });
+
+    // Configurar links
+    const registerLink = document.getElementById('showRegisterLink');
+    if (registerLink) {
+        registerLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showRegisterModal();
+        });
+    }
+
+    const forgotPasswordLink = document.getElementById('showForgotPasswordLink');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            showForgotPassword();
+        });
+    }
 }
 
 function checkUrlParams() {
