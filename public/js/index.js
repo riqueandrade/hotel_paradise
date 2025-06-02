@@ -364,6 +364,9 @@ function setupEventListeners() {
         contatoForm.addEventListener('submit', handleContatoSubmit);
     }
 
+    // Botões de contato
+    setupContactButtons();
+
     // Formulários de login
     const loginHospedeForm = document.getElementById('loginHospedeForm');
     if (loginHospedeForm) {
@@ -1501,6 +1504,163 @@ function generateBookingSummary() {
             </small>
         </div>
     `;
+}
+
+// ===== SEÇÃO DE CONTATO MODERNIZADA =====
+
+// Configurar botões de contato
+function setupContactButtons() {
+    // Botão do mapa
+    const openMapBtn = document.getElementById('openMapBtn');
+    if (openMapBtn) {
+        openMapBtn.addEventListener('click', openGoogleMaps);
+    }
+
+    // Botão de ligar
+    const callBtn = document.getElementById('callBtn');
+    if (callBtn) {
+        callBtn.addEventListener('click', makePhoneCall);
+    }
+
+    // Botão do WhatsApp
+    const whatsappBtn = document.getElementById('whatsappBtn');
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', openWhatsApp);
+    }
+
+    // Botão de email
+    const emailBtn = document.getElementById('emailBtn');
+    if (emailBtn) {
+        emailBtn.addEventListener('click', openEmailClient);
+    }
+
+    // Botão expandir mapa
+    const expandMapBtn = document.getElementById('expandMapBtn');
+    if (expandMapBtn) {
+        expandMapBtn.addEventListener('click', openGoogleMaps);
+    }
+
+    // Links das redes sociais
+    setupSocialLinks();
+}
+
+// Abrir Google Maps
+function openGoogleMaps() {
+    const address = 'Rua Principal, 123, Centro Histórico, Rio Negro, PR, CEP 83880-000';
+    const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(address)}`;
+    window.open(mapsUrl, '_blank');
+    showAlert('Abrindo localização no Google Maps...', 'info');
+}
+
+// Fazer ligação telefônica
+function makePhoneCall() {
+    const phoneNumber = 'tel:+5547364412345';
+    window.location.href = phoneNumber;
+    showAlert('Iniciando ligação...', 'info');
+}
+
+// Abrir WhatsApp
+function openWhatsApp() {
+    const message = 'Olá! Gostaria de obter informações sobre o Hotel Paradise.';
+    const whatsappUrl = `https://wa.me/5547999999999?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    showAlert('Abrindo WhatsApp...', 'success');
+}
+
+// Abrir cliente de email
+function openEmailClient() {
+    const email = 'contato@hotelparadise.com.br';
+    const subject = 'Contato - Hotel Paradise';
+    const body = 'Olá,\n\nGostaria de obter informações sobre o Hotel Paradise.\n\nAguardo retorno.\n\nAtenciosamente,';
+    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoUrl;
+    showAlert('Abrindo cliente de email...', 'info');
+}
+
+// Configurar links das redes sociais
+function setupSocialLinks() {
+    const socialLinks = document.querySelectorAll('.social-link');
+
+    socialLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if (this.classList.contains('facebook')) {
+                window.open('https://facebook.com/hotelparadise', '_blank');
+                showAlert('Abrindo Facebook...', 'info');
+            } else if (this.classList.contains('instagram')) {
+                window.open('https://instagram.com/hotelparadise', '_blank');
+                showAlert('Abrindo Instagram...', 'info');
+            } else if (this.classList.contains('whatsapp')) {
+                openWhatsApp();
+            } else if (this.classList.contains('email')) {
+                openEmailClient();
+            }
+        });
+    });
+}
+
+// Atualizar função de envio do formulário de contato
+function handleContatoSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const dados = {
+        nome: formData.get('nome'),
+        email: formData.get('email'),
+        telefone: formData.get('telefone'),
+        assunto: formData.get('assunto'),
+        mensagem: formData.get('mensagem')
+    };
+
+    // Validação
+    if (!dados.nome || !dados.email || !dados.assunto || !dados.mensagem) {
+        showAlert('Por favor, preencha todos os campos obrigatórios.', 'warning');
+        return;
+    }
+
+    // Validação de email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(dados.email)) {
+        showAlert('Por favor, insira um email válido.', 'warning');
+        return;
+    }
+
+    // Simular envio
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Enviando...';
+
+    setTimeout(() => {
+        // Resetar formulário
+        e.target.reset();
+
+        // Restaurar botão
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+
+        // Mostrar sucesso
+        showAlert('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
+
+        // Opcional: Abrir WhatsApp com a mensagem
+        const whatsappMessage = `Olá! Meu nome é ${dados.nome}.
+
+Assunto: ${dados.assunto}
+Email: ${dados.email}
+${dados.telefone ? `Telefone: ${dados.telefone}` : ''}
+
+Mensagem: ${dados.mensagem}`;
+
+        setTimeout(() => {
+            if (confirm('Gostaria de também enviar esta mensagem via WhatsApp para um atendimento mais rápido?')) {
+                const whatsappUrl = `https://wa.me/5547999999999?text=${encodeURIComponent(whatsappMessage)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        }, 2000);
+
+    }, 2000);
 }
 
 console.log('🏨 Hotel Paradise - Landing Page carregada com sucesso!');

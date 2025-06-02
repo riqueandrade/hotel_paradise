@@ -626,66 +626,253 @@
     </section>
 
     <!-- Contato -->
-    <section id="contato" class="py-5 bg-primary text-white">
+    <section id="contato" class="py-5 bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="display-6 fw-bold mb-4">Entre em Contato</h2>
-                    <div class="contact-info">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-geo-alt-fill fs-4 me-3"></i>
-                            <div>
-                                <strong>Endereço:</strong><br>
-                                Rua Principal, 123 - Centro Histórico<br>
-                                Rio Negro, PR - CEP 83880-000
+            <!-- Header da Seção -->
+            <div class="text-center mb-5">
+                <div class="d-inline-block">
+                    <span class="badge bg-primary text-white px-3 py-2 rounded-pill mb-3">
+                        <i class="bi bi-telephone-heart me-2"></i>Entre em Contato
+                    </span>
+                </div>
+                <h2 class="display-5 fw-bold mb-3">Fale Conosco</h2>
+                <p class="lead text-muted">Estamos aqui para tornar sua estadia inesquecível</p>
+            </div>
+
+            <!-- Contact Grid -->
+            <div class="row g-4 mb-5">
+                <!-- Contact Cards -->
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        <!-- Endereço -->
+                        <div class="col-md-6">
+                            <div class="contact-card h-100">
+                                <div class="contact-card-icon">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                </div>
+                                <div class="contact-card-content">
+                                    <h5>Localização</h5>
+                                    <p class="text-muted mb-2">Visite-nos no coração histórico</p>
+                                    <div class="contact-details">
+                                        <strong>Rua Principal, 123</strong><br>
+                                        <span>Centro Histórico</span><br>
+                                        <span>Rio Negro, PR - CEP 83880-000</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm mt-3" id="openMapBtn">
+                                        <i class="bi bi-map me-2"></i>Ver no Mapa
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-telephone-fill fs-4 me-3"></i>
-                            <div>
-                                <strong>Telefone:</strong><br>
-                                (47) 3644-0000
+
+                        <!-- Telefone -->
+                        <div class="col-md-6">
+                            <div class="contact-card h-100">
+                                <div class="contact-card-icon">
+                                    <i class="bi bi-telephone-fill"></i>
+                                </div>
+                                <div class="contact-card-content">
+                                    <h5>Telefone</h5>
+                                    <p class="text-muted mb-2">Ligue para nós a qualquer hora</p>
+                                    <div class="contact-details">
+                                        <strong>(47) 3644-1234</strong><br>
+                                        <span>Recepção 24h</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm mt-3" id="callBtn">
+                                        <i class="bi bi-telephone me-2"></i>Ligar Agora
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-envelope-fill fs-4 me-3"></i>
-                            <div>
-                                <strong>E-mail:</strong><br>
-                                contato@hotelparadise.com.br
+
+                        <!-- WhatsApp -->
+                        <div class="col-md-6">
+                            <div class="contact-card h-100">
+                                <div class="contact-card-icon whatsapp">
+                                    <i class="bi bi-whatsapp"></i>
+                                </div>
+                                <div class="contact-card-content">
+                                    <h5>WhatsApp</h5>
+                                    <p class="text-muted mb-2">Atendimento rápido e direto</p>
+                                    <div class="contact-details">
+                                        <strong>(47) 99999-9999</strong><br>
+                                        <span>Disponível 24h</span>
+                                    </div>
+                                    <button class="btn btn-success btn-sm mt-3" id="whatsappBtn">
+                                        <i class="bi bi-whatsapp me-2"></i>Conversar
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-clock-fill fs-4 me-3"></i>
-                            <div>
-                                <strong>Atendimento:</strong><br>
-                                24 horas por dia, 7 dias por semana
+
+                        <!-- Email -->
+                        <div class="col-md-6">
+                            <div class="contact-card h-100">
+                                <div class="contact-card-icon">
+                                    <i class="bi bi-envelope-fill"></i>
+                                </div>
+                                <div class="contact-card-content">
+                                    <h5>E-mail</h5>
+                                    <p class="text-muted mb-2">Envie sua mensagem</p>
+                                    <div class="contact-details">
+                                        <strong>contato@hotelparadise.com.br</strong><br>
+                                        <span>Resposta em até 2h</span>
+                                    </div>
+                                    <button class="btn btn-outline-primary btn-sm mt-3" id="emailBtn">
+                                        <i class="bi bi-envelope me-2"></i>Enviar Email
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title text-dark">Envie uma Mensagem</h5>
-                            <form id="contatoForm">
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Seu Nome" required>
+
+                <!-- Mapa e Horários -->
+                <div class="col-lg-4">
+                    <div class="contact-sidebar">
+                        <!-- Mapa -->
+                        <div class="map-container mb-4">
+                            <div class="map-placeholder">
+                                <div class="map-overlay">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <h6>Hotel Paradise</h6>
+                                    <p>Rio Negro, PR</p>
+                                    <button class="btn btn-light btn-sm" id="expandMapBtn">
+                                        <i class="bi bi-arrows-fullscreen me-2"></i>Ver Mapa Completo
+                                    </button>
                                 </div>
-                                <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Seu E-mail" required>
-                                </div>
-                                <div class="mb-3">
-                                    <input type="tel" class="form-control" placeholder="Seu Telefone">
-                                </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control" rows="4" placeholder="Sua Mensagem"
-                                        required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">
-                                    <i class="bi bi-send"></i> Enviar Mensagem
-                                </button>
-                            </form>
+                            </div>
                         </div>
+
+                        <!-- Horários e Serviços -->
+                        <div class="services-info">
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-clock me-2"></i>Horários de Atendimento
+                            </h6>
+                            <div class="service-item">
+                                <div class="d-flex justify-content-between">
+                                    <span>Recepção</span>
+                                    <strong>24h</strong>
+                                </div>
+                            </div>
+                            <div class="service-item">
+                                <div class="d-flex justify-content-between">
+                                    <span>Check-in</span>
+                                    <strong>14:00</strong>
+                                </div>
+                            </div>
+                            <div class="service-item">
+                                <div class="d-flex justify-content-between">
+                                    <span>Check-out</span>
+                                    <strong>12:00</strong>
+                                </div>
+                            </div>
+                            <div class="service-item">
+                                <div class="d-flex justify-content-between">
+                                    <span>Café da Manhã</span>
+                                    <strong>06:00 - 10:00</strong>
+                                </div>
+                            </div>
+
+                            <hr class="my-3">
+
+                            <h6 class="fw-bold mb-3">
+                                <i class="bi bi-share me-2"></i>Redes Sociais
+                            </h6>
+                            <div class="social-links">
+                                <a href="#" class="social-link facebook" title="Facebook">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="#" class="social-link instagram" title="Instagram">
+                                    <i class="bi bi-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link whatsapp" title="WhatsApp">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
+                                <a href="#" class="social-link email" title="Email">
+                                    <i class="bi bi-envelope"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulário de Contato -->
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form-container">
+                        <div class="contact-form-header">
+                            <h4>
+                                <i class="bi bi-chat-dots me-2"></i>
+                                Envie uma Mensagem
+                            </h4>
+                            <p>Preencha o formulário abaixo e entraremos em contato em breve</p>
+                        </div>
+
+                        <form id="contatoForm" class="contact-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="nomeContato" name="nome" placeholder="Seu Nome" required>
+                                        <label for="nomeContato">
+                                            <i class="bi bi-person me-2"></i>Nome Completo
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="emailContato" name="email" placeholder="Seu E-mail" required>
+                                        <label for="emailContato">
+                                            <i class="bi bi-envelope me-2"></i>E-mail
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" id="telefoneContato" name="telefone" placeholder="Seu Telefone">
+                                        <label for="telefoneContato">
+                                            <i class="bi bi-telephone me-2"></i>Telefone (opcional)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <select class="form-select" id="assuntoContato" name="assunto" required>
+                                            <option value="">Selecione...</option>
+                                            <option value="reserva">Reserva</option>
+                                            <option value="informacoes">Informações</option>
+                                            <option value="sugestao">Sugestão</option>
+                                            <option value="reclamacao">Reclamação</option>
+                                            <option value="outro">Outro</option>
+                                        </select>
+                                        <label for="assuntoContato">
+                                            <i class="bi bi-tag me-2"></i>Assunto
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" id="mensagemContato" name="mensagem"
+                                                  placeholder="Sua Mensagem" style="height: 120px" required></textarea>
+                                        <label for="mensagemContato">
+                                            <i class="bi bi-chat-text me-2"></i>Sua Mensagem
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary btn-lg">
+                                            <i class="bi bi-send me-2"></i>Enviar Mensagem
+                                        </button>
+                                        <small class="text-muted ms-3">
+                                            <i class="bi bi-shield-check me-1"></i>
+                                            Seus dados estão seguros conosco
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
