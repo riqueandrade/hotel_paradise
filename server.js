@@ -6,6 +6,9 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 require('dotenv').config();
 
+// Importar banco de dados
+const database = require('./database/database');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -51,6 +54,7 @@ app.get('/', (req, res) => {
 
 // Rotas da API
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/quartos', require('./routes/quartos'));
 app.use('/api/reservas', require('./routes/reservas'));
 app.use('/api', require('./routes/api'));
 
@@ -88,25 +92,43 @@ app.use('*', (req, res) => {
   });
 });
 
-// Inicialização do servidor
-app.listen(PORT, () => {
-  console.log(`
+// Inicialização do servidor com banco de dados
+async function startServer() {
+  try {
+    // Inicializar banco de dados
+    console.log('🔧 Inicializando banco de dados...');
+    await database.initialize();
+
+    // Iniciar servidor
+    app.listen(PORT, () => {
+      console.log(`
 🏨 Hotel Paradise - Sistema de Gestão Hoteleira
 🌐 Servidor rodando em: http://localhost:${PORT}
 📍 Localização: ${process.env.HOTEL_LOCATION}
 🔧 Ambiente: ${process.env.NODE_ENV}
+💾 Banco de dados: Conectado e inicializado
 ⏰ Iniciado em: ${new Date().toLocaleString('pt-BR')}
-  `);
-});
+      `);
+    });
+  } catch (error) {
+    console.error('❌ Erro ao inicializar servidor:', error);
+    process.exit(1);
+  }
+}
+
+// Iniciar servidor
+startServer();
 
 // Tratamento de sinais de encerramento
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async () => {
   console.log('🔄 Recebido SIGTERM. Encerrando servidor graciosamente...');
+  await database.close();
   process.exit(0);
 });
 
-process.on('SIGINT', () => {
+process.on('SIGINT', async () => {
   console.log('🔄 Recebido SIGINT. Encerrando servidor graciosamente...');
+  await database.close();
   process.exit(0);
 });
 

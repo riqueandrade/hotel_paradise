@@ -1,6 +1,6 @@
 # Memória de Desenvolvimento - Hotel Paradise
 
-## 📅 Data de Atualização: 02/06/2025
+## 📅 Data de Atualização: 02/06/2025 - 10:30
 
 ## ✅ O que foi feito
 
@@ -23,10 +23,11 @@
    - ✅ Rotas básicas configuradas
 
 4. **Banco de Dados SQLite**
-   - ✅ Schema completo criado (database/schema.sql)
+   - ✅ Schema completo criado e otimizado (database/schema_sqlite.sql)
    - ✅ Tabelas: usuarios, clientes, quartos, reservas, funcionarios, estoque, etc.
    - ✅ Relacionamentos e índices definidos
    - ✅ Dados iniciais de exemplo inseridos
+   - ✅ Compatibilidade SQLite com CHECK constraints ao invés de ENUM
 
 5. **Landing Page Completa**
    - ✅ index.html criado com design responsivo
@@ -114,37 +115,58 @@
 - [x] Redes sociais integradas com links funcionais
 - [x] Correção de problemas JavaScript nos event listeners
 
+### ✅ RECÉM CONCLUÍDO - Fase 2 Parcial:
+- [x] **Integração com Banco de Dados SQLite** - IMPLEMENTADA
+  - ✅ Conexão com SQLite configurada e funcional (database/database.js)
+  - ✅ Schema compatível com SQLite criado (schema_sqlite.sql)
+  - ✅ Models implementados: Usuario, Cliente, Quarto, Reserva, BaseModel
+  - ✅ Banco de dados inicializado automaticamente no startup
+  - ✅ Dados de exemplo inseridos (usuários e quartos)
+  - ✅ WAL mode configurado para melhor performance
+  - ✅ Schema original removido para limpeza da estrutura
+
+- [x] **Sistema de Autenticação JWT** - IMPLEMENTADO
+  - ✅ AuthController completo com login/registro/verificação
+  - ✅ Middleware de autenticação implementado
+  - ✅ Níveis de acesso: hóspede, recepcionista, administrador
+  - ✅ Hash de senhas com bcryptjs
+  - ✅ Tokens JWT funcionais
+
+- [x] **API REST Funcional** - PARCIALMENTE IMPLEMENTADA
+  - ✅ Rotas de autenticação: /api/auth/*
+  - ✅ Rotas de quartos: /api/quartos/* (CRUD completo)
+  - ✅ Controllers implementados: AuthController, QuartoController
+  - ✅ Validação de dados e tratamento de erros
+  - ✅ Testado e funcionando
+
 ### 🔄 EM DESENVOLVIMENTO:
-- [ ] Integração com banco de dados
-- [ ] Sistema de autenticação JWT
-- [ ] API REST completa
+- [ ] Controllers de Reservas e Clientes
 - [ ] Dashboard administrativo
+- [ ] Interface frontend conectada à API
 
 ### 📋 PRÓXIMAS ETAPAS:
 
-#### Fase 2: Módulos Core
-1. **Integração com Banco de Dados**
-   - Conectar SQLite ao servidor
-   - Implementar models (User, Cliente, Quarto, Reserva)
-   - Criar controllers para CRUD
+#### Fase 2: Completar Módulos Core (Restante)
+1. **Controllers Restantes** - PRÓXIMO PASSO
+   - Implementar ReservaController completo
+   - Implementar ClienteController completo
+   - Conectar rotas de reservas aos controllers
 
-2. **Sistema de Autenticação**
-   - Implementar JWT completo
-   - Hash de senhas com bcrypt
-   - Middleware de autenticação
-   - Níveis de acesso (hóspede, recepcionista, admin)
-
-3. **API REST Funcional**
-   - Endpoints para quartos
-   - Endpoints para reservas
-   - Endpoints para clientes
-   - Validação de dados
-
-4. **Dashboard Administrativo**
-   - Página de login funcional
+2. **Dashboard Administrativo**
+   - Páginas de administração HTML
    - Interface para gestão de quartos
    - Interface para gestão de reservas
    - Interface para gestão de clientes
+
+3. **Integração Frontend-Backend**
+   - Conectar formulários da landing page à API
+   - Sistema de reservas funcional
+   - Login/logout funcional nos modais
+
+4. **Testes e Validação**
+   - Testes das APIs implementadas
+   - Validação de fluxos completos
+   - Correção de bugs encontrados
 
 ## 🚀 Comandos para Testar
 
@@ -165,13 +187,15 @@ http://localhost:3000
 ## 📝 Observações Importantes
 
 1. **Imagens**: ✅ Imagens reais de Rio Negro, PR + Unsplash - Autenticidade garantida
-2. **Banco**: Schema criado, mas conexão ainda não implementada
-3. **API**: Rotas criadas mas retornam mensagens temporárias
-4. **Testes**: Necessário implementar testes unitários
-5. **Deploy**: Configuração de produção pendente
-6. **Performance**: Imagens otimizadas com parâmetros de qualidade e tamanho
-7. **Redes Sociais**: ✅ Links funcionais para contato real do desenvolvedor
-8. **JavaScript**: ✅ Event listeners corrigidos para não sobrescrever links HTML
+2. **Banco**: ✅ SQLite conectado e funcional com dados de exemplo
+3. **API**: ✅ APIs de autenticação e quartos funcionais e testadas
+4. **Models**: ✅ Sistema completo de models com BaseModel para reutilização
+5. **Autenticação**: ✅ JWT implementado com níveis de acesso
+6. **Testes**: ✅ APIs testadas via HTTP requests - funcionando
+7. **Deploy**: Configuração de produção pendente
+8. **Performance**: Imagens otimizadas com parâmetros de qualidade e tamanho
+9. **Redes Sociais**: ✅ Links funcionais para contato real do desenvolvedor
+10. **JavaScript**: ✅ Event listeners corrigidos para não sobrescrever links HTML
 
 ## 🔧 Configurações Técnicas
 
@@ -183,5 +207,53 @@ http://localhost:3000
 
 ---
 
-**Última Atualização**: 02/06/2025 - Footer modernizado e redes sociais funcionais
-**Próxima Atualização**: Após implementação da Fase 2 (Módulos Core)
+**Última Atualização**: 02/06/2025 - 10:30 - Integração com banco de dados e autenticação JWT implementadas
+**Próxima Atualização**: Após implementação dos controllers restantes (Reservas e Clientes)
+
+## 🎯 APIs Funcionais Implementadas
+
+### Autenticação (/api/auth)
+- `POST /api/auth/login/hospede` - Login de hóspedes
+- `POST /api/auth/login/funcionario` - Login de funcionários
+- `POST /api/auth/register/hospede` - Cadastro de hóspedes
+- `GET /api/auth/verify` - Verificar token
+- `POST /api/auth/logout` - Logout
+- `GET /api/auth/me` - Dados do usuário autenticado
+
+### Quartos (/api/quartos)
+- `GET /api/quartos/available` - Quartos disponíveis ✅ TESTADO
+- `GET /api/quartos/types` - Tipos de quartos ✅ TESTADO
+- `GET /api/quartos/search` - Busca com filtros
+- `GET /api/quartos` - Listar quartos
+- `GET /api/quartos/:id` - Detalhes do quarto
+- `POST /api/quartos` - Criar quarto (admin)
+- `PUT /api/quartos/:id` - Atualizar quarto (admin)
+- `DELETE /api/quartos/:id` - Deletar quarto (admin)
+
+## 📁 Arquivos Implementados na Fase 2
+
+### Database
+- `database/database.js` - Classe de conexão SQLite com WAL mode
+- `database/schema_sqlite.sql` - Schema otimizado para SQLite
+- `database/hotel.sqlite` - Banco de dados (gerado automaticamente)
+
+### Models
+- `models/BaseModel.js` - Model base com CRUD genérico
+- `models/Usuario.js` - Model de usuários com autenticação JWT
+- `models/Cliente.js` - Model de clientes com validação CPF
+- `models/Quarto.js` - Model de quartos com disponibilidade
+- `models/Reserva.js` - Model de reservas com controle de datas
+
+### Controllers
+- `controllers/AuthController.js` - Autenticação completa
+- `controllers/QuartoController.js` - CRUD de quartos
+
+### Middleware
+- `middleware/auth.js` - Autenticação e autorização JWT
+
+### Routes
+- `routes/auth.js` - Rotas de autenticação (atualizada)
+- `routes/quartos.js` - Rotas de quartos (nova)
+
+### Server
+- `server.js` - Atualizado com inicialização automática do banco

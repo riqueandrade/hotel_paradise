@@ -1,4 +1,4 @@
--- Schema do Banco de Dados - Hotel Paradise
+-- Schema do Banco de Dados - Hotel Paradise (SQLite Compatible)
 -- Sistema de Gestão Hoteleira para Rio Negro, Paraná
 
 -- Tabela de Usuários (Funcionários e Hóspedes)
@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     senha_hash VARCHAR(255) NOT NULL,
-    tipo_usuario ENUM('hospede', 'recepcionista', 'administrador') NOT NULL DEFAULT 'hospede',
-    ativo BOOLEAN DEFAULT 1,
+    tipo_usuario TEXT NOT NULL DEFAULT 'hospede' CHECK (tipo_usuario IN ('hospede', 'recepcionista', 'administrador')),
+    ativo INTEGER DEFAULT 1,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS clientes (
     rg VARCHAR(20),
     data_nascimento DATE,
     nacionalidade VARCHAR(50) DEFAULT 'Brasileira',
-    estado_civil ENUM('solteiro', 'casado', 'divorciado', 'viuvo', 'uniao_estavel'),
+    estado_civil TEXT CHECK (estado_civil IN ('solteiro', 'casado', 'divorciado', 'viuvo', 'uniao_estavel')),
     profissao VARCHAR(100),
     
     -- Contato
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS clientes (
     -- Informações de viagem
     cidade_origem VARCHAR(100),
     estado_origem VARCHAR(2),
-    motivo_visita ENUM('turismo', 'trabalho', 'evento', 'familia', 'outros') DEFAULT 'turismo',
+    motivo_visita TEXT DEFAULT 'turismo' CHECK (motivo_visita IN ('turismo', 'trabalho', 'evento', 'familia', 'outros')),
     
     -- Observações e preferências
     observacoes TEXT,
@@ -59,26 +59,26 @@ CREATE TABLE IF NOT EXISTS quartos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     numero VARCHAR(10) UNIQUE NOT NULL,
     andar INTEGER,
-    tipo ENUM('casal', 'suite', 'casal_solteiro', 'familia') NOT NULL,
+    tipo TEXT NOT NULL CHECK (tipo IN ('casal', 'suite', 'casal_solteiro', 'familia')),
     capacidade_maxima INTEGER NOT NULL,
-    preco_diaria DECIMAL(10,2) NOT NULL,
+    preco_diaria REAL NOT NULL,
     
     -- Características
-    tem_sacada BOOLEAN DEFAULT 0,
-    tem_frigobar BOOLEAN DEFAULT 0,
-    tem_ar_condicionado BOOLEAN DEFAULT 1,
-    tem_tv BOOLEAN DEFAULT 1,
-    tem_wifi BOOLEAN DEFAULT 1,
-    vista ENUM('cidade', 'jardim', 'montanha', 'interna') DEFAULT 'interna',
+    tem_sacada INTEGER DEFAULT 0,
+    tem_frigobar INTEGER DEFAULT 0,
+    tem_ar_condicionado INTEGER DEFAULT 1,
+    tem_tv INTEGER DEFAULT 1,
+    tem_wifi INTEGER DEFAULT 1,
+    vista TEXT DEFAULT 'interna' CHECK (vista IN ('cidade', 'jardim', 'montanha', 'interna')),
     
     -- Status
-    status ENUM('disponivel', 'ocupado', 'manutencao', 'limpeza') DEFAULT 'disponivel',
+    status TEXT DEFAULT 'disponivel' CHECK (status IN ('disponivel', 'ocupado', 'manutencao', 'limpeza')),
     
     -- Descrição e fotos
     descricao TEXT,
     fotos TEXT, -- JSON array com URLs das fotos
     
-    ativo BOOLEAN DEFAULT 1,
+    ativo INTEGER DEFAULT 1,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -95,18 +95,18 @@ CREATE TABLE IF NOT EXISTS reservas (
     data_reserva DATETIME DEFAULT CURRENT_TIMESTAMP,
     
     -- Valores
-    valor_diaria DECIMAL(10,2) NOT NULL,
+    valor_diaria REAL NOT NULL,
     numero_diarias INTEGER NOT NULL,
-    valor_total DECIMAL(10,2) NOT NULL,
-    valor_pago DECIMAL(10,2) DEFAULT 0,
+    valor_total REAL NOT NULL,
+    valor_pago REAL DEFAULT 0,
     
     -- Status
-    status ENUM('pendente', 'confirmada', 'checkin', 'checkout', 'cancelada') DEFAULT 'pendente',
+    status TEXT DEFAULT 'pendente' CHECK (status IN ('pendente', 'confirmada', 'checkin', 'checkout', 'cancelada')),
     
     -- Informações adicionais
     numero_hospedes INTEGER DEFAULT 1,
     observacoes TEXT,
-    forma_pagamento ENUM('dinheiro', 'cartao_credito', 'cartao_debito', 'pix', 'transferencia'),
+    forma_pagamento TEXT CHECK (forma_pagamento IN ('dinheiro', 'cartao_credito', 'cartao_debito', 'pix', 'transferencia')),
     
     -- Controle
     checkin_realizado DATETIME,
@@ -144,8 +144,8 @@ CREATE TABLE IF NOT EXISTS funcionarios (
     cep VARCHAR(10),
     
     -- Informações profissionais
-    cargo ENUM('recepcionista', 'camareira', 'manutencao', 'administrador', 'gerente') NOT NULL,
-    salario DECIMAL(10,2),
+    cargo TEXT NOT NULL CHECK (cargo IN ('recepcionista', 'camareira', 'manutencao', 'administrador', 'gerente')),
+    salario REAL,
     data_admissao DATE,
     data_demissao DATE,
     
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS funcionarios (
     experiencia_anterior TEXT,
     avaliacoes TEXT, -- JSON com avaliações dos hóspedes
     
-    ativo BOOLEAN DEFAULT 1,
+    ativo INTEGER DEFAULT 1,
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_atualizacao DATETIME DEFAULT CURRENT_TIMESTAMP,
     
@@ -164,11 +164,11 @@ CREATE TABLE IF NOT EXISTS funcionarios (
 CREATE TABLE IF NOT EXISTS estoque (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome_produto VARCHAR(100) NOT NULL,
-    categoria ENUM('cafe_manha', 'limpeza', 'cha_tarde', 'frigobar', 'manutencao', 'outros') NOT NULL,
-    unidade_medida ENUM('unidade', 'kg', 'litro', 'pacote', 'caixa') DEFAULT 'unidade',
+    categoria TEXT NOT NULL CHECK (categoria IN ('cafe_manha', 'limpeza', 'cha_tarde', 'frigobar', 'manutencao', 'outros')),
+    unidade_medida TEXT DEFAULT 'unidade' CHECK (unidade_medida IN ('unidade', 'kg', 'litro', 'pacote', 'caixa')),
     quantidade_atual INTEGER DEFAULT 0,
     quantidade_minima INTEGER DEFAULT 5,
-    preco_unitario DECIMAL(10,2),
+    preco_unitario REAL,
     fornecedor VARCHAR(100),
     
     data_criacao DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS estoque (
 CREATE TABLE IF NOT EXISTS movimentacao_estoque (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     produto_id INTEGER NOT NULL,
-    tipo_movimentacao ENUM('entrada', 'saida') NOT NULL,
+    tipo_movimentacao TEXT NOT NULL CHECK (tipo_movimentacao IN ('entrada', 'saida')),
     quantidade INTEGER NOT NULL,
     motivo VARCHAR(200),
     funcionario_id INTEGER,
@@ -197,8 +197,8 @@ CREATE TABLE IF NOT EXISTS consumo_hospedes (
     produto_id INTEGER,
     descricao_servico VARCHAR(200),
     quantidade INTEGER DEFAULT 1,
-    valor_unitario DECIMAL(10,2) NOT NULL,
-    valor_total DECIMAL(10,2) NOT NULL,
+    valor_unitario REAL NOT NULL,
+    valor_total REAL NOT NULL,
     
     data_consumo DATETIME DEFAULT CURRENT_TIMESTAMP,
     
