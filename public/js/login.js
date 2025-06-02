@@ -198,7 +198,7 @@ function showAlert(message, type) {
     // Remover alertas existentes
     const existingAlerts = document.querySelectorAll('.alert');
     existingAlerts.forEach(alert => alert.remove());
-    
+
     // Criar novo alerta
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
@@ -206,12 +206,36 @@ function showAlert(message, type) {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
+    // Aplicar estilos inline para garantir que funcionem
+    if (type === 'success') {
+        alertDiv.style.backgroundColor = 'rgba(39, 174, 96, 0.1)';
+        alertDiv.style.color = '#27AE60';
+        alertDiv.style.borderLeft = '4px solid #27AE60';
+        alertDiv.style.border = '1px solid rgba(39, 174, 96, 0.3)';
+        alertDiv.style.borderRadius = '8px';
+        alertDiv.style.fontWeight = '500';
+    } else if (type === 'danger') {
+        alertDiv.style.backgroundColor = 'rgba(231, 76, 60, 0.1)';
+        alertDiv.style.color = '#E74C3C';
+        alertDiv.style.borderLeft = '4px solid #E74C3C';
+        alertDiv.style.border = '1px solid rgba(231, 76, 60, 0.3)';
+        alertDiv.style.borderRadius = '8px';
+        alertDiv.style.fontWeight = '500';
+    } else if (type === 'info') {
+        alertDiv.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+        alertDiv.style.color = '#3498DB';
+        alertDiv.style.borderLeft = '4px solid #3498DB';
+        alertDiv.style.border = '1px solid rgba(52, 152, 219, 0.3)';
+        alertDiv.style.borderRadius = '8px';
+        alertDiv.style.fontWeight = '500';
+    }
+
     // Inserir antes do primeiro formulário
     const loginCard = document.querySelector('.login-card');
     const tabContent = loginCard.querySelector('.tab-content');
     loginCard.insertBefore(alertDiv, tabContent);
-    
+
     // Auto-remover após 5 segundos
     setTimeout(() => {
         if (alertDiv.parentNode) {

@@ -2,6 +2,17 @@
 const Usuario = require('../models/Usuario');
 const Cliente = require('../models/Cliente');
 
+// Função auxiliar para obter permissões
+function getPermissions(tipoUsuario) {
+    const permissions = {
+        hospede: ['view_own_reservations', 'create_reservation', 'view_rooms'],
+        recepcionista: ['view_reservations', 'manage_reservations', 'view_clients', 'manage_clients', 'view_rooms'],
+        administrador: ['full_access']
+    };
+
+    return permissions[tipoUsuario] || [];
+}
+
 class AuthController {
     // Login de hóspedes
     async loginHospede(req, res) {
@@ -110,7 +121,7 @@ class AuthController {
                     tipo_usuario: user.tipo_usuario
                 },
                 token: token,
-                permissions: this.getPermissions(user.tipo_usuario)
+                permissions: getPermissions(user.tipo_usuario)
             });
 
         } catch (error) {
@@ -267,16 +278,7 @@ class AuthController {
         }
     }
 
-    // Obter permissões por tipo de usuário
-    getPermissions(tipoUsuario) {
-        const permissions = {
-            hospede: ['view_own_reservations', 'create_reservation', 'view_rooms'],
-            recepcionista: ['view_reservations', 'manage_reservations', 'view_clients', 'manage_clients', 'view_rooms'],
-            administrador: ['full_access']
-        };
 
-        return permissions[tipoUsuario] || [];
-    }
 
     // Logout (invalidar token - implementação futura com blacklist)
     async logout(req, res) {
