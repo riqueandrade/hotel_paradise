@@ -370,16 +370,7 @@ function setupEventListeners() {
     // Footer links
     setupFooterLinks();
 
-    // Formulários de login
-    const loginHospedeForm = document.getElementById('loginHospedeForm');
-    if (loginHospedeForm) {
-        loginHospedeForm.addEventListener('submit', handleLoginHospede);
-    }
 
-    const loginFuncionarioForm = document.getElementById('loginFuncionarioForm');
-    if (loginFuncionarioForm) {
-        loginFuncionarioForm.addEventListener('submit', handleLoginFuncionario);
-    }
 }
 
 // Verificar disponibilidade de quartos
@@ -726,23 +717,7 @@ async function handleContatoSubmit(e) {
     e.target.reset();
 }
 
-async function handleLoginHospede(e) {
-    e.preventDefault();
-    const email = document.getElementById('emailHospede').value;
-    const senha = document.getElementById('senhaHospede').value;
-    
-    // Simular login
-    showAlert('Funcionalidade em desenvolvimento. Área do cliente será implementada em breve!', 'info');
-}
 
-async function handleLoginFuncionario(e) {
-    e.preventDefault();
-    const email = document.getElementById('emailFuncionario').value;
-    const senha = document.getElementById('senhaFuncionario').value;
-    
-    // Simular login
-    showAlert('Funcionalidade em desenvolvimento. Sistema de funcionários será implementado em breve!', 'info');
-}
 
 // Configurar validação de formulários
 function setupFormValidation() {
