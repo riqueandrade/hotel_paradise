@@ -171,41 +171,131 @@ async function loadDashboardData() {
     }
 }
 
-// ===== ATUALIZAÇÃO DE ESTATÍSTICAS =====
+// ===== ATUALIZAÇÃO DE ESTATÍSTICAS - DADOS REAIS =====
 function updateStatistics() {
     const { quartos, reservas, clientes } = dashboardData;
-    
-    // Estatísticas de quartos
+
+    // Calcular taxa de ocupação real
     if (quartos && quartos.statistics) {
         const stats = quartos.statistics;
-        document.getElementById('totalQuartos').textContent = stats.total_quartos || 0;
-        document.getElementById('quartosDisponiveis').textContent = `${stats.disponiveis || 0} disponíveis`;
+        const total = stats.total_quartos || 1;
+        const ocupados = stats.ocupados || 0;
+        const taxaOcupacao = Math.round((ocupados / total) * 100);
+
+        // Atualizar taxa de ocupação
+        document.getElementById('taxaOcupacao').textContent = `${taxaOcupacao}%`;
+        document.getElementById('quartosDisponiveis').textContent = `${stats.disponiveis || 0} quartos disponíveis`;
+
+        // Calcular tendência baseada na taxa de ocupação
+        const ocupacaoIdeal = 75; // Meta de 75% de ocupação
+        const diferenca = taxaOcupacao - ocupacaoIdeal;
+        updateRealTrendIndicator('quartosIcon', 'quartosChange', diferenca, 'ocupação', taxaOcupacao);
     }
-    
-    // Estatísticas de reservas
-    if (reservas && reservas.statistics) {
-        const stats = reservas.statistics;
-        const ativas = (stats.confirmadas || 0) + (stats.checkins || 0);
-        document.getElementById('totalReservas').textContent = ativas;
-        document.getElementById('reservasHoje').textContent = `${dashboardData.reservasHoje?.total || 0} hoje`;
-    }
-    
-    // Estatísticas de clientes
-    if (clientes && clientes.statistics) {
-        const stats = clientes.statistics;
-        document.getElementById('totalClientes').textContent = stats.total_clientes || 0;
-        document.getElementById('clientesAtivos').textContent = `${stats.total_clientes || 0} ativos`;
-    }
-    
-    // Receita
+
+    // Estatísticas de receita real
     if (reservas && reservas.statistics) {
         const stats = reservas.statistics;
         const receita = stats.receita_total || 0;
         const ticket = stats.ticket_medio || 0;
-        
+
         document.getElementById('receitaTotal').textContent = formatCurrency(receita);
-        document.getElementById('ticketMedio').textContent = `Ticket: ${formatCurrency(ticket)}`;
+        document.getElementById('ticketMedio').textContent = `Ticket médio: ${formatCurrency(ticket)}`;
+
+        // Mostrar status da receita
+        const metaReceita = 30000; // Meta mensal de R$ 30.000
+        const diferenca = receita - metaReceita;
+        updateRealTrendIndicator('receitaIcon', 'receitaChange', diferenca, 'receita', receita);
     }
+
+    // Estatísticas de reservas reais
+    if (reservas && reservas.statistics) {
+        const stats = reservas.statistics;
+        const ativas = (stats.confirmadas || 0) + (stats.checkins || 0);
+        const checkins = dashboardData.reservasHoje?.total || 0;
+
+        document.getElementById('totalReservas').textContent = ativas;
+        document.getElementById('reservasHoje').textContent = `${checkins} check-ins hoje`;
+
+        // Status das reservas
+        const metaReservas = 50; // Meta de 50 reservas ativas
+        const diferenca = ativas - metaReservas;
+        updateRealTrendIndicator('reservasIcon', 'reservasChange', diferenca, 'reservas', ativas);
+    }
+
+    // Estatísticas de clientes cadastrados
+    if (clientes && clientes.statistics) {
+        const statsClientes = clientes.statistics;
+        const totalClientes = statsClientes.total_clientes || 0;
+
+        document.getElementById('totalClientes').textContent = totalClientes;
+
+        // Calcular hóspedes ativos baseado em quartos ocupados
+        const hospedesAtivos = quartos && quartos.statistics ?
+            (quartos.statistics.ocupados || 0) * 2 : 0; // Estimativa: 2 pessoas por quarto ocupado
+
+        document.getElementById('clientesAtivos').textContent = `${hospedesAtivos} hóspedes no hotel`;
+
+        // Status baseado no número de clientes cadastrados (não hóspedes ativos)
+        const metaClientes = 100; // Meta de 100 clientes cadastrados
+        const diferenca = totalClientes - metaClientes;
+        updateRealTrendIndicator('clientesIcon', 'clientesChange', diferenca, 'clientes', totalClientes);
+    }
+}
+
+// Função para atualizar indicadores baseados em dados reais
+function updateRealTrendIndicator(iconId, changeId, diferenca, tipo, valorAtual = 0) {
+    const iconElement = document.getElementById(iconId);
+    const changeElement = document.getElementById(changeId);
+
+    if (!iconElement || !changeElement) return;
+
+    let statusText = '';
+    let isPositive = false;
+    let isNeutral = false;
+
+    // Se não há dados ainda (valor atual é 0), mostrar estado neutro
+    if (valorAtual === 0) {
+        isNeutral = true;
+        statusText = 'Sem dados';
+    }
+    // Determinar status baseado na diferença com a meta
+    else if (diferenca > 0) {
+        isPositive = true;
+        if (tipo === 'ocupação') {
+            statusText = `+${Math.abs(diferenca)}%`;
+        } else if (tipo === 'receita') {
+            statusText = `+R$ ${Math.abs(diferenca).toLocaleString('pt-BR')}`;
+        } else {
+            statusText = `+${Math.abs(diferenca)}`;
+        }
+    } else if (diferenca < 0) {
+        isPositive = false;
+        if (tipo === 'ocupação') {
+            statusText = `-${Math.abs(diferenca)}%`;
+        } else if (tipo === 'receita') {
+            statusText = `-R$ ${Math.abs(diferenca).toLocaleString('pt-BR')}`;
+        } else {
+            statusText = `-${Math.abs(diferenca)}`;
+        }
+    } else {
+        isNeutral = true;
+        statusText = 'Meta atingida';
+    }
+
+    // Atualizar ícone baseado no status
+    if (isNeutral) {
+        iconElement.className = 'bi bi-dash-circle stat-trend-icon stat-trend-neutral';
+        changeElement.className = 'stat-change neutral';
+    } else if (isPositive) {
+        iconElement.className = 'bi bi-arrow-up-right stat-trend-icon stat-trend-up';
+        changeElement.className = 'stat-change positive';
+    } else {
+        iconElement.className = 'bi bi-arrow-down-left stat-trend-icon stat-trend-down';
+        changeElement.className = 'stat-change negative';
+    }
+
+    // Atualizar texto
+    changeElement.textContent = statusText;
 }
 
 // ===== ATUALIZAÇÃO DE RESERVAS DE HOJE =====

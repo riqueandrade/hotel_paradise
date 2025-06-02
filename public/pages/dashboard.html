@@ -117,65 +117,53 @@
 
             <!-- Dashboard Content -->
             <div class="dashboard-content" id="dashboardContent" style="display: none;">
-                <!-- Statistics Cards -->
+                <!-- Statistics Cards - Novo Design Inspirado -->
                 <div class="row mb-4">
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="stat-card stat-card-primary">
-                            <div class="stat-icon">
-                                <i class="bi bi-door-open"></i>
+                            <i class="bi bi-dash-circle stat-trend-icon stat-trend-neutral" id="quartosIcon"></i>
+                            <div class="stat-header">
+                                <div class="stat-label">Taxa de Ocupação</div>
+                                <div class="stat-change neutral" id="quartosChange">Carregando...</div>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" id="totalQuartos">0</div>
-                                <div class="stat-label">Total de Quartos</div>
-                                <div class="stat-detail">
-                                    <span class="text-success" id="quartosDisponiveis">0 disponíveis</span>
-                                </div>
-                            </div>
+                            <div class="stat-number" id="taxaOcupacao">0%</div>
+                            <div class="stat-detail" id="quartosDisponiveis">0 quartos disponíveis</div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="stat-card stat-card-success">
-                            <div class="stat-icon">
-                                <i class="bi bi-calendar-check"></i>
+                            <i class="bi bi-dash-circle stat-trend-icon stat-trend-neutral" id="receitaIcon"></i>
+                            <div class="stat-header">
+                                <div class="stat-label">Receita Mensal</div>
+                                <div class="stat-change neutral" id="receitaChange">Carregando...</div>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" id="totalReservas">0</div>
-                                <div class="stat-label">Reservas Ativas</div>
-                                <div class="stat-detail">
-                                    <span class="text-info" id="reservasHoje">0 hoje</span>
-                                </div>
-                            </div>
+                            <div class="stat-number" id="receitaTotal">R$ 0,00</div>
+                            <div class="stat-detail" id="ticketMedio">Ticket médio: R$ 0,00</div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="stat-card stat-card-info">
-                            <div class="stat-icon">
-                                <i class="bi bi-people"></i>
+                            <i class="bi bi-dash-circle stat-trend-icon stat-trend-neutral" id="reservasIcon"></i>
+                            <div class="stat-header">
+                                <div class="stat-label">Reservas Ativas</div>
+                                <div class="stat-change neutral" id="reservasChange">Carregando...</div>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" id="totalClientes">0</div>
-                                <div class="stat-label">Clientes Cadastrados</div>
-                                <div class="stat-detail">
-                                    <span class="text-primary" id="clientesAtivos">0 ativos</span>
-                                </div>
-                            </div>
+                            <div class="stat-number" id="totalReservas">0</div>
+                            <div class="stat-detail" id="reservasHoje">0 check-ins hoje</div>
                         </div>
                     </div>
-                    
+
                     <div class="col-lg-3 col-md-6 mb-3">
                         <div class="stat-card stat-card-warning">
-                            <div class="stat-icon">
-                                <i class="bi bi-currency-dollar"></i>
+                            <i class="bi bi-dash-circle stat-trend-icon stat-trend-neutral" id="clientesIcon"></i>
+                            <div class="stat-header">
+                                <div class="stat-label">Clientes Cadastrados</div>
+                                <div class="stat-change neutral" id="clientesChange">Carregando...</div>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" id="receitaTotal">R$ 0</div>
-                                <div class="stat-label">Receita Total</div>
-                                <div class="stat-detail">
-                                    <span class="text-success" id="ticketMedio">Ticket: R$ 0</span>
-                                </div>
-                            </div>
+                            <div class="stat-number" id="totalClientes">0</div>
+                            <div class="stat-detail" id="clientesAtivos">0 hóspedes no hotel</div>
                         </div>
                     </div>
                 </div>
