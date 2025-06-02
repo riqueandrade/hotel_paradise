@@ -98,12 +98,16 @@ async function performLogin(userType, email, senha, lembrar) {
         });
         
         const data = await response.json();
-        
-        if (response.ok && data.success) {
-            // Login bem-sucedido
+
+        console.log('Resposta da API:', response.status, data);
+
+        if (response.ok && data.token) {
+            // Login bem-sucedido (verificamos se tem token em vez de success)
+            console.log('Login bem-sucedido, chamando handleLoginSuccess...');
             handleLoginSuccess(data, userType, lembrar);
         } else {
             // Erro no login
+            console.log('Erro no login:', data);
             showAlert(data.message || 'Erro ao fazer login. Verifique suas credenciais.', 'danger');
         }
         
@@ -130,9 +134,13 @@ function handleLoginSuccess(data, userType, lembrar) {
     
     // Mostrar sucesso
     showAlert(`Bem-vindo(a), ${data.user.nome}!`, 'success');
-    
+
+    console.log('Login bem-sucedido, iniciando redirecionamento...');
+    console.log('Tipo de usuário:', userType);
+
     // Redirecionar após 1 segundo
     setTimeout(() => {
+        console.log('Executando redirecionamento...');
         redirectToDashboard(userType);
     }, 1000);
 }
@@ -140,10 +148,11 @@ function handleLoginSuccess(data, userType, lembrar) {
 // ===== REDIRECIONAMENTO =====
 function redirectToDashboard(userType) {
     if (userType === 'funcionario') {
-        window.location.href = 'dashboard.html';
+        console.log('Redirecionando para dashboard...');
+        window.location.href = '/pages/dashboard.html';
     } else {
         // Para hóspedes, redirecionar para área do cliente (quando implementada)
-        window.location.href = '../index.html';
+        window.location.href = '/index.html';
     }
 }
 

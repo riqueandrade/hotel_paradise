@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Quartos - Hotel Paradise</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- CSS Customizado -->
+    <link href="../css/dashboard.css" rel="stylesheet">
+    <link href="../css/quartos.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-brand">
+                <i class="bi bi-building me-2"></i>
+                <span>Hotel Paradise</span>
+            </div>
+            <button class="btn btn-link sidebar-toggle d-lg-none" id="sidebarToggle">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="dashboard.html">
+                        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reservas.html">
+                        <i class="bi bi-calendar-check me-2"></i>Reservas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="quartos.html">
+                        <i class="bi bi-door-open me-2"></i>Quartos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="clientes.html">
+                        <i class="bi bi-people me-2"></i>Clientes
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-coming-soon="Funcionários">
+                        <i class="bi bi-person-badge me-2"></i>Funcionários
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-coming-soon="Estoque">
+                        <i class="bi bi-box me-2"></i>Estoque
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-coming-soon="Financeiro">
+                        <i class="bi bi-graph-up me-2"></i>Financeiro
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <div class="user-details">
+                    <div class="user-name" id="userName">Carregando...</div>
+                    <div class="user-role" id="userRole">Funcionário</div>
+                </div>
+            </div>
+            <button class="btn btn-outline-light btn-sm w-100 mt-2" id="logoutBtn">
+                <i class="bi bi-box-arrow-right me-2"></i>Sair
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-link sidebar-toggle d-lg-none me-3" id="sidebarToggleMain">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <h1 class="page-title mb-0">Gestão de Quartos</h1>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-success" id="addRoomBtn">
+                        <i class="bi bi-plus-circle me-2"></i>Novo Quarto
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Filters and Search -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-funnel me-2"></i>Filtros e Busca
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-3">
+                                    <label for="searchNumber" class="form-label">Número do Quarto</label>
+                                    <input type="text" class="form-control" id="searchNumber" placeholder="Ex: 101">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filterStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="filterStatus">
+                                        <option value="">Todos os status</option>
+                                        <option value="disponivel">Disponível</option>
+                                        <option value="ocupado">Ocupado</option>
+                                        <option value="manutencao">Manutenção</option>
+                                        <option value="limpeza">Limpeza</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filterType" class="form-label">Tipo</label>
+                                    <select class="form-select" id="filterType">
+                                        <option value="">Todos os tipos</option>
+                                        <option value="casal">Casal</option>
+                                        <option value="suite">Suíte</option>
+                                        <option value="casal_solteiro">Casal + Solteiro</option>
+                                        <option value="familia">Família</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="filterCapacity" class="form-label">Capacidade Mín.</label>
+                                    <select class="form-select" id="filterCapacity">
+                                        <option value="">Qualquer capacidade</option>
+                                        <option value="1">1 pessoa</option>
+                                        <option value="2">2 pessoas</option>
+                                        <option value="3">3 pessoas</option>
+                                        <option value="4">4+ pessoas</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <button class="btn btn-primary me-2" id="applyFiltersBtn">
+                                        <i class="bi bi-search me-2"></i>Aplicar Filtros
+                                    </button>
+                                    <button class="btn btn-outline-secondary" id="clearFiltersBtn">
+                                        <i class="bi bi-x-circle me-2"></i>Limpar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="row mb-4">
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card stat-card-primary">
+                        <div class="stat-icon">
+                            <i class="bi bi-door-open"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="totalRooms">0</div>
+                            <div class="stat-label">Total de Quartos</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card stat-card-success">
+                        <div class="stat-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="availableRooms">0</div>
+                            <div class="stat-label">Disponíveis</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card stat-card-danger">
+                        <div class="stat-icon">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="occupiedRooms">0</div>
+                            <div class="stat-label">Ocupados</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-3">
+                    <div class="stat-card stat-card-warning">
+                        <div class="stat-icon">
+                            <i class="bi bi-tools"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="maintenanceRooms">0</div>
+                            <div class="stat-label">Manutenção</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rooms List -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">
+                                    <i class="bi bi-list me-2"></i>Lista de Quartos
+                                </h5>
+                                <div class="d-flex align-items-center">
+                                    <span class="me-3 text-muted" id="roomsCount">0 quartos encontrados</span>
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-outline-primary btn-sm active" id="viewGrid">
+                                            <i class="bi bi-grid-3x3-gap"></i>
+                                        </button>
+                                        <button class="btn btn-outline-primary btn-sm" id="viewList">
+                                            <i class="bi bi-list-ul"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Loading State -->
+                            <div class="loading-container" id="loadingRooms">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Carregando quartos...</span>
+                                </div>
+                                <p class="mt-3">Carregando lista de quartos...</p>
+                            </div>
+
+                            <!-- Rooms Grid/List -->
+                            <div class="rooms-container" id="roomsContainer" style="display: none;">
+                                <!-- Rooms will be loaded here -->
+                            </div>
+
+                            <!-- Pagination -->
+                            <nav aria-label="Paginação de quartos" id="paginationContainer" style="display: none;">
+                                <ul class="pagination justify-content-center mt-4" id="pagination">
+                                    <!-- Pagination will be loaded here -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal para Criar/Editar Quarto -->
+    <div class="modal fade" id="roomModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="roomModalTitle">Novo Quarto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="roomForm">
+                        <!-- Informações Básicas -->
+                        <div class="room-form-section">
+                            <h6><i class="bi bi-info-circle me-2"></i>Informações Básicas</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="roomNumber" class="form-label">Número do Quarto *</label>
+                                    <input type="text" class="form-control" id="roomNumber" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="roomFloor" class="form-label">Andar</label>
+                                    <input type="number" class="form-control" id="roomFloor" min="1">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="roomType" class="form-label">Tipo *</label>
+                                    <select class="form-select" id="roomType" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="casal">Casal</option>
+                                        <option value="suite">Suíte</option>
+                                        <option value="casal_solteiro">Casal + Solteiro</option>
+                                        <option value="familia">Família</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="roomCapacity" class="form-label">Capacidade Máxima *</label>
+                                    <input type="number" class="form-control" id="roomCapacity" min="1" max="10" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="roomPrice" class="form-label">Preço da Diária (R$) *</label>
+                                    <input type="number" class="form-control" id="roomPrice" step="0.01" min="0" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="roomView" class="form-label">Vista</label>
+                                    <select class="form-select" id="roomView">
+                                        <option value="interna">Interna</option>
+                                        <option value="cidade">Cidade</option>
+                                        <option value="jardim">Jardim</option>
+                                        <option value="montanha">Montanha</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Comodidades -->
+                        <div class="room-form-section">
+                            <h6><i class="bi bi-star me-2"></i>Comodidades</h6>
+                            <div class="amenities-grid">
+                                <label class="amenity-checkbox">
+                                    <input type="checkbox" id="roomBalcony">
+                                    <i class="bi bi-door-open me-2"></i>Sacada
+                                </label>
+                                <label class="amenity-checkbox">
+                                    <input type="checkbox" id="roomFrigobar" checked>
+                                    <i class="bi bi-cup me-2"></i>Frigobar
+                                </label>
+                                <label class="amenity-checkbox">
+                                    <input type="checkbox" id="roomAC" checked>
+                                    <i class="bi bi-snow me-2"></i>Ar Condicionado
+                                </label>
+                                <label class="amenity-checkbox">
+                                    <input type="checkbox" id="roomTV" checked>
+                                    <i class="bi bi-tv me-2"></i>TV
+                                </label>
+                                <label class="amenity-checkbox">
+                                    <input type="checkbox" id="roomWifi" checked>
+                                    <i class="bi bi-wifi me-2"></i>Wi-Fi
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Descrição -->
+                        <div class="room-form-section">
+                            <h6><i class="bi bi-card-text me-2"></i>Descrição</h6>
+                            <textarea class="form-control" id="roomDescription" rows="3"
+                                      placeholder="Descrição opcional do quarto..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="saveRoomBtn">
+                        <i class="bi bi-check-lg me-2"></i>Salvar Quarto
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript Customizado -->
+    <script src="../js/quartos.js"></script>
+</body>
+
+</html>

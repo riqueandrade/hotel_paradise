@@ -1,0 +1,407 @@
+/* ===== CSS ESPECÍFICO PARA QUARTOS ===== */
+
+/* ===== CARDS DE QUARTOS ===== */
+.room-card {
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--light-gray);
+    height: 100%;
+    overflow: hidden;
+}
+
+.room-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.room-card-header {
+    position: relative;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+}
+
+.room-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.room-type {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.room-status-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-disponivel {
+    background: rgba(39, 174, 96, 0.9);
+    color: var(--white);
+}
+
+.status-ocupado {
+    background: rgba(231, 76, 60, 0.9);
+    color: var(--white);
+}
+
+.status-manutencao {
+    background: rgba(243, 156, 18, 0.9);
+    color: var(--white);
+}
+
+.status-limpeza {
+    background: rgba(52, 152, 219, 0.9);
+    color: var(--white);
+}
+
+.room-card-body {
+    padding: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-details {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.room-detail-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--dark-gray);
+}
+
+.room-detail-item i {
+    width: 20px;
+    margin-right: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.room-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.room-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.amenity-badge {
+    background: var(--light-gray);
+    color: var(--dark-gray);
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.amenity-badge.active {
+    background: var(--secondary-color);
+    color: var(--white);
+}
+
+.room-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: auto;
+}
+
+.room-actions .btn {
+    flex: 1;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+}
+
+/* ===== VISTA EM LISTA ===== */
+.rooms-list-view .room-card {
+    margin-bottom: 1rem;
+}
+
+.rooms-list-view .room-card-body {
+    padding: 1.5rem;
+}
+
+.rooms-list-view .room-card-header {
+    padding: 1.5rem;
+}
+
+.rooms-list-view .room-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.rooms-list-view .room-actions {
+    justify-content: flex-end;
+    max-width: 400px;
+    margin-left: auto;
+}
+
+/* ===== VISTA EM GRID ===== */
+.rooms-grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ===== MODAL DE QUARTO ===== */
+.room-modal .modal-dialog {
+    max-width: 800px;
+}
+
+.room-form-section {
+    margin-bottom: 2rem;
+}
+
+.room-form-section h6 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+.amenities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.amenity-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--light-gray);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.amenity-checkbox:hover {
+    background: #e9ecef;
+}
+
+.amenity-checkbox input[type="checkbox"] {
+    margin-right: 0.5rem;
+}
+
+.amenity-checkbox.checked {
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid var(--secondary-color);
+}
+
+/* ===== STATUS CHANGE DROPDOWN ===== */
+.status-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.status-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    min-width: 150px;
+    display: none;
+}
+
+.status-dropdown-menu.show {
+    display: block;
+}
+
+.status-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    text-align: left;
+    color: var(--dark-gray);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.status-dropdown-item:hover {
+    background: var(--light-gray);
+}
+
+.status-dropdown-item i {
+    margin-right: 0.5rem;
+    width: 16px;
+}
+
+/* ===== LOADING STATES ===== */
+.room-card.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.room-card.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--medium-gray);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h5 {
+    margin-bottom: 0.5rem;
+    color: var(--dark-gray);
+}
+
+.empty-state p {
+    margin-bottom: 1.5rem;
+}
+
+/* ===== PAGINATION ===== */
+.pagination .page-link {
+    color: var(--primary-color);
+    border-color: var(--light-gray);
+}
+
+.pagination .page-link:hover {
+    color: var(--secondary-color);
+    background-color: var(--light-gray);
+    border-color: var(--medium-gray);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    .rooms-grid-view {
+        grid-template-columns: 1fr;
+    }
+    
+    .room-actions {
+        flex-direction: column;
+    }
+    
+    .room-actions .btn {
+        margin-bottom: 0.5rem;
+    }
+    
+    .rooms-list-view .room-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .rooms-list-view .room-actions {
+        max-width: none;
+        margin-left: 0;
+    }
+    
+    .amenities-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 576px) {
+    .room-card-header {
+        padding: 0.75rem;
+    }
+    
+    .room-card-body {
+        padding: 0.75rem;
+    }
+    
+    .room-number {
+        font-size: 1.25rem;
+    }
+    
+    .room-status-badge {
+        position: static;
+        margin-top: 0.5rem;
+        display: inline-block;
+    }
+    
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.room-card {
+    animation: fadeInUp 0.3s ease;
+}
+
+.room-card:nth-child(even) {
+    animation-delay: 0.1s;
+}
+
+.room-card:nth-child(3n) {
+    animation-delay: 0.2s;
+}
+
+/* ===== TOOLTIPS ===== */
+.tooltip-inner {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 0.8rem;
+}
+
+.tooltip.bs-tooltip-top .tooltip-arrow::before {
+    border-top-color: var(--primary-color);
+}
+
+.tooltip.bs-tooltip-bottom .tooltip-arrow::before {
+    border-bottom-color: var(--primary-color);
+}
