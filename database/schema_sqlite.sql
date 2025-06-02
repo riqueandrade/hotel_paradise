@@ -214,9 +214,9 @@ CREATE INDEX IF NOT EXISTS idx_quartos_status ON quartos(status);
 CREATE INDEX IF NOT EXISTS idx_usuarios_email ON usuarios(email);
 
 -- Inserção de dados iniciais
-INSERT OR IGNORE INTO usuarios (nome, email, senha_hash, tipo_usuario) VALUES 
-('Administrador', 'admin@hotelparadise.com.br', '$2a$10$example_hash', 'administrador'),
-('Recepcionista', 'recepcao@hotelparadise.com.br', '$2a$10$example_hash', 'recepcionista');
+INSERT OR IGNORE INTO usuarios (nome, email, senha_hash, tipo_usuario) VALUES
+('Administrador', 'admin@hotelparadise.com.br', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'administrador'),
+('Recepcionista', 'recepcao@hotelparadise.com.br', '$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'recepcionista');
 
 -- Quartos exemplo
 INSERT OR IGNORE INTO quartos (numero, andar, tipo, capacidade_maxima, preco_diaria, tem_sacada, tem_frigobar, vista, descricao) VALUES 

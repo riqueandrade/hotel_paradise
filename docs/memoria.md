@@ -1,6 +1,6 @@
 # Memória de Desenvolvimento - Hotel Paradise
 
-## 📅 Data de Atualização: 02/06/2025 - 10:30
+## 📅 Data de Atualização: 02/06/2025 - 13:20
 
 ## ✅ O que foi feito
 
@@ -115,7 +115,7 @@
 - [x] Redes sociais integradas com links funcionais
 - [x] Correção de problemas JavaScript nos event listeners
 
-### ✅ RECÉM CONCLUÍDO - Fase 2 Parcial:
+### ✅ RECÉM CONCLUÍDO - Fase 2 COMPLETA:
 - [x] **Integração com Banco de Dados SQLite** - IMPLEMENTADA
   - ✅ Conexão com SQLite configurada e funcional (database/database.js)
   - ✅ Schema compatível com SQLite criado (schema_sqlite.sql)
@@ -132,27 +132,24 @@
   - ✅ Hash de senhas com bcryptjs
   - ✅ Tokens JWT funcionais
 
-- [x] **API REST Funcional** - PARCIALMENTE IMPLEMENTADA
+- [x] **API REST Funcional** - COMPLETAMENTE IMPLEMENTADA
   - ✅ Rotas de autenticação: /api/auth/*
   - ✅ Rotas de quartos: /api/quartos/* (CRUD completo)
-  - ✅ Controllers implementados: AuthController, QuartoController
+  - ✅ Rotas de clientes: /api/clientes/* (CRUD completo) ⭐ NOVO
+  - ✅ Rotas de reservas: /api/reservas/* (CRUD completo) ⭐ NOVO
+  - ✅ Controllers implementados: Auth, Quarto, Cliente, Reserva ⭐ COMPLETO
   - ✅ Validação de dados e tratamento de erros
-  - ✅ Testado e funcionando
+  - ✅ Servidor funcionando e testado ⭐ FUNCIONANDO
 
 ### 🔄 EM DESENVOLVIMENTO:
-- [ ] Controllers de Reservas e Clientes
 - [ ] Dashboard administrativo
 - [ ] Interface frontend conectada à API
+- [ ] Testes de integração completos
 
 ### 📋 PRÓXIMAS ETAPAS:
 
-#### Fase 2: Completar Módulos Core (Restante)
-1. **Controllers Restantes** - PRÓXIMO PASSO
-   - Implementar ReservaController completo
-   - Implementar ClienteController completo
-   - Conectar rotas de reservas aos controllers
-
-2. **Dashboard Administrativo**
+#### Fase 3: Interface e Integração
+1. **Dashboard Administrativo** - PRÓXIMO PASSO
    - Páginas de administração HTML
    - Interface para gestão de quartos
    - Interface para gestão de reservas
@@ -207,8 +204,8 @@ http://localhost:3000
 
 ---
 
-**Última Atualização**: 02/06/2025 - 10:30 - Integração com banco de dados e autenticação JWT implementadas
-**Próxima Atualização**: Após implementação dos controllers restantes (Reservas e Clientes)
+**Última Atualização**: 02/06/2025 - 13:20 - Backend completo implementado (todos os controllers funcionais)
+**Próxima Atualização**: Após implementação do dashboard administrativo
 
 ## 🎯 APIs Funcionais Implementadas
 
@@ -230,6 +227,31 @@ http://localhost:3000
 - `PUT /api/quartos/:id` - Atualizar quarto (admin)
 - `DELETE /api/quartos/:id` - Deletar quarto (admin)
 
+### Clientes (/api/clientes) ⭐ NOVO
+- `GET /api/clientes` - Listar clientes (staff)
+- `GET /api/clientes/:id` - Detalhes do cliente (staff)
+- `POST /api/clientes` - Criar cliente (staff)
+- `PUT /api/clientes/:id` - Atualizar cliente (staff)
+- `DELETE /api/clientes/:id` - Deletar cliente (admin)
+- `GET /api/clientes/cpf/:cpf` - Buscar por CPF (staff)
+- `GET /api/clientes/email/:email` - Buscar por email (staff)
+- `GET /api/clientes/statistics` - Estatísticas (staff)
+- `GET /api/clientes/:id/reservations` - Histórico de reservas (staff)
+
+### Reservas (/api/reservas) ⭐ NOVO
+- `GET /api/reservas` - Listar reservas (auth)
+- `GET /api/reservas/:id` - Detalhes da reserva (auth)
+- `POST /api/reservas` - Criar reserva (auth)
+- `PUT /api/reservas/:id` - Atualizar reserva (staff)
+- `DELETE /api/reservas/:id` - Deletar reserva (admin)
+- `PATCH /api/reservas/:id/confirm` - Confirmar reserva (staff)
+- `PATCH /api/reservas/:id/cancel` - Cancelar reserva (auth)
+- `PATCH /api/reservas/:id/checkin` - Realizar check-in (staff)
+- `PATCH /api/reservas/:id/checkout` - Realizar check-out (staff)
+- `GET /api/reservas/today` - Reservas do dia
+- `GET /api/reservas/statistics` - Estatísticas (staff)
+- `GET /api/reservas/status/:status` - Reservas por status (auth)
+
 ## 📁 Arquivos Implementados na Fase 2
 
 ### Database
@@ -247,6 +269,8 @@ http://localhost:3000
 ### Controllers
 - `controllers/AuthController.js` - Autenticação completa
 - `controllers/QuartoController.js` - CRUD de quartos
+- `controllers/ClienteController.js` - CRUD de clientes ⭐ NOVO
+- `controllers/ReservaController.js` - CRUD de reservas ⭐ NOVO
 
 ### Middleware
 - `middleware/auth.js` - Autenticação e autorização JWT
@@ -254,6 +278,8 @@ http://localhost:3000
 ### Routes
 - `routes/auth.js` - Rotas de autenticação (atualizada)
 - `routes/quartos.js` - Rotas de quartos (nova)
+- `routes/clientes.js` - Rotas de clientes ⭐ NOVA
+- `routes/reservas.js` - Rotas de reservas (atualizada) ⭐ NOVA
 
 ### Server
 - `server.js` - Atualizado com inicialização automática do banco

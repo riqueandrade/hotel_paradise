@@ -55,6 +55,7 @@ app.get('/', (req, res) => {
 // Rotas da API
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/quartos', require('./routes/quartos'));
+app.use('/api/clientes', require('./routes/clientes'));
 app.use('/api/reservas', require('./routes/reservas'));
 app.use('/api', require('./routes/api'));
 
