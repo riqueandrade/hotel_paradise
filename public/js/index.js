@@ -326,10 +326,18 @@ function setupEventListeners() {
         button.addEventListener('click', () => scrollToSection('quartos'));
     });
 
+    // Sistema de steps da reserva
+    setupBookingSteps();
+
     // Botão verificar disponibilidade
     const verificarBtn = document.querySelector('.verificar-disponibilidade-btn');
     if (verificarBtn) {
         verificarBtn.addEventListener('click', verificarDisponibilidade);
+    }
+
+    const checkAvailabilityBtn = document.getElementById('checkAvailability');
+    if (checkAvailabilityBtn) {
+        checkAvailabilityBtn.addEventListener('click', verificarDisponibilidade);
     }
 
     // Link cadastro de hóspede
@@ -390,48 +398,137 @@ async function verificarDisponibilidade() {
         return;
     }
     
-    // Mostrar loading
+    // Mostrar loading moderno
     resultadoDiv.innerHTML = `
-        <div class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Verificando disponibilidade...</span>
+        <div class="booking-loading">
+            <div class="text-center p-4">
+                <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Verificando...</span>
+                </div>
+                <h5>Verificando disponibilidade...</h5>
+                <p class="text-muted">Buscando os melhores quartos para sua estadia</p>
+                <div class="progress mt-3" style="height: 6px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated"
+                         role="progressbar" style="width: 100%"></div>
+                </div>
             </div>
-            <p class="mt-2">Verificando disponibilidade...</p>
         </div>
     `;
     
     // Simular chamada à API
     setTimeout(() => {
         const diasEstadia = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
-        const precoBase = getPrecoByTipo(tipoQuarto);
-        const valorTotal = precoBase * diasEstadia;
-        
+        const roomInfo = getRoomInfoByType(tipoQuarto);
+        const valorTotal = roomInfo.price * diasEstadia;
+
         resultadoDiv.innerHTML = `
-            <div class="alert alert-success">
-                <h6><i class="bi bi-check-circle"></i> Quartos Disponíveis!</h6>
-                <div class="row mt-3">
-                    <div class="col-md-6">
-                        <strong>Detalhes da Reserva:</strong><br>
-                        <small>
-                            Check-in: ${formatDate(checkin)}<br>
-                            Check-out: ${formatDate(checkout)}<br>
-                            Hóspedes: ${hospedes}<br>
-                            Tipo: ${tipoQuarto}<br>
-                            Diárias: ${diasEstadia}
-                        </small>
+            <div class="booking-success">
+                <div class="alert alert-success border-0 shadow-sm">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="success-icon me-3">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 2rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-1">Quartos Disponíveis!</h5>
+                            <p class="mb-0 text-muted">Encontramos opções perfeitas para sua estadia</p>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <strong>Valor Total:</strong><br>
-                        <span class="h5 text-success">R$ ${valorTotal.toFixed(2)}</span><br>
-                        <small class="text-muted">R$ ${precoBase.toFixed(2)} por noite</small>
+
+                    <div class="booking-result-card">
+                        <div class="row g-4">
+                            <div class="col-md-8">
+                                <h6 class="text-primary mb-3">
+                                    <i class="bi bi-calendar-check me-2"></i>Detalhes da Reserva
+                                </h6>
+                                <div class="row g-3">
+                                    <div class="col-sm-6">
+                                        <div class="detail-item">
+                                            <i class="bi bi-calendar-plus text-primary me-2"></i>
+                                            <strong>Check-in:</strong> ${formatDate(checkin)}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="detail-item">
+                                            <i class="bi bi-calendar-minus text-primary me-2"></i>
+                                            <strong>Check-out:</strong> ${formatDate(checkout)}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="detail-item">
+                                            <i class="bi bi-people text-primary me-2"></i>
+                                            <strong>Hóspedes:</strong> ${hospedes} ${hospedes === '1' ? 'pessoa' : 'pessoas'}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="detail-item">
+                                            <i class="bi bi-moon text-primary me-2"></i>
+                                            <strong>Noites:</strong> ${diasEstadia} ${diasEstadia === 1 ? 'noite' : 'noites'}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="room-selected mt-3 p-3 bg-light rounded">
+                                    <h6 class="text-primary mb-2">
+                                        <i class="bi bi-house-door me-2"></i>${roomInfo.name}
+                                    </h6>
+                                    <p class="mb-0 small text-muted">${roomInfo.description}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="pricing-summary">
+                                    <h6 class="text-primary mb-3">
+                                        <i class="bi bi-calculator me-2"></i>Resumo de Preços
+                                    </h6>
+                                    <div class="price-breakdown">
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span>Diária (${diasEstadia}x)</span>
+                                            <span>R$ ${roomInfo.price.toFixed(2)}</span>
+                                        </div>
+                                        <hr class="my-2">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Total</strong>
+                                            <strong class="text-success h5">R$ ${valorTotal.toFixed(2)}</strong>
+                                        </div>
+                                        <small class="text-muted d-block mt-2">
+                                            *Taxas e impostos inclusos
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="booking-actions mt-4 pt-3 border-top">
+                            <div class="d-flex gap-3 justify-content-center">
+                                <button class="btn btn-outline-primary" id="newSearchBtn">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>Nova Busca
+                                </button>
+                                <button class="btn btn-success btn-lg px-4" id="confirmReservationBtn">
+                                    <i class="bi bi-calendar-plus me-2"></i>Confirmar Reserva
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <button class="btn btn-success mt-3" onclick="iniciarReserva()">
-                    <i class="bi bi-calendar-plus"></i> Fazer Reserva
-                </button>
             </div>
         `;
-    }, 1500);
+
+        // Adicionar event listeners para os botões do resultado
+        setTimeout(() => {
+            const newSearchBtn = document.getElementById('newSearchBtn');
+            const confirmBtn = document.getElementById('confirmReservationBtn');
+
+            if (newSearchBtn) {
+                newSearchBtn.addEventListener('click', () => {
+                    window.location.reload();
+                });
+            }
+
+            if (confirmBtn) {
+                confirmBtn.addEventListener('click', iniciarReserva);
+            }
+        }, 100);
+    }, 2000);
 }
 
 // Obter preço por tipo de quarto
@@ -456,8 +553,161 @@ function selecionarQuarto(quartoId, tipoQuarto) {
 
 // Iniciar processo de reserva
 function iniciarReserva() {
-    showAlert('Funcionalidade em desenvolvimento. Em breve você poderá finalizar sua reserva online!', 'info');
-    // Aqui será implementado o fluxo completo de reserva
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const hospedes = document.getElementById('hospedes').value;
+    const tipoQuarto = document.getElementById('tipoQuarto').value;
+
+    if (!checkin || !checkout || !hospedes || !tipoQuarto) {
+        showAlert('Por favor, complete todos os dados da reserva antes de confirmar.', 'warning');
+        return;
+    }
+
+    const roomInfo = getRoomInfoByType(tipoQuarto);
+    const checkinDate = new Date(checkin);
+    const checkoutDate = new Date(checkout);
+    const diasEstadia = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+    const valorTotal = roomInfo.price * diasEstadia;
+
+    // Criar modal de confirmação
+    const modalHtml = `
+        <div class="modal fade" id="confirmReservationModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">
+                            <i class="bi bi-calendar-check me-2"></i>
+                            Confirmar Reserva - Hotel Paradise
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Sistema em Desenvolvimento</strong><br>
+                            A funcionalidade de reserva online está sendo finalizada.
+                            Por enquanto, entre em contato conosco para confirmar sua reserva.
+                        </div>
+
+                        <h6 class="text-primary mb-3">Resumo da sua reserva:</h6>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-primary">Detalhes da Estadia</h6>
+                                        <p class="card-text small mb-1">
+                                            <i class="bi bi-calendar-plus me-2"></i>
+                                            <strong>Check-in:</strong> ${formatDate(checkin)}
+                                        </p>
+                                        <p class="card-text small mb-1">
+                                            <i class="bi bi-calendar-minus me-2"></i>
+                                            <strong>Check-out:</strong> ${formatDate(checkout)}
+                                        </p>
+                                        <p class="card-text small mb-1">
+                                            <i class="bi bi-moon me-2"></i>
+                                            <strong>Noites:</strong> ${diasEstadia}
+                                        </p>
+                                        <p class="card-text small mb-0">
+                                            <i class="bi bi-people me-2"></i>
+                                            <strong>Hóspedes:</strong> ${hospedes}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-primary">Acomodação</h6>
+                                        <p class="card-text small mb-1">
+                                            <i class="bi bi-house-door me-2"></i>
+                                            <strong>${roomInfo.name}</strong>
+                                        </p>
+                                        <p class="card-text small mb-2">${roomInfo.description}</p>
+                                        <p class="card-text">
+                                            <span class="h5 text-success">R$ ${valorTotal.toFixed(2)}</span>
+                                            <small class="text-muted d-block">Total da estadia</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-primary bg-opacity-10 rounded">
+                            <h6 class="text-primary">
+                                <i class="bi bi-telephone me-2"></i>
+                                Entre em contato para confirmar:
+                            </h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <p class="mb-1">
+                                        <i class="bi bi-phone me-2"></i>
+                                        <strong>Telefone:</strong> (47) 3644-1234
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="bi bi-whatsapp me-2"></i>
+                                        <strong>WhatsApp:</strong> (47) 99999-9999
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="mb-1">
+                                        <i class="bi bi-envelope me-2"></i>
+                                        <strong>Email:</strong> reservas@hotelparadise.com.br
+                                    </p>
+                                    <p class="mb-0">
+                                        <i class="bi bi-clock me-2"></i>
+                                        <strong>Horário:</strong> 24h por dia
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-arrow-left me-2"></i>Voltar
+                        </button>
+                        <button type="button" class="btn btn-success" id="contactWhatsAppBtn">
+                            <i class="bi bi-whatsapp me-2"></i>Contatar via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Remover modal existente se houver
+    const existingModal = document.getElementById('confirmReservationModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    // Adicionar modal ao DOM
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+    // Mostrar modal
+    const modal = new bootstrap.Modal(document.getElementById('confirmReservationModal'));
+    modal.show();
+
+    // Adicionar event listener para WhatsApp
+    setTimeout(() => {
+        const whatsappBtn = document.getElementById('contactWhatsAppBtn');
+        if (whatsappBtn) {
+            whatsappBtn.addEventListener('click', () => {
+                const message = `Olá! Gostaria de fazer uma reserva no Hotel Paradise:
+
+📅 Check-in: ${formatDate(checkin)}
+📅 Check-out: ${formatDate(checkout)}
+🛏️ Quarto: ${roomInfo.name}
+👥 Hóspedes: ${hospedes}
+💰 Total: R$ ${valorTotal.toFixed(2)}
+
+Podem me ajudar a confirmar a disponibilidade?`;
+
+                const whatsappUrl = `https://wa.me/5547999999999?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+                modal.hide();
+            });
+        }
+    }, 100);
 }
 
 // Handlers dos formulários
@@ -919,6 +1169,338 @@ function getDirections(attractionName) {
     const mapsUrl = `https://www.google.com/maps/search/${encodeURIComponent(searchQuery)}`;
     window.open(mapsUrl, '_blank');
     showAlert(`Abrindo localização de ${attractionName} no Google Maps...`, 'info');
+}
+
+// ===== SISTEMA DE RESERVAS MODERNIZADO =====
+
+// Configurar sistema de steps da reserva
+function setupBookingSteps() {
+    let currentStep = 1;
+    const totalSteps = 3;
+
+    const nextBtn = document.getElementById('nextStep');
+    const prevBtn = document.getElementById('prevStep');
+    const checkBtn = document.getElementById('checkAvailability');
+
+    // Event listeners para navegação
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentStep(currentStep)) {
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    showStep(currentStep);
+                    updateNavigation(currentStep, totalSteps);
+                }
+            }
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+                updateNavigation(currentStep, totalSteps);
+            }
+        });
+    }
+
+    // Event listeners para campos
+    setupBookingFieldListeners();
+
+    // Configurar datas mínimas
+    setupDateConstraints();
+
+    // Inicializar navegação
+    updateNavigation(currentStep, totalSteps);
+}
+
+// Mostrar step específico
+function showStep(stepNumber) {
+    // Esconder todos os steps
+    document.querySelectorAll('.booking-step').forEach(step => {
+        step.classList.remove('active');
+    });
+
+    // Mostrar step atual
+    const currentStepEl = document.querySelector(`[data-step="${stepNumber}"]`);
+    if (currentStepEl) {
+        currentStepEl.classList.add('active');
+    }
+
+    // Se for o último step, gerar resumo
+    if (stepNumber === 3) {
+        generateBookingSummary();
+    }
+}
+
+// Atualizar navegação
+function updateNavigation(currentStep, totalSteps) {
+    const nextBtn = document.getElementById('nextStep');
+    const prevBtn = document.getElementById('prevStep');
+    const checkBtn = document.getElementById('checkAvailability');
+
+    // Botão anterior
+    if (prevBtn) {
+        prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
+    }
+
+    // Botão próximo
+    if (nextBtn) {
+        if (currentStep < totalSteps) {
+            nextBtn.style.display = 'block';
+            nextBtn.innerHTML = 'Próximo<i class="bi bi-arrow-right ms-2"></i>';
+        } else {
+            nextBtn.style.display = 'none';
+        }
+    }
+
+    // Botão verificar disponibilidade
+    if (checkBtn) {
+        checkBtn.style.display = currentStep === totalSteps ? 'block' : 'none';
+    }
+}
+
+// Validar step atual
+function validateCurrentStep(step) {
+    switch (step) {
+        case 1:
+            const checkin = document.getElementById('checkin').value;
+            const checkout = document.getElementById('checkout').value;
+
+            if (!checkin || !checkout) {
+                showAlert('Por favor, selecione as datas de check-in e check-out.', 'warning');
+                return false;
+            }
+
+            const checkinDate = new Date(checkin);
+            const checkoutDate = new Date(checkout);
+
+            if (checkoutDate <= checkinDate) {
+                showAlert('A data de check-out deve ser posterior à data de check-in.', 'warning');
+                return false;
+            }
+
+            return true;
+
+        case 2:
+            const hospedes = document.getElementById('hospedes').value;
+            const tipoQuarto = document.getElementById('tipoQuarto').value;
+
+            if (!hospedes || !tipoQuarto) {
+                showAlert('Por favor, selecione o número de hóspedes e o tipo de quarto.', 'warning');
+                return false;
+            }
+
+            return true;
+
+        default:
+            return true;
+    }
+}
+
+// Configurar listeners dos campos
+function setupBookingFieldListeners() {
+    // Listeners para datas
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+
+    if (checkinInput && checkoutInput) {
+        checkinInput.addEventListener('change', updateDateInfo);
+        checkoutInput.addEventListener('change', updateDateInfo);
+    }
+
+    // Listener para tipo de quarto
+    const tipoQuartoSelect = document.getElementById('tipoQuarto');
+    if (tipoQuartoSelect) {
+        tipoQuartoSelect.addEventListener('change', updateRoomPreview);
+    }
+}
+
+// Atualizar informações de data
+function updateDateInfo() {
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const dateInfoDiv = document.getElementById('dateInfo');
+    const stayDurationSpan = document.getElementById('stayDuration');
+
+    if (checkin && checkout) {
+        const checkinDate = new Date(checkin);
+        const checkoutDate = new Date(checkout);
+
+        if (checkoutDate > checkinDate) {
+            const diffTime = Math.abs(checkoutDate - checkinDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            stayDurationSpan.textContent = `Estadia de ${diffDays} ${diffDays === 1 ? 'noite' : 'noites'}`;
+            dateInfoDiv.style.display = 'block';
+        } else {
+            dateInfoDiv.style.display = 'none';
+        }
+    } else {
+        dateInfoDiv.style.display = 'none';
+    }
+}
+
+// Atualizar preview do quarto
+function updateRoomPreview() {
+    const tipoQuarto = document.getElementById('tipoQuarto').value;
+    const roomPreviewDiv = document.getElementById('roomPreview');
+    const roomNameEl = document.getElementById('roomPreviewName');
+    const roomDescEl = document.getElementById('roomPreviewDesc');
+    const roomPriceEl = document.getElementById('roomPreviewPrice');
+
+    if (tipoQuarto) {
+        const roomInfo = getRoomInfoByType(tipoQuarto);
+
+        roomNameEl.textContent = roomInfo.name;
+        roomDescEl.textContent = roomInfo.description;
+        roomPriceEl.textContent = `R$ ${roomInfo.price.toFixed(2)}`;
+
+        roomPreviewDiv.style.display = 'block';
+    } else {
+        roomPreviewDiv.style.display = 'none';
+    }
+}
+
+// Obter informações do quarto por tipo
+function getRoomInfoByType(tipo) {
+    const roomTypes = {
+        'standard': {
+            name: 'Quarto Standard',
+            description: 'Confortável e aconchegante, ideal para casais ou viajantes solo.',
+            price: 120.00
+        },
+        'superior': {
+            name: 'Quarto Superior',
+            description: 'Mais espaçoso com vista privilegiada e comodidades extras.',
+            price: 160.00
+        },
+        'suite_master': {
+            name: 'Suíte Master',
+            description: 'Luxuosa suíte com sala de estar separada e vista panorâmica.',
+            price: 280.00
+        },
+        'familia': {
+            name: 'Quarto Família',
+            description: 'Amplo espaço para toda a família com camas extras.',
+            price: 200.00
+        }
+    };
+
+    return roomTypes[tipo] || roomTypes['standard'];
+}
+
+// Configurar restrições de data
+function setupDateConstraints() {
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+
+    if (checkinInput && checkoutInput) {
+        // Data mínima é hoje
+        const today = new Date().toISOString().split('T')[0];
+        checkinInput.min = today;
+
+        // Quando check-in muda, atualizar data mínima do check-out
+        checkinInput.addEventListener('change', function() {
+            const checkinDate = new Date(this.value);
+            const nextDay = new Date(checkinDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+
+            checkoutInput.min = nextDay.toISOString().split('T')[0];
+
+            // Se check-out é anterior ao novo mínimo, limpar
+            if (checkoutInput.value && new Date(checkoutInput.value) <= checkinDate) {
+                checkoutInput.value = '';
+            }
+        });
+    }
+}
+
+// Gerar resumo da reserva
+function generateBookingSummary() {
+    const checkin = document.getElementById('checkin').value;
+    const checkout = document.getElementById('checkout').value;
+    const hospedes = document.getElementById('hospedes').value;
+    const tipoQuarto = document.getElementById('tipoQuarto').value;
+    const summaryDiv = document.getElementById('bookingSummary');
+
+    if (!checkin || !checkout || !hospedes || !tipoQuarto) {
+        summaryDiv.innerHTML = '<p class="text-muted">Complete os passos anteriores para ver o resumo.</p>';
+        return;
+    }
+
+    const checkinDate = new Date(checkin);
+    const checkoutDate = new Date(checkout);
+    const diffTime = Math.abs(checkoutDate - checkinDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const roomInfo = getRoomInfoByType(tipoQuarto);
+    const totalPrice = roomInfo.price * diffDays;
+
+    summaryDiv.innerHTML = `
+        <h5 class="mb-4">
+            <i class="bi bi-clipboard-check me-2"></i>
+            Resumo da Reserva
+        </h5>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-calendar-plus me-2"></i>Check-in
+            </span>
+            <span class="summary-value">${formatDate(checkin)}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-calendar-minus me-2"></i>Check-out
+            </span>
+            <span class="summary-value">${formatDate(checkout)}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-moon me-2"></i>Noites
+            </span>
+            <span class="summary-value">${diffDays} ${diffDays === 1 ? 'noite' : 'noites'}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-people me-2"></i>Hóspedes
+            </span>
+            <span class="summary-value">${hospedes} ${hospedes === '1' ? 'pessoa' : 'pessoas'}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-house-door me-2"></i>Acomodação
+            </span>
+            <span class="summary-value">${roomInfo.name}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-currency-dollar me-2"></i>Preço por noite
+            </span>
+            <span class="summary-value">R$ ${roomInfo.price.toFixed(2)}</span>
+        </div>
+
+        <div class="summary-item">
+            <span class="summary-label">
+                <i class="bi bi-calculator me-2"></i><strong>Total</strong>
+            </span>
+            <span class="summary-value"><strong>R$ ${totalPrice.toFixed(2)}</strong></span>
+        </div>
+
+        <div class="mt-4 p-3 bg-light rounded">
+            <small class="text-muted">
+                <i class="bi bi-info-circle me-2"></i>
+                Os preços podem variar conforme a temporada e disponibilidade.
+                Taxas e impostos serão informados na finalização da reserva.
+            </small>
+        </div>
+    `;
 }
 
 console.log('🏨 Hotel Paradise - Landing Page carregada com sucesso!');

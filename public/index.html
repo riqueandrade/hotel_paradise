@@ -464,55 +464,161 @@
     </section>
 
     <!-- Sistema de Reservas -->
-    <section id="reservas" class="py-5">
+    <section id="reservas" class="py-5 bg-light">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-5 fw-bold">Faça sua Reserva</h2>
-                <p class="lead">Reserve agora e garante sua estadia no Hotel Paradise</p>
+                <div class="d-inline-block">
+                    <span class="badge bg-primary text-white px-3 py-2 rounded-pill mb-3">
+                        <i class="bi bi-calendar-check me-2"></i>Sistema de Reservas
+                    </span>
+                </div>
+                <h2 class="display-5 fw-bold mb-3">Faça sua Reserva</h2>
+                <p class="lead text-muted">Reserve agora e garanta sua estadia no Hotel Paradise</p>
             </div>
+
             <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card shadow">
-                        <div class="card-body p-4">
-                            <form id="reservaForm">
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <label for="checkin" class="form-label">Check-in</label>
-                                        <input type="date" class="form-control" id="checkin" required>
+                <div class="col-lg-10">
+                    <!-- Booking Widget -->
+                    <div class="booking-widget">
+                        <div class="booking-header">
+                            <h4 class="booking-title">
+                                <i class="bi bi-calendar-heart me-2"></i>
+                                Encontre sua estadia perfeita
+                            </h4>
+                            <p class="booking-subtitle">Preencha os dados abaixo para verificar disponibilidade e preços</p>
+                        </div>
+
+                        <form id="reservaForm" class="booking-form">
+                            <div class="booking-steps">
+                                <!-- Step 1: Datas -->
+                                <div class="booking-step active" data-step="1">
+                                    <div class="step-header">
+                                        <div class="step-number">1</div>
+                                        <div class="step-info">
+                                            <h5>Selecione as datas</h5>
+                                            <p>Quando você gostaria de se hospedar?</p>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="checkout" class="form-label">Check-out</label>
-                                        <input type="date" class="form-control" id="checkout" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="hospedes" class="form-label">Número de Hóspedes</label>
-                                        <select class="form-select" id="hospedes" required>
-                                            <option value="">Selecione...</option>
-                                            <option value="1">1 Hóspede</option>
-                                            <option value="2">2 Hóspedes</option>
-                                            <option value="3">3 Hóspedes</option>
-                                            <option value="4">4 Hóspedes</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="tipoQuarto" class="form-label">Tipo de Quarto</label>
-                                        <select class="form-select" id="tipoQuarto" required>
-                                            <option value="">Selecione...</option>
-                                            <option value="standard">Standard (R$ 120/noite)</option>
-                                            <option value="superior">Superior (R$ 160/noite)</option>
-                                            <option value="suite_master">Suíte Master (R$ 280/noite)</option>
-                                            <option value="familia">Família (R$ 200/noite)</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12">
-                                        <button type="button" class="btn btn-primary btn-lg w-100 verificar-disponibilidade-btn">
-                                            <i class="bi bi-search"></i> Verificar Disponibilidade
-                                        </button>
+                                    <div class="step-content">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="date" class="form-control" id="checkin" required>
+                                                    <label for="checkin">
+                                                        <i class="bi bi-calendar-plus me-2"></i>Check-in
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="date" class="form-control" id="checkout" required>
+                                                    <label for="checkout">
+                                                        <i class="bi bi-calendar-minus me-2"></i>Check-out
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="date-info mt-3" id="dateInfo" style="display: none;">
+                                            <div class="alert alert-info">
+                                                <i class="bi bi-info-circle me-2"></i>
+                                                <span id="stayDuration"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </form>
-                            <div id="resultadoDisponibilidade" class="mt-4"></div>
-                        </div>
+
+                                <!-- Step 2: Hóspedes e Quarto -->
+                                <div class="booking-step" data-step="2">
+                                    <div class="step-header">
+                                        <div class="step-number">2</div>
+                                        <div class="step-info">
+                                            <h5>Hóspedes e acomodação</h5>
+                                            <p>Quantas pessoas e que tipo de quarto?</p>
+                                        </div>
+                                    </div>
+                                    <div class="step-content">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="hospedes" required>
+                                                        <option value="">Selecione...</option>
+                                                        <option value="1">1 Hóspede</option>
+                                                        <option value="2">2 Hóspedes</option>
+                                                        <option value="3">3 Hóspedes</option>
+                                                        <option value="4">4 Hóspedes</option>
+                                                        <option value="5">5+ Hóspedes</option>
+                                                    </select>
+                                                    <label for="hospedes">
+                                                        <i class="bi bi-people me-2"></i>Número de Hóspedes
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <select class="form-select" id="tipoQuarto" required>
+                                                        <option value="">Selecione...</option>
+                                                        <option value="standard">Standard</option>
+                                                        <option value="superior">Superior</option>
+                                                        <option value="suite_master">Suíte Master</option>
+                                                        <option value="familia">Família</option>
+                                                    </select>
+                                                    <label for="tipoQuarto">
+                                                        <i class="bi bi-house-door me-2"></i>Tipo de Quarto
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Room Preview -->
+                                        <div class="room-preview mt-3" id="roomPreview" style="display: none;">
+                                            <div class="room-preview-card">
+                                                <div class="room-preview-info">
+                                                    <h6 id="roomPreviewName">Quarto Selecionado</h6>
+                                                    <p id="roomPreviewDesc">Descrição do quarto</p>
+                                                    <div class="room-preview-price">
+                                                        <span class="price-label">A partir de</span>
+                                                        <span class="price-value" id="roomPreviewPrice">R$ 120</span>
+                                                        <span class="price-period">por noite</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Step 3: Resumo e Confirmação -->
+                                <div class="booking-step" data-step="3">
+                                    <div class="step-header">
+                                        <div class="step-number">3</div>
+                                        <div class="step-info">
+                                            <h5>Confirmar reserva</h5>
+                                            <p>Revise os detalhes da sua estadia</p>
+                                        </div>
+                                    </div>
+                                    <div class="step-content">
+                                        <div id="bookingSummary" class="booking-summary">
+                                            <!-- Resumo será preenchido dinamicamente -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Navigation Buttons -->
+                            <div class="booking-navigation">
+                                <button type="button" class="btn btn-outline-secondary" id="prevStep" style="display: none;">
+                                    <i class="bi bi-arrow-left me-2"></i>Anterior
+                                </button>
+                                <button type="button" class="btn btn-primary" id="nextStep">
+                                    Próximo<i class="bi bi-arrow-right ms-2"></i>
+                                </button>
+                                <button type="button" class="btn btn-success btn-lg" id="checkAvailability" style="display: none;">
+                                    <i class="bi bi-search me-2"></i>Verificar Disponibilidade
+                                </button>
+                            </div>
+                        </form>
+
+                        <!-- Results -->
+                        <div id="resultadoDisponibilidade" class="booking-results mt-4"></div>
                     </div>
                 </div>
             </div>

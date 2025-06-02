@@ -1739,3 +1739,354 @@ a:hover {
     width: 100%;
   }
 }
+
+/* ===== SEÇÃO DE RESERVAS MODERNIZADA ===== */
+
+/* Booking Widget */
+.booking-widget {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e9ecef;
+}
+
+.booking-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.booking-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.booking-subtitle {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 1rem;
+}
+
+/* Booking Steps */
+.booking-steps {
+  padding: 2rem;
+}
+
+.booking-step {
+  display: none;
+  animation: fadeInUp 0.5s ease;
+}
+
+.booking-step.active {
+  display: block;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.step-info h5 {
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+.step-info p {
+  margin: 0;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.step-content {
+  padding-left: 66px;
+}
+
+/* Form Floating Labels */
+.form-floating > label {
+  padding-left: 1rem;
+  font-weight: 500;
+}
+
+.form-floating > .form-control,
+.form-floating > .form-select {
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.form-floating > .form-control:focus,
+.form-floating > .form-select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.15);
+}
+
+/* Date Info */
+.date-info .alert {
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* Room Preview */
+.room-preview {
+  animation: slideInUp 0.3s ease;
+}
+
+.room-preview-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.room-preview-card:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.room-preview-info h6 {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.room-preview-info p {
+  color: #6c757d;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.room-preview-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.price-label {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.price-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--success-color);
+}
+
+.price-period {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Booking Summary */
+.booking-summary {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 2rem;
+  border: 2px solid #e9ecef;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+}
+
+.summary-label {
+  color: #6c757d;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-weight: 600;
+  color: var(--dark-gray);
+}
+
+/* Navigation Buttons */
+.booking-navigation {
+  padding: 1.5rem 2rem;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.booking-navigation .btn {
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.booking-navigation .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Results */
+.booking-results {
+  animation: fadeInUp 0.5s ease;
+}
+
+/* Booking Loading */
+.booking-loading {
+  background: white;
+  border-radius: 15px;
+  border: 2px solid #e9ecef;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Booking Success */
+.booking-success {
+  animation: fadeInUp 0.5s ease;
+}
+
+.booking-result-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-top: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.room-selected {
+  border: 2px solid var(--primary-color);
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important;
+}
+
+.pricing-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid #e9ecef;
+  height: fit-content;
+}
+
+.price-breakdown {
+  font-size: 0.95rem;
+}
+
+.booking-actions {
+  background: rgba(248, 249, 250, 0.5);
+}
+
+.success-icon {
+  animation: bounceIn 0.6s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .booking-header {
+    padding: 1.5rem;
+  }
+
+  .booking-steps {
+    padding: 1.5rem;
+  }
+
+  .step-content {
+    padding-left: 0;
+  }
+
+  .step-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .step-number {
+    margin-right: 0;
+  }
+
+  .booking-navigation {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .booking-navigation .btn {
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
