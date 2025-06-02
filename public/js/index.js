@@ -367,6 +367,9 @@ function setupEventListeners() {
     // Botões de contato
     setupContactButtons();
 
+    // Footer links
+    setupFooterLinks();
+
     // Formulários de login
     const loginHospedeForm = document.getElementById('loginHospedeForm');
     if (loginHospedeForm) {
@@ -1662,5 +1665,116 @@ Mensagem: ${dados.mensagem}`;
 
     }, 2000);
 }
+
+// ===== FOOTER MODERNIZADO =====
+
+// Configurar links do footer
+function setupFooterLinks() {
+    // Links das redes sociais do footer
+    const footerSocialLinks = document.querySelectorAll('.social-link-footer');
+
+    footerSocialLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            if (this.classList.contains('facebook')) {
+                window.open('https://facebook.com/hotelparadise', '_blank');
+                showAlert('Abrindo Facebook...', 'info');
+            } else if (this.classList.contains('instagram')) {
+                window.open('https://instagram.com/hotelparadise', '_blank');
+                showAlert('Abrindo Instagram...', 'info');
+            } else if (this.classList.contains('whatsapp')) {
+                openWhatsApp();
+            } else if (this.classList.contains('email')) {
+                openEmailClient();
+            }
+        });
+    });
+
+    // Smooth scroll para links internos do footer
+    const footerInternalLinks = document.querySelectorAll('.footer-links a[href^="#"]');
+
+    footerInternalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                // Fechar menu mobile se estiver aberto
+                const navbarCollapse = document.querySelector('.navbar-collapse');
+                if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                    const navbarToggler = document.querySelector('.navbar-toggler');
+                    if (navbarToggler) {
+                        navbarToggler.click();
+                    }
+                }
+            }
+        });
+    });
+
+    // Adicionar efeito de hover nos contact items do footer
+    const contactItems = document.querySelectorAll('.footer-contact .contact-item');
+
+    contactItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Adicionar funcionalidade aos links legais
+    const legalLinks = document.querySelectorAll('.footer-legal a');
+
+    legalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const linkText = this.textContent;
+
+            if (linkText.includes('Privacidade')) {
+                showAlert('Política de Privacidade em desenvolvimento.', 'info');
+            } else if (linkText.includes('Termos')) {
+                showAlert('Termos de Uso em desenvolvimento.', 'info');
+            }
+        });
+    });
+}
+
+// Adicionar animação de entrada para o footer quando visível
+function setupFooterAnimation() {
+    const footer = document.querySelector('.footer-modern');
+
+    if (footer) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        footer.style.opacity = '0';
+        footer.style.transform = 'translateY(30px)';
+        footer.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+        observer.observe(footer);
+    }
+}
+
+// Inicializar animação do footer quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+    setupFooterAnimation();
+});
 
 console.log('🏨 Hotel Paradise - Landing Page carregada com sucesso!');
