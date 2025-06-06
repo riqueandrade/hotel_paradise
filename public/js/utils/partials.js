@@ -1,6 +1,46 @@
 // ===== UTILITÁRIO PARA CARREGAR PARTIALS =====
 
 /**
+ * Carrega utilitários do sistema antes dos partials
+ * @returns {Promise<void>}
+ */
+async function loadUtilities() {
+    const utilities = [
+        '../js/utils/config.js',
+        '../js/utils/auth.js',
+        '../js/utils/api.js',
+        '../js/utils/ui.js'
+    ];
+
+    for (const utilityPath of utilities) {
+        await loadScript(utilityPath);
+    }
+
+    console.log('🔧 Utilitários carregados com sucesso');
+}
+
+/**
+ * Carrega um script JavaScript
+ * @param {string} src - Caminho do script
+ * @returns {Promise<void>}
+ */
+function loadScript(src) {
+    return new Promise((resolve, reject) => {
+        // Verificar se o script já foi carregado
+        if (document.querySelector(`script[src="${src}"]`)) {
+            resolve();
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = resolve;
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+/**
  * Carrega um partial HTML e insere no elemento especificado
  * @param {string} partialPath - Caminho para o arquivo partial
  * @param {string} targetSelector - Seletor do elemento onde inserir o partial
@@ -12,10 +52,10 @@ async function loadPartial(partialPath, targetSelector) {
         if (!response.ok) {
             throw new Error(`Erro ao carregar partial: ${response.status}`);
         }
-        
+
         const html = await response.text();
         const targetElement = document.querySelector(targetSelector);
-        
+
         if (targetElement) {
             targetElement.innerHTML = html;
         } else {
@@ -105,27 +145,36 @@ function setLoadingText(text) {
  * @param {string} config.headerButtons - HTML dos botões do header
  */
 async function initializePage(config) {
-    // Carregar partials básicos
-    await loadPartials([
-        { path: '../partials/loading.html', target: 'body' },
-        { path: '../partials/sidebar.html', target: '.dashboard-wrapper' },
-        { path: '../partials/header.html', target: '.main-content' }
-    ]);
-    
-    // Configurar página
-    setActivePage(config.page);
-    setPageTitle(config.title, config.subtitle, config.icon);
-    setLoadingText(config.loadingText || 'Carregando...');
-    
-    if (config.headerButtons) {
-        setHeaderButtons(config.headerButtons);
-    }
-    
-    // Configurar sidebar toggle
-    setupSidebarToggle();
+    try {
+        // 1. Carregar utilitários primeiro
+        await loadUtilities();
 
-    // Iniciar relógio
-    startClock();
+        // 2. Carregar partials básicos
+        await loadPartials([
+            { path: '../partials/loading.html', target: 'body' },
+            { path: '../partials/sidebar.html', target: '.dashboard-wrapper' },
+            { path: '../partials/header.html', target: '.main-content' }
+        ]);
+
+        // 3. Configurar página
+        setActivePage(config.page);
+        setPageTitle(config.title, config.subtitle, config.icon);
+        setLoadingText(config.loadingText || 'Carregando...');
+
+        if (config.headerButtons) {
+            setHeaderButtons(config.headerButtons);
+        }
+
+        // 4. Configurar sidebar toggle
+        setupSidebarToggle();
+
+        // 5. Iniciar relógio
+        startClock();
+
+        console.log(`📄 Página ${config.page} inicializada com sucesso`);
+    } catch (error) {
+        console.error('Erro ao inicializar página:', error);
+    }
 }
 
 /**
@@ -165,26 +214,32 @@ function hideLoading() {
 }
 
 /**
- * Função de logout reutilizável
+ * Função de logout reutilizável (compatibilidade)
+ * Usa AuthManager se disponível, senão fallback para implementação local
  */
 function logout() {
-    // Chaves de armazenamento
-    const STORAGE_KEYS = {
-        TOKEN: 'hotel_token',
-        USER_TYPE: 'hotel_user_type',
-        USER_DATA: 'hotel_user_data'
-    };
+    if (window.AuthManager) {
+        // Usar AuthManager se disponível
+        window.AuthManager.logout();
+    } else {
+        // Fallback para implementação local
+        const STORAGE_KEYS = {
+            TOKEN: 'hotel_paradise_token',
+            USER_TYPE: 'hotel_paradise_user_type',
+            USER_DATA: 'hotel_paradise_user_data'
+        };
 
-    // Limpar dados de autenticação
-    localStorage.removeItem(STORAGE_KEYS.TOKEN);
-    localStorage.removeItem(STORAGE_KEYS.USER_TYPE);
-    localStorage.removeItem(STORAGE_KEYS.USER_DATA);
-    sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
-    sessionStorage.removeItem(STORAGE_KEYS.USER_TYPE);
-    sessionStorage.removeItem(STORAGE_KEYS.USER_DATA);
+        // Limpar dados de autenticação
+        localStorage.removeItem(STORAGE_KEYS.TOKEN);
+        localStorage.removeItem(STORAGE_KEYS.USER_TYPE);
+        localStorage.removeItem(STORAGE_KEYS.USER_DATA);
+        sessionStorage.removeItem(STORAGE_KEYS.TOKEN);
+        sessionStorage.removeItem(STORAGE_KEYS.USER_TYPE);
+        sessionStorage.removeItem(STORAGE_KEYS.USER_DATA);
 
-    // Redirecionar para login
-    window.location.href = '../login-funcionario.html';
+        // Redirecionar para login
+        window.location.href = 'login.html';
+    }
 }
 
 /**

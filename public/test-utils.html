@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste dos Utilitários - Hotel Paradise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Teste dos Utilitários</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Teste de Configurações</h3>
+                <button class="btn btn-primary" onclick="testConfig()">Testar Config</button>
+                <div id="configResult" class="mt-2"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Teste de UI</h3>
+                <button class="btn btn-success" onclick="testUI()">Testar Alertas</button>
+                <button class="btn btn-warning" onclick="testLoading()">Testar Loading</button>
+                <div id="loadingTest" class="mt-2 p-3 border" style="height: 100px; position: relative;">
+                    Área de teste de loading
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h3>Teste de Auth</h3>
+                <button class="btn btn-info" onclick="testAuth()">Testar Auth</button>
+                <div id="authResult" class="mt-2"></div>
+            </div>
+            
+            <div class="col-md-6">
+                <h3>Teste de API</h3>
+                <button class="btn btn-secondary" onclick="testAPI()">Testar API</button>
+                <div id="apiResult" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Utilitários -->
+    <script src="js/utils/config.js"></script>
+    <script src="js/utils/auth.js"></script>
+    <script src="js/utils/api.js"></script>
+    <script src="js/utils/ui.js"></script>
+    
+    <script>
+        function testConfig() {
+            const result = document.getElementById('configResult');
+            
+            try {
+                // Testar configurações
+                const apiUrl = getConfig('API.BASE_URL');
+                const storageKeys = getConfig('STORAGE_KEYS');
+                const currency = formatCurrency(1500.50);
+                const date = formatDate(new Date());
+                
+                result.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>✅ Config funcionando!</strong><br>
+                        API URL: ${apiUrl}<br>
+                        Token Key: ${storageKeys.TOKEN}<br>
+                        Moeda: ${currency}<br>
+                        Data: ${date}
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>❌ Erro no Config:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function testUI() {
+            showAlert('Teste de alerta de sucesso!', 'success');
+            setTimeout(() => showAlert('Teste de alerta de aviso!', 'warning'), 1000);
+            setTimeout(() => showAlert('Teste de alerta de erro!', 'danger'), 2000);
+        }
+        
+        function testLoading() {
+            const testArea = document.getElementById('loadingTest');
+            showLoading(testArea, 'Testando loading...');
+            
+            setTimeout(() => {
+                hideLoading(testArea);
+                showAlert('Loading removido com sucesso!', 'info');
+            }, 3000);
+        }
+        
+        function testAuth() {
+            const result = document.getElementById('authResult');
+            
+            try {
+                const isAuth = AuthManager.isAuthenticated();
+                const userType = AuthManager.getUserType();
+                const token = AuthManager.getToken();
+                
+                result.innerHTML = `
+                    <div class="alert alert-info">
+                        <strong>🔐 Auth Status:</strong><br>
+                        Autenticado: ${isAuth ? 'Sim' : 'Não'}<br>
+                        Tipo: ${userType || 'Nenhum'}<br>
+                        Token: ${token ? 'Presente' : 'Ausente'}
+                    </div>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>❌ Erro no Auth:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        function testAPI() {
+            const result = document.getElementById('apiResult');
+            
+            try {
+                const apiManager = window.ApiManager;
+                const baseUrl = apiManager.baseUrl;
+                
+                result.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>🌐 API Manager:</strong><br>
+                        Base URL: ${baseUrl}<br>
+                        Timeout: ${apiManager.timeout}ms<br>
+                        Retry: ${apiManager.retryAttempts}x
+                    </div>
+                `;
+                
+                // Testar uma chamada simples (vai dar erro 401, mas é esperado)
+                apiGet('/auth/verify').catch(error => {
+                    console.log('Erro esperado (não autenticado):', error);
+                });
+                
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="alert alert-danger">
+                        <strong>❌ Erro no API:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Testar carregamento automático
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🧪 Página de teste carregada');
+            
+            // Verificar se todos os utilitários foram carregados
+            const utils = ['APP_CONFIG', 'AuthManager', 'ApiManager', 'UIManager'];
+            const loaded = utils.filter(util => window[util]);
+            
+            showAlert(`Utilitários carregados: ${loaded.join(', ')}`, 'info');
+        });
+    </script>
+</body>
+</html>
