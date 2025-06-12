@@ -1,6 +1,7 @@
 // Controller de Clientes - Hotel Paradise
 const Cliente = require('../models/Cliente');
 const Usuario = require('../models/Usuario');
+const { validationResult } = require('express-validator');
 
 class ClienteController {
     // Listar todos os clientes
@@ -68,6 +69,11 @@ class ClienteController {
 
     // Criar novo cliente
     async create(req, res) {
+        // Validação express-validator
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
         try {
             const clienteData = req.body;
             const cliente = await Cliente.create(clienteData);
@@ -109,6 +115,11 @@ class ClienteController {
 
     // Atualizar cliente
     async update(req, res) {
+        // Validação express-validator
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
         try {
             const { id } = req.params;
             const updateData = req.body;

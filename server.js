@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const csurf = require('csurf');
 require('dotenv').config();
 
 // Importar banco de dados
@@ -36,13 +37,22 @@ app.use(helmet({
   }
 }));
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    // Adicione outros domínios confiáveis aqui
+  ],
+  credentials: true
+}));
 app.use(limiter);
 app.use(morgan('combined'));
 
 // Middlewares para parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Middleware CSRF (apenas para formulários e rotas que usam cookies, não para APIs JWT)
+const csrfProtection = csurf({ cookie: false });
 
 // Servir arquivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -59,6 +69,17 @@ app.use('/api/clientes', require('./routes/clientes'));
 app.use('/api/reservas', require('./routes/reservas'));
 app.use('/api', require('./routes/api'));
 
+// Tratamento de erro CSRF
+app.use((err, req, res, next) => {
+  if (err.code === 'EBADCSRFTOKEN') {
+    return res.status(403).json({
+      error: 'Falha na verificação CSRF',
+      code: 'CSRF_ERROR'
+    });
+  }
+  next(err);
+});
+
 // Middleware de tratamento de erros
 app.use((err, req, res, next) => {
   console.error('Erro no servidor:', err.stack);
@@ -67,7 +88,7 @@ app.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
     return res.status(400).json({
       error: 'Dados inválidos',
-      details: err.message
+      details: process.env.NODE_ENV === 'development' ? err.message : undefined
     });
   }
   
@@ -81,7 +102,7 @@ app.use((err, req, res, next) => {
   // Erro genérico
   res.status(500).json({
     error: 'Erro interno do servidor',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Algo deu errado'
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
   });
 });
 

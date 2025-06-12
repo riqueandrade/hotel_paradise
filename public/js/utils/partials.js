@@ -276,6 +276,14 @@ function startClock() {
     setInterval(updateClock, 1000);
 }
 
+// Sanitização de input usando DOMPurify
+function sanitizeInput(input) {
+    if (window.DOMPurify) {
+        return window.DOMPurify.sanitize(input);
+    }
+    return input;
+}
+
 // Exportar funções para uso global
 window.loadPartial = loadPartial;
 window.loadPartials = loadPartials;

@@ -46,6 +46,10 @@ class UIManager {
      * @returns {HTMLElement} Elemento do alerta criado
      */
     showAlert(message, type = 'info', duration = null) {
+        // Sanitização DOMPurify
+        if (window.DOMPurify) {
+            message = window.DOMPurify.sanitize(message);
+        }
         const alertId = 'alert-' + Date.now();
         const alertDuration = duration || this.config.UI.ALERT_TIMEOUT;
         

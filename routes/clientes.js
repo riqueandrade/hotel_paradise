@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const ClienteController = require('../controllers/ClienteController');
 const { authenticateToken, requireStaff, requireAdmin, optionalAuth } = require('../middleware/auth');
+const { body } = require('express-validator');
 
 // Rotas públicas (com autenticação opcional)
 router.get('/search', optionalAuth, ClienteController.search);
@@ -21,8 +22,30 @@ router.get('/:id', authenticateToken, requireStaff, ClienteController.show);
 router.get('/:id/reservations', authenticateToken, requireStaff, ClienteController.reservationHistory);
 
 // Rotas de criação e atualização
-router.post('/', authenticateToken, requireStaff, ClienteController.create);
-router.put('/:id', authenticateToken, requireStaff, ClienteController.update);
+router.post('/',
+    authenticateToken,
+    requireStaff,
+    [
+        body('nome_completo').notEmpty().withMessage('Nome completo é obrigatório'),
+        body('cpf').notEmpty().withMessage('CPF é obrigatório').isLength({ min: 11, max: 14 }).withMessage('CPF inválido'),
+        body('email').optional().isEmail().withMessage('E-mail inválido'),
+        body('telefone').optional().isString(),
+        // Adicione outras validações conforme necessário
+    ],
+    ClienteController.create
+);
+router.put('/:id',
+    authenticateToken,
+    requireStaff,
+    [
+        body('nome_completo').optional().notEmpty().withMessage('Nome completo não pode ser vazio'),
+        body('cpf').optional().isLength({ min: 11, max: 14 }).withMessage('CPF inválido'),
+        body('email').optional().isEmail().withMessage('E-mail inválido'),
+        body('telefone').optional().isString(),
+        // Adicione outras validações conforme necessário
+    ],
+    ClienteController.update
+);
 
 // Rotas administrativas
 router.delete('/:id', authenticateToken, requireAdmin, ClienteController.delete);
