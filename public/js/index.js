@@ -352,9 +352,45 @@ function setupEventListeners() {
     // Formulário de reserva
     const reservaForm = document.getElementById('reservaForm');
     if (reservaForm) {
-        reservaForm.addEventListener('submit', function(e) {
+        reservaForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            verificarDisponibilidade();
+            // Coletar dados do formulário
+            const checkin = document.getElementById('checkin')?.value;
+            const checkout = document.getElementById('checkout')?.value;
+            const hospedes = document.getElementById('hospedes')?.value;
+            const tipoQuarto = document.getElementById('tipoQuarto')?.value;
+            const nome = document.getElementById('nomeReserva')?.value;
+            const email = document.getElementById('emailReserva')?.value;
+            const telefone = document.getElementById('telefoneReserva')?.value;
+
+            if (!checkin || !checkout || !hospedes || !tipoQuarto || !nome || !email || !telefone) {
+                showAlert('Por favor, preencha todos os campos obrigatórios.', 'warning');
+                return;
+            }
+
+            // Montar payload para API
+            const payload = {
+                data_checkin: checkin,
+                data_checkout: checkout,
+                numero_hospedes: parseInt(hospedes),
+                tipo_quarto: tipoQuarto,
+                nome_cliente: nome,
+                email_cliente: email,
+                telefone_cliente: telefone
+            };
+
+            try {
+                const response = await fetch('/api/reservas', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) throw new Error('Erro ao criar reserva');
+                showAlert('Reserva realizada com sucesso! Em breve entraremos em contato.', 'success');
+                reservaForm.reset();
+            } catch (error) {
+                showAlert('Erro ao realizar reserva. Tente novamente.', 'danger');
+            }
         });
     }
 

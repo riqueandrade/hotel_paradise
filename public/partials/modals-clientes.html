@@ -1,0 +1,48 @@
+<!-- Modal Nova/Editar Cliente -->
+<div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clienteModalLabel">
+                    <i class="bi bi-person-plus me-2"></i><span id="clienteModalTitle">Novo Cliente</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="clienteForm">
+                    <input type="hidden" id="clienteId">
+                    <div class="mb-3">
+                        <label for="clienteNome" class="form-label">Nome *</label>
+                        <input type="text" class="form-control" id="clienteNome" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clienteEmail" class="form-label">E-mail *</label>
+                        <input type="email" class="form-control" id="clienteEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clienteTelefone" class="form-label">Telefone *</label>
+                        <input type="text" class="form-control" id="clienteTelefone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clienteCPF" class="form-label">CPF *</label>
+                        <input type="text" class="form-control" id="clienteCPF" required maxlength="14">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clienteNascimento" class="form-label">Data de Nascimento</label>
+                        <input type="date" class="form-control" id="clienteNascimento">
+                    </div>
+                    <div class="mb-3">
+                        <label for="clienteObs" class="form-label">Observações</label>
+                        <textarea class="form-control" id="clienteObs" rows="2"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveClienteBtn">
+                    <i class="bi bi-check-circle me-2"></i>Salvar Cliente
+                </button>
+            </div>
+        </div>
+    </div>
+</div> 

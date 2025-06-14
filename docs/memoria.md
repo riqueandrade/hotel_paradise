@@ -240,8 +240,15 @@
   - ✅ Sistema de indicadores de tendência baseado em metas
   - ✅ Padrão visual consistente com outras páginas
 
+### ✅ RECÉM CONCLUÍDO - Página de Gestão de Clientes:
+- [x] **Página de Gestão de Clientes** - IMPLEMENTADA ⭐ NOVO
+  - ✅ Interface completa para gestão de clientes (clientes.html)
+  - ✅ CRUD completo (listar, filtrar, adicionar, editar, excluir)
+  - ✅ Integração total com a API REST
+  - ✅ Modais reutilizáveis e controle de permissões (dados sensíveis e exclusão apenas para admin)
+  - ✅ Validação de formulários e tratamento de erros
+
 ### 🔄 EM DESENVOLVIMENTO:
-- [ ] clientes.html - Interface para gestão de clientes (PRÓXIMO)
 - [ ] Interface frontend conectada à API (landing page)
 - [ ] Testes de integração completos
 
@@ -253,7 +260,7 @@
    - ✅ dashboard.html - Painel principal com estatísticas (CONCLUÍDO)
    - ✅ quartos.html - Interface para gestão de quartos (CONCLUÍDO)
    - ✅ reservas.html - Interface para gestão de reservas (CONCLUÍDO) ⭐ NOVO
-   - [ ] clientes.html - Interface para gestão de clientes (PRÓXIMO)
+   - [x] clientes.html - Interface para gestão de clientes (CONCLUÍDO)
 
 2. **Integração Frontend-Backend**
    - [ ] Conectar formulários da landing page à API
@@ -431,3 +438,32 @@ http://localhost:3000
 ### Frontend - Atualizações
 - `public/index.html` - Modais de login removidos, links atualizados
 - `public/js/index.js` - Funções de login removidas (código mais limpo)
+
+## ✅ O que foi feito (atualização)
+
+- Implementada a página de gestão de clientes (`clientes.html`) com CRUD completo (listar, filtrar, adicionar, editar, excluir), integração total com a API REST, modais reutilizáveis e controle de permissões (dados sensíveis e exclusão apenas para admin).
+- Integrado o formulário de reservas da landing page à API, permitindo criação de reservas reais diretamente pelo site, com validação de campos e feedback ao usuário.
+- Testes manuais realizados em todos os fluxos principais (clientes, reservas, permissões, feedbacks, validações).
+- Testes automatizados realizados com Playwright para garantir robustez dos fluxos críticos (CRUD clientes, permissões, reservas landing page).
+
+## 🎯 Por que foi feito
+
+- Garantir que o sistema de gestão de clientes esteja completo, seguro e fácil de usar, com controle de acesso adequado.
+- Permitir que hóspedes possam realizar reservas reais diretamente pela landing page, integrando frontend e backend.
+- Assegurar a qualidade e robustez do sistema por meio de testes manuais e automatizados.
+
+## 📊 Status Atual da Tarefa
+
+- [x] CRUD de clientes 100% funcional e testado
+- [x] Permissões de admin aplicadas e validadas
+- [x] Integração da landing page com API de reservas
+- [x] Testes manuais e automatizados concluídos
+- [ ] Ajustes finais e revisão de UX/UI
+- [ ] Preparação para deploy e documentação final
+
+## 🔜 Próximos Passos
+
+1. Realizar ajustes finos de UX/UI conforme feedback dos testes.
+2. Preparar documentação final para deploy e uso do sistema.
+3. Realizar deploy em ambiente de produção (ajustar variáveis, scripts, instruções).
+4. Atualizar documentação técnica e de usuário.

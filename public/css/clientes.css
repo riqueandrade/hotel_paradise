@@ -1,0 +1,64 @@
+/* Estilos para Gestão de Clientes */
+
+.stat-card {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: var(--bs-light);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-bottom: 1rem;
+}
+
+.filters-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.filters-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+.table-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.table-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bs-primary);
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.btn-success {
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(90deg, #38f9d7 0%, #43e97b 100%);
+}
+
+@media (max-width: 768px) {
+    .filters-card, .table-card {
+        padding: 1rem;
+    }
+    .stat-card {
+        padding: 1rem;
+    }
+} 
